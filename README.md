@@ -1,1 +1,1 @@
-# medusa
+# medusa-demo
