@@ -46,11 +46,10 @@ const OrderIndex: React.FC<RouteComponentProps> = () => {
 
   useEffect(() => {
     if (!hasShownScreen) {
-      if (window.checksum && window.checksum.goalTracker) {
-        window.checksum.goalTracker.recordGoalFinished(
-          "view-order-list"
-        )
-      }
+      // @ts-ignore
+      window.checksum.goalTracker.recordGoalFinished(
+        "view-order-list"
+      )
       setHasShownScreen(true)
     }
   }, [hasShownScreen])
