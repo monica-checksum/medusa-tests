@@ -47,9 +47,12 @@ const OrderIndex: React.FC<RouteComponentProps> = () => {
   useEffect(() => {
     if (!hasShownScreen) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished(
-        "view-order-list"
-      )
+      // Check if window.checksum and window.checksum.goalTracker exist
+if (window.checksum?.goalTracker?.recordGoalFinished) {
+window.checksum.goalTracker.recordGoalFinished("view-order-list")
+} else {
+console.warn("window.checksum.goalTracker.recordGoalFinished is not available")
+}
       setHasShownScreen(true)
     }
   }, [hasShownScreen])
