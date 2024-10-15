@@ -7,7 +7,7 @@ PRINCIPLES TO LEARN & IMPLEMENT WHEN EDITING THIS TEST:
 
 1. Ensure to use variablesStore to store the product name and description. ie: variablesStore.productName = "cktest-todaysdate" (this removes variable scope issues)
 2. Verify the app state -- Are there any pre-conditions to be met before running this test? ie: Are there products to search for? Use a try/catch statement.
-3. Use Checksum built in method - page.compoundSelector() to get the relevant elements for verification.
+3. Use Checksum built in method - page.compoundSelector() to get the relevant elements for verification. (visit the readme for more details about this method ./checksum/README.md)
 4. Verify the search results only contain the products that match the search criteria.
 
 */
