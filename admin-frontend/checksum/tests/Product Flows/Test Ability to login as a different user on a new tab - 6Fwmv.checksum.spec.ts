@@ -5,11 +5,11 @@ const { test, defineChecksumTest, login, expect, checksumAI } = init()
 /*
 PRINCIPLES TO LEARN & IMPLEMENT WHEN EDITING THIS TEST:
 
-1. Use the checksumAI() to wrap newly created actions.
+1. Use the checksumAI() to wrap newly created actions. (https://docs.google.com/document/d/1N9XNM8iKTVgUSnRV2ARGi_6lpVo3f2FCaa9pJ_GMU6Q/edit#heading=h.r1w5ax6eew51)
 2. Create new steps not included in the original test spec, detailed below.
-3. Open a new tab and use the getPage() method to get the new page with the Checksum extensions.
-4. Use reauthenticate to login as a different user (test2@test.com, 1234)
-5. Use REPL for this test.
+3. Open a new tab and use the getPage() method to get the new page with the Checksum extensions. (https://docs.google.com/document/d/1N9XNM8iKTVgUSnRV2ARGi_6lpVo3f2FCaa9pJ_GMU6Q/edit#heading=h.teojoel32g5o)
+4. Use reauthenticate to login as a different user (test2@test.com, 1234) (https://docs.google.com/document/d/1N9XNM8iKTVgUSnRV2ARGi_6lpVo3f2FCaa9pJ_GMU6Q/edit#heading=h.3k6nlz4zu1bm)
+5. Use REPL for this test. (https://docs.google.com/document/d/1N9XNM8iKTVgUSnRV2ARGi_6lpVo3f2FCaa9pJ_GMU6Q/edit#heading=h.q2653rt38xj5)
 
 */
 

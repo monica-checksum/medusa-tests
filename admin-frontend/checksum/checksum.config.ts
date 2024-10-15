@@ -20,6 +20,22 @@ export default getChecksumConfig({
   username: "test@test.com",
 
   password: "1234",
+  /**
+   * The credentials of the users that will be used to login into your testing environment
+   * Uncomment if you require support for multiple users
+   */
+  users: [
+    {
+      role: "host",
+      username: "<host username>",
+      password: "<host password>",
+    },
+    {
+      role: "guest",
+      username: "<guest username>",
+      password: "<guest password>",
+    },
+  ],
   options: {
     /**
      * Whether to use Checksum Smart Selector when an action fails (see Readme)

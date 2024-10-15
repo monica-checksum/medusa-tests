@@ -5,8 +5,8 @@ const { test, defineChecksumTest, login, expect, checksumAI } = init()
 /*
 PRINCIPLES TO LEARN & IMPLEMENT WHEN EDITING THIS TEST:
 
-1. Use regex to choose a product from the table that has cktest in the name so we delete a product that is Checksum
-2. Extract using regex (if needed) the product name and store it in a variable
+1. Use regex to choose a product from the table that has cktest in the name so we delete a product that is Checksum (https://docs.google.com/document/d/1N9XNM8iKTVgUSnRV2ARGi_6lpVo3f2FCaa9pJ_GMU6Q/edit#heading=h.f2o54wi0j3kd)
+2. Extract using regex (if needed) the product name and store it in a variable (https://docs.google.com/document/d/1N9XNM8iKTVgUSnRV2ARGi_6lpVo3f2FCaa9pJ_GMU6Q/edit#heading=h.t045htr4v6ra)
 3. Delete the product
 4. Verify the product was deleted by using a regular expression to match the product name.
 

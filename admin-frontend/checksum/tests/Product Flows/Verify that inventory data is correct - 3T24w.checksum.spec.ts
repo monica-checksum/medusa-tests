@@ -5,7 +5,7 @@ const { test, defineChecksumTest, login, expect, checksumAI } = init()
 /*
 PRINCIPLES TO LEARN & IMPLEMENT WHEN EDITING THIS TEST:
 
-1. Select a product row that does not have cktest (so it's not created by checksum and will not be deleted by another test)
+1. Select a product row that does not have cktest (so it's not created by checksum and will not be deleted by another test) (https://docs.google.com/document/d/1N9XNM8iKTVgUSnRV2ARGi_6lpVo3f2FCaa9pJ_GMU6Q/edit#heading=h.f2o54wi0j3kd)
 2. Verify the inventory data is correct (assume it'll stay the same)
 3. To prevent cases where the test fails because the product moves to the 2nd page, filter the table to only show the product we're testing.
 */

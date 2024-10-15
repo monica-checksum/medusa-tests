@@ -7,7 +7,7 @@ PRINCIPLES TO LEARN & IMPLEMENT WHEN EDITING THIS TEST:
 
 
 1. Verify that a product row is in draft mode
-2. Use compoundSelection to click the three dots in a product row that is in draft mode.
+2. Use compoundSelection to click the three dots in a product row that is in draft mode. (https://docs.google.com/document/d/1N9XNM8iKTVgUSnRV2ARGi_6lpVo3f2FCaa9pJ_GMU6Q/edit#heading=h.iu7pcccjx527)
 
 */
 

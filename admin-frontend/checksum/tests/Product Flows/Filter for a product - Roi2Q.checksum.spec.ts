@@ -5,10 +5,10 @@ const { test, defineChecksumTest, login, expect, checksumAI } = init()
 /*
 PRINCIPLES TO LEARN & IMPLEMENT WHEN EDITING THIS TEST:
 
-1. Make sure there is at least one product in the table that is in draft status and one product that is not in draft status.
-2. Filter for draft products and verify only draft products are displayed.
+1. Make sure there is at least one product in the table that is in draft status and one product that is not in draft status. (https://docs.google.com/document/d/1N9XNM8iKTVgUSnRV2ARGi_6lpVo3f2FCaa9pJ_GMU6Q/edit#heading=h.wnxktr3rasha)
+2. Filter for draft products and verify only draft products are displayed. (https://docs.google.com/document/d/1N9XNM8iKTVgUSnRV2ARGi_6lpVo3f2FCaa9pJ_GMU6Q/edit#heading=h.t045htr4v6ra)
 3. Filter for non-draft products and verify only non-draft products are displayed.
-4. Use REPL for this test.
+4. Use REPL for this test. (https://docs.google.com/document/d/1N9XNM8iKTVgUSnRV2ARGi_6lpVo3f2FCaa9pJ_GMU6Q/edit#heading=h.q2653rt38xj5)
 */
 
 test(

@@ -4,8 +4,8 @@ const { test, defineChecksumTest, login, expect, checksumAI } = init()
 
 /*
 Things to do:
-1. Add a random product name using Date.now() and have the product name include "cktest" to ensure we know it's created by one of our tests.
-2. Save the product name to a variable using the variableStore. Navigate to the product page and verify the product name matches the variable.
+1. Add a random product name using Date.now() and have the product name include "cktest" to ensure we know it's created by one of our tests. (https://docs.google.com/document/d/1N9XNM8iKTVgUSnRV2ARGi_6lpVo3f2FCaa9pJ_GMU6Q/edit#heading=h.uhj7izteq3od)
+2. Save the product name to a variable using the variableStore. Navigate to the product page and verify the product name matches the variable. (https://docs.google.com/document/d/1N9XNM8iKTVgUSnRV2ARGi_6lpVo3f2FCaa9pJ_GMU6Q/edit#heading=h.t045htr4v6ra)
 3. Verify the product details match the values used during creation.
 
 */
