@@ -2,11 +2,28 @@
 import { init } from "@checksum-ai/runtime";
 const { test, defineChecksumTest, login, expect, checksumAI } = init();
 
+/*
+PRINCIPLES TO LEARN & IMPLEMENT WHEN EDITING THIS TEST:
+
+1. Use Checksum built in method - page.compoundSelector() to get the relevant elements for verification.
+2. Use the checksumAI() to wrap newly created actions.
+3. Use the Checksum page.getPage() method to open the new browser tab. ( visit the runtime page for details about getPage() - https://www.npmjs.com/package/@checksum-ai/runtime )
+4. Create new steps not included in the original test spec, detailed below.
+
+*/
+
 test(
   defineChecksumTest("Open a new browser tab", "6Fwmv"),
   async ({ page }) => {
     await login(page);
     await page.goto("/", { waitUntil: "domcontentloaded" });
+
+    // STEPS TO ADD TO THIS TEST:
+    // SIGN OUT OF THE APP
+    // NAVIGATE TO GOOGLE IN A NEW TAB
+    // NAVIGATE BACK TO THE APP
+    // LOGIN AS A DIFFERENT USER (TEST2@TEST.COM)(SAME PASSWORD AS TEST@TEST.COM)
+
     await checksumAI("Navigate to https://www.google.com/", () =>
       page.goto("https://www.google.com/", { waitUntil: "domcontentloaded" })
     );
