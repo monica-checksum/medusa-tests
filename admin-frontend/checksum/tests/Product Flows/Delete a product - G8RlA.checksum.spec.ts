@@ -5,10 +5,10 @@ const { test, defineChecksumTest, login, expect, checksumAI } = init()
 /*
 PRINCIPLES TO LEARN & IMPLEMENT WHEN EDITING THIS TEST:
 
-1. Ensure to use variablesStore to store the product name and description. ie: variablesStore.productName = "cktest-todaysdate" (visit https://docs.google.com/document/d/1N9XNM8iKTVgUSnRV2ARGi_6lpVo3f2FCaa9pJ_GMU6Q/edit#heading=h.t045htr4v6ra)
-2. Verify the app state -- Are there any pre-conditions to be met before running this test? ie: Are there products to delete? Use a try/catch statement. (visit https://docs.google.com/document/d/1N9XNM8iKTVgUSnRV2ARGi_6lpVo3f2FCaa9pJ_GMU6Q/edit#heading=h.wnxktr3rasha)
-3. Take an approach that is robust -- ie; picking the first element in the product list and deleting it (since it is safe to assume products will be listed in the same order for all tests)
-4. After deleting -- verify the product was removed by using a regular expression to match the product name. (visit https://docs.google.com/document/d/1N9XNM8iKTVgUSnRV2ARGi_6lpVo3f2FCaa9pJ_GMU6Q/edit#heading=h.f2o54wi0j3kd)
+1. Use regex to choose a product from the table that has cktest in the name so we delete a product that is Checksum
+2. Extract using regex (if needed) the product name and store it in a variable
+3. Delete the product
+4. Verify the product was deleted by using a regular expression to match the product name.
 
 */
 

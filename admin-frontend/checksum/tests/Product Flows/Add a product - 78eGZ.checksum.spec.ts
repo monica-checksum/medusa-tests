@@ -3,15 +3,10 @@ import { init, IVariablesStore } from "@checksum-ai/runtime"
 const { test, defineChecksumTest, login, expect, checksumAI } = init()
 
 /*
-
-PRINCIPLES TO LEARN & IMPLEMENT WHEN EDITING THIS TEST:
-
-1. Ensure to use variablesStore to store the product name and description. ie: variablesStore.productName = "cktest-todaysdate" (visit https://docs.google.com/document/d/1N9XNM8iKTVgUSnRV2ARGi_6lpVo3f2FCaa9pJ_GMU6Q/edit#heading=h.t045htr4v6ra)
-2. Use the Checksum REPL tool (visit https://docs.google.com/document/d/1N9XNM8iKTVgUSnRV2ARGi_6lpVo3f2FCaa9pJ_GMU6Q/edit#heading=h.q2653rt38xj5)
-3. Ensure elements are created using a dynamic approach with Date.now() but use "cktest" to ensure we know the add came from one of our tests. (visit https://docs.google.com/document/d/1N9XNM8iKTVgUSnRV2ARGi_6lpVo3f2FCaa9pJ_GMU6Q/edit#heading=h.lhco8vcxqzwb)
-4. Assert the product was created successfully.
-5. When asserting #2, implement a solution that takes into consideration it may not be visible on the first page load (pagination) ie: use the search bar to filter the product or go page by page until found.
-6. Also, once found, verify the product details match the values used during creation.
+Things to do:
+1. Add a random product name using Date.now() and have the product name include "cktest" to ensure we know it's created by one of our tests.
+2. Save the product name to a variable using the variableStore. Navigate to the product page and verify the product name matches the variable.
+3. Verify the product details match the values used during creation.
 
 */
 
@@ -38,7 +33,7 @@ test(
         .getByRole("button", { name: "New Product" })
         .click()
     )
-    variablesStore.titleValue = "cktest-todaysdate"
+    variablesStore.titleValue = "New Product"
     await checksumAI("Fill title with random string", async () => {
       await page
         .checksumSelector("J6hvu")

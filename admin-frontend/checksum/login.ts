@@ -14,17 +14,17 @@ export default async function login(
   // } else {
   //   console.log(response.status())
   // }
-  while (true) {
-    try {
-      const apiTestRequest = await apiContext.get("/")
-      await page.waitForTimeout(2000)
-      console.log("server responded. Proceeding to login")
-      break
-    } catch (error) {
-      console.log("backend not ready... trying in two seconds")
-      await page.waitForTimeout(2000)
-    }
-  }
+  // while (true) {
+  //   try {
+  //     const apiTestRequest = await apiContext.get("/")
+  //     await page.waitForTimeout(2000)
+  //     console.log("server responded. Proceeding to login")
+  //     break
+  //   } catch (error) {
+  //     console.log("backend not ready... trying in two seconds")
+  //     await page.waitForTimeout(2000)
+  //   }
+  // }
   await page.goto("/login")
   await page.getByPlaceholder("Email...").fill(config.username || "")
   await page.getByPlaceholder("Password...").fill(config.password || "")

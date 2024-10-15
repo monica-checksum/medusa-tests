@@ -5,11 +5,10 @@ const { test, defineChecksumTest, login, expect, checksumAI } = init()
 /*
 PRINCIPLES TO LEARN & IMPLEMENT WHEN EDITING THIS TEST:
 
-1. Ensure to use variablesStore to store the product name and description. ie: variablesStore.productName = "cktest-todaysdate" (visit https://docs.google.com/document/d/1N9XNM8iKTVgUSnRV2ARGi_6lpVo3f2FCaa9pJ_GMU6Q/edit#heading=h.t045htr4v6ra)
-2. When setting the filter, ensure only the products that match the filter are displayed on the page.
-3. Use Checksum built in method - page.compoundSelection() to get the relevant elements for verification. (visit https://docs.google.com/document/d/1N9XNM8iKTVgUSnRV2ARGi_6lpVo3f2FCaa9pJ_GMU6Q/edit#heading=h.iu7pcccjx527)
-3. Verify the state -- if testing for a filter with the value "draft", ensure a products with draft is displayed and if not - edit a product to be a draft before filtering
-
+1. Make sure there is at least one product in the table that is in draft status and one product that is not in draft status.
+2. Filter for draft products and verify only draft products are displayed.
+3. Filter for non-draft products and verify only non-draft products are displayed.
+4. Use REPL for this test.
 */
 
 test(
@@ -23,23 +22,7 @@ test(
         .getByRole("link", { name: "Products" })
         .click()
     )
-    // @ts-ignore
-    const clickProduct = await page
-      .compoundSelection((base) => [
-        "Hyaluronic Acid Serum",
-        page.locator('[aria-haspopup="menu"]'),
-      ])
-      .click()
 
-    await checksumAI("Click the 3 dots next to product card", () =>
-      page.checksumSelector("tioYO").locator("#radix-11").click()
-    )
-    await checksumAI("Click unpublish", () =>
-      page
-        .checksumSelector("GEFM7")
-        .getByRole("button", { name: "Unpublish" })
-        .click()
-    )
     await checksumAI("Click on Filter button", () =>
       page
         .checksumSelector("IxPkN")
