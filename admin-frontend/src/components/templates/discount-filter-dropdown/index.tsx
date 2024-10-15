@@ -32,7 +32,9 @@ const DiscountFilters = ({
 
   const handleRemoveTab = (val) => {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("discounts-table-remove-saved-filter")
+    window.checksum?.goalTracker.recordGoalFinished(
+      "discounts-table-remove-saved-filter"
+    )
 
     if (onRemoveTab) {
       onRemoveTab(val)
@@ -41,7 +43,9 @@ const DiscountFilters = ({
 
   const handleSaveTab = () => {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("discounts-table-save-new-filter")
+    window.checksum?.goalTracker.recordGoalFinished(
+      "discounts-table-save-new-filter"
+    )
 
     if (onSaveTab) {
       onSaveTab(name, tempState)
@@ -62,7 +66,9 @@ const DiscountFilters = ({
     // Filters on this page appear to be broken, and we are working with the code as-is. So I'm only
     // making a goal for hitting the submit button and not for selecting any specific filters
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("discounts-table-apply-filters")
+    window.checksum?.goalTracker.recordGoalFinished(
+      "discounts-table-apply-filters"
+    )
 
     submitFilters(tempState)
   }
@@ -72,7 +78,9 @@ const DiscountFilters = ({
     // making a goal for hitting the clear button, wihtout requiring that any filters be selected
     // first
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("discounts-table-clear-filters")
+    window.checksum?.goalTracker.recordGoalFinished(
+      "discounts-table-clear-filters"
+    )
 
     clearFilters()
   }

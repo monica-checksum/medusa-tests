@@ -1,6 +1,6 @@
 import { User } from "@medusajs/medusa"
 import { useAdminUpdateUser } from "medusa-react"
-import React, {useEffect, useState} from "react"
+import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import useNotification from "../../../hooks/use-notification"
 import { getErrorMessage } from "../../../utils/error-messages"
@@ -37,7 +37,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("edit-user-start")
+    window.checksum?.goalTracker.recordGoalFinished("edit-user-start")
     setHasShownScreen(true)
   }
 
@@ -46,7 +46,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
   }, [user])
 
   const onSubmit = (data: EditUserModalFormData) => {
-    let anyChanges = false;
+    let anyChanges = false
     for (const [key, value] of Object.entries(data)) {
       if (user[key] !== value) {
         anyChanges = true
@@ -58,7 +58,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
       onSuccess: () => {
         if (anyChanges) {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("edit-user-success")
+          window.checksum?.goalTracker.recordGoalFinished("edit-user-success")
         }
 
         notification("Success", `User was updated`, "success")

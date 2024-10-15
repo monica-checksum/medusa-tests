@@ -1,6 +1,6 @@
 import { navigate } from "gatsby"
 import { useAdminCreatePriceList, useAdminUpdatePriceList } from "medusa-react"
-import React, {useContext, useState} from "react"
+import React, { useContext, useState } from "react"
 import Button from "../../../../components/fundamentals/button"
 import CrossIcon from "../../../../components/fundamentals/icons/cross-icon"
 import { FeatureFlagContext } from "../../../../context/feature-flag"
@@ -46,7 +46,9 @@ const FormHeader = (props: PriceListFormProps & { onClose?: () => void }) => {
     createPriceList.mutate(data, {
       onSuccess: ({ price_list }) => {
         // @ts-ignore
-        window.checksum.goalTracker.recordGoalFinished("publish-price-list-success")
+        window.checksum?.goalTracker.recordGoalFinished(
+          "publish-price-list-success"
+        )
 
         navigate(`/a/pricing/${price_list.id}`)
       },
@@ -64,7 +66,9 @@ const FormHeader = (props: PriceListFormProps & { onClose?: () => void }) => {
     createPriceList.mutate(data, {
       onSuccess: ({ price_list }) => {
         // @ts-ignore
-        window.checksum.goalTracker.recordGoalFinished("save-price-list-draft-success")
+        window.checksum?.goalTracker.recordGoalFinished(
+          "save-price-list-draft-success"
+        )
 
         navigate(`/a/pricing/${price_list.id}`)
       },
@@ -85,9 +89,14 @@ const FormHeader = (props: PriceListFormProps & { onClose?: () => void }) => {
         // Check whether our submission actually made any changes. This isn't perfect
         // but it's a good enough heuristic for now, and its better then calling the goal
         // triggered when nothing was actually changed
-        if (Math.abs(new Date(price_list.updated_at).getTime() - Date.now()) < 5000) {
+        if (
+          Math.abs(new Date(price_list.updated_at).getTime() - Date.now()) <
+          5000
+        ) {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("edit-price-list-details-success")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "edit-price-list-details-success"
+          )
         }
 
         notification("Success", "Successfully updated price list", "success")
@@ -100,16 +109,17 @@ const FormHeader = (props: PriceListFormProps & { onClose?: () => void }) => {
   }
 
   const onUpdatePrices = (values: PriceListFormValues) => {
-    const data = mapFormValuesToUpdatePriceListPrices(values);
+    const data = mapFormValuesToUpdatePriceListPrices(values)
 
     let didChange = Boolean(data)
 
     updatePriceList.mutate(data, {
       onSuccess: ({ price_list }) => {
-
         if (didChange) {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("edit-price-list-prices-success")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "edit-price-list-prices-success"
+          )
         }
 
         props.onClose && props.onClose()
@@ -124,7 +134,9 @@ const FormHeader = (props: PriceListFormProps & { onClose?: () => void }) => {
   let secondaryAction: HeaderAction
 
   const [hasShownEditListScreen, setHasShownEditListScreen] = useState(false)
-  const [hasShownEditDetailsScreen, setHasShownEditDetailsScreen] = useState(false)
+  const [hasShownEditDetailsScreen, setHasShownEditDetailsScreen] = useState(
+    false
+  )
 
   switch (props.viewType) {
     case ViewType.CREATE:
@@ -140,7 +152,9 @@ const FormHeader = (props: PriceListFormProps & { onClose?: () => void }) => {
     case ViewType.EDIT_DETAILS:
       if (!hasShownEditDetailsScreen) {
         // @ts-ignore
-        window.checksum.goalTracker.recordGoalFinished("edit-price-list-details-start")
+        window.checksum?.goalTracker.recordGoalFinished(
+          "edit-price-list-details-start"
+        )
         setHasShownEditDetailsScreen(true)
       }
       mainAction = {
@@ -155,7 +169,9 @@ const FormHeader = (props: PriceListFormProps & { onClose?: () => void }) => {
     case ViewType.EDIT_PRICES:
       if (!hasShownEditListScreen) {
         // @ts-ignore
-        window.checksum.goalTracker.recordGoalFinished("edit-price-list-prices-start")
+        window.checksum?.goalTracker.recordGoalFinished(
+          "edit-price-list-prices-start"
+        )
         setHasShownEditListScreen(true)
       }
 

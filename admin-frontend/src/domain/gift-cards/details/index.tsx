@@ -41,7 +41,9 @@ const GiftCardDetails: React.FC<RouteComponentProps<{ id: string }>> = ({
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("view-custom-gift-card-details")
+    window.checksum?.goalTracker.recordGoalFinished(
+      "view-custom-gift-card-details"
+    )
     setHasShownScreen(true)
   }
 
@@ -56,10 +58,14 @@ const GiftCardDetails: React.FC<RouteComponentProps<{ id: string }>> = ({
       onClick: () => {
         if (giftCard?.is_disabled) {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("enable-custom-gift-card")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "enable-custom-gift-card"
+          )
         } else {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("disable-custom-gift-card")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "disable-custom-gift-card"
+          )
         }
 
         handleUpdate({ is_disabled: !giftCard?.is_disabled })
@@ -95,7 +101,9 @@ const GiftCardDetails: React.FC<RouteComponentProps<{ id: string }>> = ({
   if (showUpdateBalance) {
     if (!hasShownBalanceUpdate) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("edit-custom-gift-card-balance-start");
+      window.checksum?.goalTracker.recordGoalFinished(
+        "edit-custom-gift-card-balance-start"
+      )
       setHasShownBalanceUpdate(true)
     }
   }
@@ -104,7 +112,9 @@ const GiftCardDetails: React.FC<RouteComponentProps<{ id: string }>> = ({
   if (showEdit) {
     if (!hasShownEdit) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("edit-custom-gift-card-details-start");
+      window.checksum?.goalTracker.recordGoalFinished(
+        "edit-custom-gift-card-details-start"
+      )
       setHasShownEdit(true)
     }
   }
@@ -134,13 +144,17 @@ const GiftCardDetails: React.FC<RouteComponentProps<{ id: string }>> = ({
                 onChange={() => {
                   if (giftCard?.is_disabled) {
                     // @ts-ignore
-                    window.checksum.goalTracker.recordGoalFinished("enable-custom-gift-card")
+                    window.checksum?.goalTracker.recordGoalFinished(
+                      "enable-custom-gift-card"
+                    )
                   } else {
                     // @ts-ignore
-                    window.checksum.goalTracker.recordGoalFinished("disable-custom-gift-card")
+                    window.checksum?.goalTracker.recordGoalFinished(
+                      "disable-custom-gift-card"
+                    )
                   }
 
-                  handleUpdate({is_disabled: !giftCard?.is_disabled})
+                  handleUpdate({ is_disabled: !giftCard?.is_disabled })
                 }}
               />
             }
@@ -204,7 +218,9 @@ const GiftCardDetails: React.FC<RouteComponentProps<{ id: string }>> = ({
 
             if (didChange) {
               // @ts-ignore
-              window.checksum.goalTracker.recordGoalFinished("edit-custom-gift-card-balance-submit");
+              window.checksum?.goalTracker.recordGoalFinished(
+                "edit-custom-gift-card-balance-submit"
+              )
             }
 
             handleUpdate(...data)
@@ -225,7 +241,9 @@ const GiftCardDetails: React.FC<RouteComponentProps<{ id: string }>> = ({
 
             if (didChange) {
               // @ts-ignore
-              window.checksum.goalTracker.recordGoalFinished("edit-custom-gift-card-details-submit")
+              window.checksum?.goalTracker.recordGoalFinished(
+                "edit-custom-gift-card-details-submit"
+              )
             }
 
             handleUpdate(...data)

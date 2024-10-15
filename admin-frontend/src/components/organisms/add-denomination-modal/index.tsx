@@ -92,7 +92,9 @@ const AddDenominationModal: React.FC<AddDenominationModalProps> = ({
       {
         onSuccess: () => {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("edit-gift-card-add-denomination-success")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "edit-gift-card-add-denomination-success"
+          )
 
           notification("Success", "Denomination added successfully", "success")
           handleClose()

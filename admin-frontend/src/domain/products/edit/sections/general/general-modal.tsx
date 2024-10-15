@@ -1,5 +1,5 @@
 import { Product } from "@medusajs/medusa"
-import React, {useEffect, useState} from "react"
+import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import Button from "../../../../../components/fundamentals/button"
 import Modal from "../../../../../components/molecules/modal"
@@ -35,7 +35,9 @@ const GeneralModal = ({ product, open, onClose }: Props) => {
   if (open) {
     if (!hasShownScreen) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("edit-product-general-information-start")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "edit-product-general-information-start"
+      )
       setHasShownScreen(true)
     }
   }
@@ -87,7 +89,9 @@ const GeneralModal = ({ product, open, onClose }: Props) => {
     )
 
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("edit-product-general-information-submit")
+    window.checksum?.goalTracker.recordGoalFinished(
+      "edit-product-general-information-submit"
+    )
   })
 
   return (

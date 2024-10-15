@@ -115,7 +115,9 @@ const UserTable: React.FC<UserTableProps> = ({
                 .resend(invite.id)
                 .then(() => {
                   // @ts-ignore
-                  window.checksum.goalTracker.recordGoalFinished("resend-invitation-link")
+                  window.checksum?.goalTracker.recordGoalFinished(
+                    "resend-invitation-link"
+                  )
 
                   notification(
                     "Success",
@@ -143,7 +145,9 @@ const UserTable: React.FC<UserTableProps> = ({
               )
 
               // @ts-ignore
-              window.checksum.goalTracker.recordGoalFinished("copy-invite-link")
+              window.checksum?.goalTracker.recordGoalFinished(
+                "copy-invite-link"
+              )
             },
             icon: <ClipboardCopyIcon size={20} />,
           },
@@ -303,7 +307,9 @@ const UserTable: React.FC<UserTableProps> = ({
             onDelete={() => {
               // Medusa.users.delete(selectedUser.id).then(() => {
               // @ts-ignore
-              window.checksum.goalTracker.recordGoalFinished("delete-user-success")
+              window.checksum?.goalTracker.recordGoalFinished(
+                "delete-user-success"
+              )
 
               notification("Success", "User has been removed", "success")
               triggerRefetch()
@@ -326,7 +332,9 @@ const UserTable: React.FC<UserTableProps> = ({
           onDelete={() =>
             Medusa.invites.delete(selectedInvite.id).then(() => {
               // @ts-ignore
-              window.checksum.goalTracker.recordGoalFinished("delete-invitation-success")
+              window.checksum?.goalTracker.recordGoalFinished(
+                "delete-invitation-success"
+              )
 
               notification("Success", "Invitiation has been removed", "success")
               triggerRefetch()

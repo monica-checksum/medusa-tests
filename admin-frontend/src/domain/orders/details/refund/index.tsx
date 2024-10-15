@@ -75,7 +75,7 @@ const RefundMenu = ({
           onDismiss()
 
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("refund-order")
+          window.checksum?.goalTracker.recordGoalFinished("refund-order")
         },
         onError: (error) => {
           notification("Error", getErrorMessage(error), "error")

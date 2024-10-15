@@ -37,7 +37,9 @@ const DefaultCurrencySelector = ({ store }: Props) => {
       {
         onSuccess: () => {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("change-default-currency-success")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "change-default-currency-success"
+          )
 
           notification(
             "Success",

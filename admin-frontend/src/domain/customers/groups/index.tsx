@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react"
+import React, { useContext, useState } from "react"
 import { RouteComponentProps, Router } from "@reach/router"
 
 import BodyCard from "../../../components/organisms/body-card"
@@ -17,7 +17,7 @@ function Index(_: RouteComponentProps) {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("view-customer-groups")
+    window.checksum?.goalTracker.recordGoalFinished("view-customer-groups")
     setHasShownScreen(true)
   }
 

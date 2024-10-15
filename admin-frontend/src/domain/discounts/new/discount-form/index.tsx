@@ -17,7 +17,7 @@ import Configuration from "./sections/configuration"
 import DiscountAllocation from "./sections/discount-allocation"
 import DiscountType from "./sections/discount-type"
 import General from "./sections/general"
-import {useState} from "react";
+import { useState } from "react"
 
 type DiscountFormProps = {
   discount?: Discount
@@ -35,7 +35,7 @@ const DiscountForm: React.FC<DiscountFormProps> = ({
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("new-discount-start")
+    window.checksum?.goalTracker.recordGoalFinished("new-discount-start")
     setHasShownScreen(true)
   }
 
@@ -61,13 +61,17 @@ const DiscountForm: React.FC<DiscountFormProps> = ({
           handleReset()
 
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("new-discount-safe-draft-success")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "new-discount-safe-draft-success"
+          )
         })
         .catch((error) => {
           notification("Error", getErrorMessage(error), "error")
 
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("new-discount-save-draft-error")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "new-discount-save-draft-error"
+          )
         })
     } else {
       closeFormModal()
@@ -82,12 +86,16 @@ const DiscountForm: React.FC<DiscountFormProps> = ({
       handleReset()
 
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("new-discount-publish-success")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "new-discount-publish-success"
+      )
     } catch (error) {
       notification("Error", getErrorMessage(error), "error")
 
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("new-discount-publish-error")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "new-discount-publish-error"
+      )
     }
   }
 

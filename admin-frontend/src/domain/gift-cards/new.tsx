@@ -4,7 +4,7 @@ import {
   useAdminProducts,
   useAdminStore,
 } from "medusa-react"
-import React, {useState} from "react"
+import React, { useState } from "react"
 import { Controller, useFieldArray, useForm, useWatch } from "react-hook-form"
 import FileUploadField from "../../components/atoms/file-upload-field"
 import Button from "../../components/fundamentals/button"
@@ -47,7 +47,7 @@ const NewGiftCard = ({ onClose }: NewGiftCardProps) => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("new-gift-card-start")
+    window.checksum?.goalTracker.recordGoalFinished("new-gift-card-start")
     setHasShownScreen(true)
   }
 
@@ -87,7 +87,7 @@ const NewGiftCard = ({ onClose }: NewGiftCardProps) => {
       focusByName("name")
 
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("new-gift-card-error")
+      window.checksum?.goalTracker.recordGoalFinished("new-gift-card-error")
 
       return
     }
@@ -97,7 +97,7 @@ const NewGiftCard = ({ onClose }: NewGiftCardProps) => {
       focusByName("add-denomination")
 
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("new-gift-card-error")
+      window.checksum?.goalTracker.recordGoalFinished("new-gift-card-error")
       return
     }
 
@@ -108,7 +108,9 @@ const NewGiftCard = ({ onClose }: NewGiftCardProps) => {
         .create([thumbnail.nativeFile])
         .then(({ data }) => {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("new-gift-card-thumbnail-upload-success")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "new-gift-card-thumbnail-upload-success"
+          )
 
           const uploaded = data.uploads.map(({ url }) => url)
           return uploaded
@@ -140,7 +142,9 @@ const NewGiftCard = ({ onClose }: NewGiftCardProps) => {
       {
         onSuccess: () => {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("new-gift-card-success")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "new-gift-card-success"
+          )
 
           notification("Success", "Successfully created Gift Card", "success")
           refetch()
@@ -148,7 +152,7 @@ const NewGiftCard = ({ onClose }: NewGiftCardProps) => {
         },
         onError: (err) => {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("new-gift-card-error")
+          window.checksum?.goalTracker.recordGoalFinished("new-gift-card-error")
 
           notification("Error", getErrorMessage(err), "error")
         },

@@ -61,7 +61,9 @@ const OrderFilters = ({
 
   const handleRemoveTab = (val) => {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("orders-table-remove-saved-filter")
+    window.checksum?.goalTracker.recordGoalFinished(
+      "orders-table-remove-saved-filter"
+    )
 
     if (onRemoveTab) {
       onRemoveTab(val)
@@ -70,7 +72,9 @@ const OrderFilters = ({
 
   const handleSaveTab = () => {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("orders-table-save-new-filter")
+    window.checksum?.goalTracker.recordGoalFinished(
+      "orders-table-save-new-filter"
+    )
 
     if (onSaveTab) {
       onSaveTab(name, tempState)
@@ -90,23 +94,33 @@ const OrderFilters = ({
   const onSubmit = () => {
     if (tempState.payment.filter) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("orders-table-apply-payment-filter")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "orders-table-apply-payment-filter"
+      )
     }
     if (tempState.status.filter) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("orders-table-apply-status-filter")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "orders-table-apply-status-filter"
+      )
     }
     if (tempState.fulfillment.filter) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("orders-table-apply-fulfillment-filter")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "orders-table-apply-fulfillment-filter"
+      )
     }
     if (tempState.date.filter) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("orders-table-apply-date-filter")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "orders-table-apply-date-filter"
+      )
     }
     if (tempState.region.filter) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("orders-table-apply-region-filter")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "orders-table-apply-region-filter"
+      )
     }
 
     submitFilters(tempState)
@@ -115,7 +129,9 @@ const OrderFilters = ({
   const onClear = () => {
     if (numberOfFilters > 0) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("orders-table-clear-filters")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "orders-table-clear-filters"
+      )
     }
     clearFilters()
   }

@@ -43,17 +43,18 @@ const ReturnReasonDetail = ({ reason }: ReturnReasonDetailsProps) => {
   const { mutate: update } = useAdminUpdateReturnReason(reason?.id)
 
   const handleDeletion = async () => {
-
     deleteRR(undefined, {
       onSuccess: () => {
         // @ts-ignore
-        window.checksum.goalTracker.recordGoalFinished("delete-return-reason-success")
-      }
+        window.checksum?.goalTracker.recordGoalFinished(
+          "delete-return-reason-success"
+        )
+      },
     })
   }
 
   const onSave = (data: ReturnReasonDetailsFormData) => {
-    let anyChanges = false;
+    let anyChanges = false
     for (const key in data) {
       if (data[key] !== reason[key]) {
         anyChanges = true
@@ -70,7 +71,9 @@ const ReturnReasonDetail = ({ reason }: ReturnReasonDetailsProps) => {
         onSuccess: () => {
           if (anyChanges) {
             // @ts-ignore
-            window.checksum.goalTracker.recordGoalFinished("edit-return-reason-success")
+            window.checksum?.goalTracker.recordGoalFinished(
+              "edit-return-reason-success"
+            )
           }
 
           notification(
@@ -111,7 +114,9 @@ const ReturnReasonDetail = ({ reason }: ReturnReasonDetailsProps) => {
             icon: <DuplicateIcon size={20} />,
             onClick: () => {
               // @ts-ignore
-              window.checksum.goalTracker.recordGoalFinished("duplicate-return-reason")
+              window.checksum?.goalTracker.recordGoalFinished(
+                "duplicate-return-reason"
+              )
               handleOpenDuplicateModal()
             },
           },

@@ -1,6 +1,6 @@
 import { Discount } from "@medusajs/medusa"
 import { useAdminUpdateDiscount } from "medusa-react"
-import React, {useEffect, useState} from "react"
+import React, { useEffect, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import DatePicker from "../../../../components/atoms/date-picker/date-picker"
 import TimePicker from "../../../../components/atoms/date-picker/time-picker"
@@ -38,18 +38,20 @@ const EditConfigurations: React.FC<EditConfigurationsProps> = ({
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("edit-discount-configurations-start")
+    window.checksum?.goalTracker.recordGoalFinished(
+      "edit-discount-configurations-start"
+    )
     setHasShownScreen(true)
   }
 
   const onSubmit = (data: ConfigurationsForm) => {
     let didChange = false
     for (const key in data) {
-      let cmpValue = data[key];
-      let origValue = discount[key];
-      if (key === 'starts_at' || key === 'ends_at') {
-        cmpValue = new Date(cmpValue).getTime();
-        origValue = new Date(origValue).getTime();
+      let cmpValue = data[key]
+      let origValue = discount[key]
+      if (key === "starts_at" || key === "ends_at") {
+        cmpValue = new Date(cmpValue).getTime()
+        origValue = new Date(origValue).getTime()
       }
 
       if (cmpValue !== origValue) {
@@ -73,7 +75,9 @@ const EditConfigurations: React.FC<EditConfigurationsProps> = ({
 
           if (didChange) {
             // @ts-ignore
-            window.checksum.goalTracker.recordGoalFinished("edit-discount-configurations-success")
+            window.checksum?.goalTracker.recordGoalFinished(
+              "edit-discount-configurations-success"
+            )
           }
         },
         onError: (error) => {

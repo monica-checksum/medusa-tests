@@ -14,7 +14,7 @@ const ReturnReasons = () => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("view-return-reasons")
+    window.checksum?.goalTracker.recordGoalFinished("view-return-reasons")
     setHasShownScreen(true)
   }
 

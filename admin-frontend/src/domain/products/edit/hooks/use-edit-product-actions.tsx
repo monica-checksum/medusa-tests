@@ -15,7 +15,7 @@ import {
 import useImperativeDialog from "../../../../hooks/use-imperative-dialog"
 import useNotification from "../../../../hooks/use-notification"
 import { getErrorMessage } from "../../../../utils/error-messages"
-import {useEffect} from "react";
+import { useEffect } from "react"
 
 const useEditProductActions = (productId: string) => {
   const dialog = useImperativeDialog()
@@ -38,7 +38,7 @@ const useEditProductActions = (productId: string) => {
           notification("Success", "Product deleted successfully", "success")
           navigate("/a/products/")
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker.recordGoalFinished(
             "delete-product-success"
           )
         },
@@ -61,17 +61,13 @@ const useEditProductActions = (productId: string) => {
         onSuccess()
 
         // @ts-ignore
-        window.checksum.goalTracker.recordGoalFinished(
-            "add-variant-success"
-        )
+        window.checksum?.goalTracker.recordGoalFinished("add-variant-success")
       },
       onError: (err) => {
         notification("Error", getErrorMessage(err), "error")
 
         // @ts-ignore
-        window.checksum.goalTracker.recordGoalFinished(
-            "add-variant-error"
-        )
+        window.checksum?.goalTracker.recordGoalFinished("add-variant-error")
       },
     })
   }
@@ -92,17 +88,15 @@ const useEditProductActions = (productId: string) => {
           onSuccess()
 
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished(
-              "edit-variant-success"
+          window.checksum?.goalTracker.recordGoalFinished(
+            "edit-variant-success"
           )
         },
         onError: (err) => {
           notification("Error", getErrorMessage(err), "error")
 
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished(
-              "edit-variant-error"
-          )
+          window.checksum?.goalTracker.recordGoalFinished("edit-variant-error")
         },
       }
     )
@@ -121,8 +115,8 @@ const useEditProductActions = (productId: string) => {
           onSuccess()
         }
         // @ts-ignore
-        window.checksum.goalTracker.recordGoalFinished(
-            "delete-variant-success"
+        window.checksum?.goalTracker.recordGoalFinished(
+          "delete-variant-success"
         )
       },
       onError: (err) => {
@@ -152,9 +146,7 @@ const useEditProductActions = (productId: string) => {
           notification("Error", getErrorMessage(err), "error")
 
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished(
-              "edit-product-error"
-          )
+          window.checksum?.goalTracker.recordGoalFinished("edit-product-error")
         },
       }
     )
@@ -177,8 +169,8 @@ const useEditProductActions = (productId: string) => {
           )
 
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished(
-              "change-product-status-success"
+          window.checksum?.goalTracker.recordGoalFinished(
+            "change-product-status-success"
           )
         },
         onError: (err) => {

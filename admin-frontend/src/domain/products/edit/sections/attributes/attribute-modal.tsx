@@ -1,5 +1,5 @@
 import { Product } from "@medusajs/medusa"
-import React, {useEffect, useState} from "react"
+import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import Button from "../../../../../components/fundamentals/button"
 import Modal from "../../../../../components/molecules/modal"
@@ -37,7 +37,9 @@ const AttributeModal = ({ product, open, onClose }: Props) => {
   if (open) {
     if (!hasShownScreen) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("edit-product-attributes-start")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "edit-product-attributes-start"
+      )
       setHasShownScreen(true)
     }
   }
@@ -72,7 +74,9 @@ const AttributeModal = ({ product, open, onClose }: Props) => {
     )
 
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("edit-product-attributes-submit")
+    window.checksum?.goalTracker.recordGoalFinished(
+      "edit-product-attributes-submit"
+    )
   })
 
   return (

@@ -52,7 +52,7 @@ const Overview = (_props: RouteComponentProps) => {
   useEffect(() => {
     if (!hasShownScreen) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("view-product-list")
+      window.checksum?.goalTracker.recordGoalFinished("view-product-list")
       setHasShownScreen(true)
     }
   }, [hasShownScreen])
@@ -134,7 +134,7 @@ const Overview = (_props: RouteComponentProps) => {
           ...acc,
           [next.key]: next.value,
         }
-      },{})
+      }, {})
 
     await createCollection.mutateAsync(
       { ...data, metadata },
@@ -162,7 +162,7 @@ const Overview = (_props: RouteComponentProps) => {
         notification("Success", "Successfully initiated export", "success")
 
         // @ts-ignore
-        window.checksum.goalTracker.recordGoalFinished("export-products")
+        window.checksum?.goalTracker.recordGoalFinished("export-products")
       },
       onError: (err) => {
         notification("Error", getErrorMessage(err), "error")

@@ -30,10 +30,11 @@ const CustomGiftcard: React.FC<CustomGiftcardProps> = ({ onDismiss }) => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("create-custom-gift-card-start")
+    window.checksum?.goalTracker.recordGoalFinished(
+      "create-custom-gift-card-start"
+    )
     setHasShownScreen(true)
   }
-
 
   useEffect(() => {
     if (!isLoading) {
@@ -50,7 +51,9 @@ const CustomGiftcard: React.FC<CustomGiftcardProps> = ({ onDismiss }) => {
       focusByName("amount")
 
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("create-custom-gift-card-error")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "create-custom-gift-card-error"
+      )
       return
     }
 
@@ -59,7 +62,9 @@ const CustomGiftcard: React.FC<CustomGiftcardProps> = ({ onDismiss }) => {
       focusByName("metadata.email")
 
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("create-custom-gift-card-error")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "create-custom-gift-card-error"
+      )
       return
     }
 
@@ -74,14 +79,18 @@ const CustomGiftcard: React.FC<CustomGiftcardProps> = ({ onDismiss }) => {
     mutate(update, {
       onSuccess: () => {
         // @ts-ignore
-        window.checksum.goalTracker.recordGoalFinished("create-custom-gift-card-success")
+        window.checksum?.goalTracker.recordGoalFinished(
+          "create-custom-gift-card-success"
+        )
 
         notification("Success", "Created Custom Gift Card", "success")
         onDismiss()
       },
       onError: (error) => {
         // @ts-ignore
-        window.checksum.goalTracker.recordGoalFinished("create-custom-gift-card-error")
+        window.checksum?.goalTracker.recordGoalFinished(
+          "create-custom-gift-card-error"
+        )
 
         notification("Error", getErrorMessage(error), "error")
         onDismiss()

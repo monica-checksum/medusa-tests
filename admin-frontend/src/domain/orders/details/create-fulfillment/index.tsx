@@ -120,14 +120,17 @@ const CreateFulfillmentModal: React.FC<CreateFulfillmentModalProps> = ({
         handleCancel()
 
         // @ts-ignore
-        window.checksum.goalTracker.recordGoalFinished("create-fulfillment-success")
-
+        window.checksum?.goalTracker.recordGoalFinished(
+          "create-fulfillment-success"
+        )
       },
       onError: (err) => {
         notification("Error", getErrorMessage(err), "error")
 
         // @ts-ignore
-        window.checksum.goalTracker.recordGoalFinished("create-fulfillment-error")
+        window.checksum?.goalTracker.recordGoalFinished(
+          "create-fulfillment-error"
+        )
       },
     })
   }

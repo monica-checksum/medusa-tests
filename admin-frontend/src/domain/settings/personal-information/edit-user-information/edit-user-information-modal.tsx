@@ -1,6 +1,6 @@
 import { User } from "@medusajs/medusa"
 import { useAdminGetSession, useAdminUpdateUser } from "medusa-react"
-import React, {useEffect, useState} from "react"
+import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import Button from "../../../../components/fundamentals/button"
 import InputField from "../../../../components/molecules/input"
@@ -26,7 +26,9 @@ const EditUserInformationModal = ({ user, open, onClose }: Props) => {
   if (open) {
     if (!hasShownScreen) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("edit-personal-information-start")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "edit-personal-information-start"
+      )
       setHasShownScreen(true)
     }
   }
@@ -62,7 +64,9 @@ const EditUserInformationModal = ({ user, open, onClose }: Props) => {
         onSuccess: () => {
           if (anyChanges) {
             // @ts-ignore
-            window.checksum.goalTracker.recordGoalFinished("edit-personal-information-success")
+            window.checksum?.goalTracker.recordGoalFinished(
+              "edit-personal-information-success"
+            )
           }
 
           notification(

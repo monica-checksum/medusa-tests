@@ -1,5 +1,5 @@
 import { Router } from "@reach/router"
-import React, {useState} from "react"
+import React, { useState } from "react"
 import SettingsCard from "../../components/atoms/settings-card"
 import FeatureToggle from "../../components/fundamentals/feature-toggle"
 import ChannelsIcon from "../../components/fundamentals/icons/channels-icon"
@@ -26,7 +26,7 @@ const SettingsIndex = () => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("view-settings-index-page")
+    window.checksum?.goalTracker.recordGoalFinished("view-settings-index-page")
     setHasShownScreen(true)
   }
 

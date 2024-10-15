@@ -66,7 +66,7 @@ function ImportPrices(props: ImportPricesProps) {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("import-price-list-start")
+    window.checksum?.goalTracker.recordGoalFinished("import-price-list-start")
     setHasShownScreen(true)
   }
 
@@ -120,7 +120,9 @@ function ImportPrices(props: ImportPricesProps) {
       setBatchJobId(batchJob.batch_job.id)
 
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("import-price-list-upload-csv-success")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "import-price-list-upload-csv-success"
+      )
     } catch (e) {
       notification("Error", "Import failed.", "error")
       if (fileKey) {
@@ -128,7 +130,9 @@ function ImportPrices(props: ImportPricesProps) {
       }
 
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("import-price-list-upload-csv-error")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "import-price-list-upload-csv-error"
+      )
     }
   }
 

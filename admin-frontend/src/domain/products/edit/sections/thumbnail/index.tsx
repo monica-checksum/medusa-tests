@@ -29,7 +29,9 @@ const TumbnailSection = ({ product }: Props) => {
       {
         onSuccess: () => {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("delete-product-thumbnail-success")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "delete-product-thumbnail-success"
+          )
 
           notification("Success", "Successfully deleted thumbnail", "success")
         },

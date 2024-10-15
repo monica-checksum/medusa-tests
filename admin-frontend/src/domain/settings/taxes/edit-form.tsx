@@ -35,11 +35,10 @@ const EditTaxRate = ({
   taxRate,
   onDismiss,
 }: EditTaxRateProps) => {
-
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("edit-tax-rate-start")
+    window.checksum?.goalTracker.recordGoalFinished("edit-tax-rate-start")
     setHasShownScreen(true)
   }
 
@@ -90,7 +89,9 @@ const EditTaxRate = ({
       onSuccess: () => {
         if (anyChanges) {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("edit-tax-rate-success")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "edit-tax-rate-success"
+          )
         }
 
         notification("Success", "Successfully updated Tax Rate.", "success")
@@ -315,7 +316,9 @@ export const SimpleEditForm = ({ onDismiss, taxRate }: SimpleEditFormProps) => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("edit-default-tax-rate-start")
+    window.checksum?.goalTracker.recordGoalFinished(
+      "edit-default-tax-rate-start"
+    )
     setHasShownScreen(true)
   }
 
@@ -349,7 +352,9 @@ export const SimpleEditForm = ({ onDismiss, taxRate }: SimpleEditFormProps) => {
       onSuccess: () => {
         if (anyChanges) {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("edit-default-tax-rate-success")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "edit-default-tax-rate-success"
+          )
         }
 
         notification("Success", "Successfully updated default rate.", "success")

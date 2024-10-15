@@ -1,6 +1,6 @@
 import { AdminPostRegionsRegionReq, Region } from "@medusajs/medusa"
 import { useAdminUpdateRegion } from "medusa-react"
-import React, {useEffect, useState} from "react"
+import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import Button from "../../../../../components/fundamentals/button"
 import Modal from "../../../../../components/molecules/modal"
@@ -39,7 +39,9 @@ const EditRegionModal = ({ region, onClose, open }: Props) => {
   if (open) {
     if (!hasShownScreen) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("edit-region-details-start")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "edit-region-details-start"
+      )
       setHasShownScreen(true)
     }
   }
@@ -85,7 +87,9 @@ const EditRegionModal = ({ region, onClose, open }: Props) => {
         closeAndReset()
 
         // @ts-ignore
-        window.checksum.goalTracker.recordGoalFinished("edit-region-details-success")
+        window.checksum?.goalTracker.recordGoalFinished(
+          "edit-region-details-success"
+        )
       },
       onError: (err) => {
         notifcation("Error", getErrorMessage(err), "error")

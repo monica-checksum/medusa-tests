@@ -1,5 +1,5 @@
 import { useAdminCreateInvite } from "medusa-react"
-import React, {useState} from "react"
+import React, { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import useNotification from "../../../hooks/use-notification"
 import { Role } from "../../../types/shared"
@@ -28,7 +28,7 @@ const InviteModal: React.FC<InviteModalProps> = ({ handleClose }) => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("invite-user-start")
+    window.checksum?.goalTracker.recordGoalFinished("invite-user-start")
     setHasShownScreen(true)
   }
 
@@ -41,7 +41,7 @@ const InviteModal: React.FC<InviteModalProps> = ({ handleClose }) => {
       {
         onSuccess: () => {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("invite-user-success")
+          window.checksum?.goalTracker.recordGoalFinished("invite-user-success")
 
           notification("Success", `Invitation sent to ${data.user}`, "success")
           handleClose()

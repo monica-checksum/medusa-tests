@@ -19,7 +19,7 @@ const VariantGeneralForm = ({ form }: Props) => {
     formState: { errors },
   } = form
   // @ts-ignore
-  window.checksum.goalTracker.recordGoalFinished("add-variant-start")
+  window.checksum?.goalTracker.recordGoalFinished("add-variant-start")
   return (
     <div>
       <p className="inter-base-regular text-grey-50">

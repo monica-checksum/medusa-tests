@@ -122,7 +122,9 @@ const DraftOrderTable: React.FC<RouteComponentProps> = () => {
         enableSearch
         handleSearch={(...data) => {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("draft-orders-table-search")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "draft-orders-table-search"
+          )
 
           setQuery(...data)
         }}

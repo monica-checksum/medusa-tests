@@ -44,13 +44,17 @@ export function CustomerGroupContextContainer(
     if (!!props.group) {
       if (!hasShownScreen) {
         // @ts-ignore
-        window.checksum.goalTracker.recordGoalFinished("edit-customer-group-start")
+        window.checksum?.goalTracker.recordGoalFinished(
+          "edit-customer-group-start"
+        )
         setHasShownScreen(true)
       }
     } else {
       if (!hasShownScreen) {
         // @ts-ignore
-        window.checksum.goalTracker.recordGoalFinished("new-customer-group-start")
+        window.checksum?.goalTracker.recordGoalFinished(
+          "new-customer-group-start"
+        )
         setHasShownScreen(true)
       }
     }
@@ -67,7 +71,7 @@ export function CustomerGroupContextContainer(
     method(data, {
       onSuccess: () => {
         notification("Success", message, "success")
-        hideModal();
+        hideModal()
 
         if (isEdit) {
           let didChange = false
@@ -77,13 +81,16 @@ export function CustomerGroupContextContainer(
 
           if (didChange) {
             // @ts-ignore
-            window.checksum.goalTracker.recordGoalFinished("edit-customer-group-success")
+            window.checksum?.goalTracker.recordGoalFinished(
+              "edit-customer-group-success"
+            )
           }
         } else {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("new-customer-group-success")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "new-customer-group-success"
+          )
         }
-
       },
       onError: (err) => notification("Error", getErrorMessage(err), "error"),
     })

@@ -63,7 +63,9 @@ const AddCustomerGroupsConditionsScreen = () => {
             onClick={() => {
               if (selectedResources.length > 0) {
                 // @ts-ignore
-                window.checksum.goalTracker.recordGoalFinished("add-discount-condition-customer-group-resource")
+                window.checksum?.goalTracker.recordGoalFinished(
+                  "add-discount-condition-customer-group-resource"
+                )
               }
 
               saveAndGoBack(selectedResources, () => refetch())
@@ -77,7 +79,9 @@ const AddCustomerGroupsConditionsScreen = () => {
             onClick={() => {
               if (selectedResources.length > 0) {
                 // @ts-ignore
-                window.checksum.goalTracker.recordGoalFinished("add-discount-condition-customer-group-resource")
+                window.checksum?.goalTracker.recordGoalFinished(
+                  "add-discount-condition-customer-group-resource"
+                )
               }
 
               saveAndClose(selectedResources)

@@ -153,7 +153,7 @@ const OptionsModal = ({ product, open, onClose }: Props) => {
     }
 
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished(
+    window.checksum?.goalTracker.recordGoalFinished(
       "edit-product-options-submit"
     )
 

@@ -1,5 +1,5 @@
 import { RouteComponentProps } from "@reach/router"
-import React, {useState} from "react"
+import React, { useState } from "react"
 import BackButton from "../../../components/atoms/back-button"
 import EditRegion from "./edit"
 import RegionOverview from "./region-overview"
@@ -9,11 +9,10 @@ type Props = RouteComponentProps
 const Regions = (props: Props) => {
   const filepath: string | undefined = props["*"]
 
-
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("view-region-settings")
+    window.checksum?.goalTracker.recordGoalFinished("view-region-settings")
     setHasShownScreen(true)
   }
 

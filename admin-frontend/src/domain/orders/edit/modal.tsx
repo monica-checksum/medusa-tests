@@ -194,7 +194,7 @@ function OrderEditModal(props: OrderEditModalProps) {
 
       // Ignoring this goal because its not actually visible to the admin user
       // @ts-ignore
-      // window.checksum.goalTracker.recordGoalFinished("edit-order-save")
+      // window.checksum?.goalTracker.recordGoalFinished("edit-order-save")
 
       notification("Success", "Order edit set as requested", "success")
     } catch (e) {
@@ -219,7 +219,7 @@ function OrderEditModal(props: OrderEditModalProps) {
 
       // Ignoring this goal because it's not actually visible to the admin user
       // @ts-ignore
-      // window.checksum.goalTracker.recordGoalFinished("edit-order-add-variants")
+      // window.checksum?.goalTracker.recordGoalFinished("edit-order-add-variants")
 
       notification("Success", "Added successfully", "success")
     } catch (e) {

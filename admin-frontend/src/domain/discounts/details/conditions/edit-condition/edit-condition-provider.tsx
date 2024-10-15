@@ -56,7 +56,9 @@ export const EditConditionProvider = ({
       {
         onSuccess: () => {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("add-discount-condition-resource-success")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "add-discount-condition-resource-success"
+          )
 
           notification(
             "Success",
@@ -77,7 +79,9 @@ export const EditConditionProvider = ({
       {
         onSuccess: () => {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("delete-discount-condition-resource-success")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "delete-discount-condition-resource-success"
+          )
 
           notification(
             "Success",

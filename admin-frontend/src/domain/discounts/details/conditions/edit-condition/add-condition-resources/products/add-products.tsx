@@ -61,7 +61,9 @@ const AddProductConditionsScreen = () => {
             onClick={() => {
               if (selectedResources.length > 0) {
                 // @ts-ignore
-                window.checksum.goalTracker.recordGoalFinished("add-discount-condition-product-resource")
+                window.checksum?.goalTracker.recordGoalFinished(
+                  "add-discount-condition-product-resource"
+                )
               }
 
               saveAndGoBack(selectedResources)
@@ -75,7 +77,9 @@ const AddProductConditionsScreen = () => {
             onClick={() => {
               if (selectedResources.length > 0) {
                 // @ts-ignore
-                window.checksum.goalTracker.recordGoalFinished("add-discount-condition-product-resource")
+                window.checksum?.goalTracker.recordGoalFinished(
+                  "add-discount-condition-product-resource"
+                )
               }
 
               saveAndClose(selectedResources)

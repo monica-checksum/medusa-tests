@@ -1,5 +1,5 @@
 import { Product } from "@medusajs/medusa"
-import React, {useEffect, useState} from "react"
+import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import Button from "../../../../../components/fundamentals/button"
 import Modal from "../../../../../components/molecules/modal"
@@ -41,7 +41,9 @@ const ThumbnailModal = ({ product, open, onClose }: Props) => {
   if (open) {
     if (!hasShownScreen) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("upload-product-thumbnail-start")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "upload-product-thumbnail-start"
+      )
       setHasShownScreen(true)
     }
   }
@@ -79,7 +81,9 @@ const ThumbnailModal = ({ product, open, onClose }: Props) => {
 
     if (url) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("upload-product-thumbnail-submit")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "upload-product-thumbnail-submit"
+      )
     }
 
     onUpdate(

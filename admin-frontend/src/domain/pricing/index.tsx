@@ -1,6 +1,6 @@
 import { RouteComponentProps, Router } from "@reach/router"
 import { navigate } from "gatsby"
-import React, {useState} from "react"
+import React, { useState } from "react"
 import PlusIcon from "../../components/fundamentals/icons/plus-icon"
 import BodyCard from "../../components/organisms/body-card"
 import TableViewHeader from "../../components/organisms/custom-table-header"
@@ -20,7 +20,7 @@ const PricingIndex: React.FC<RouteComponentProps> = () => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("view-price-list-table")
+    window.checksum?.goalTracker.recordGoalFinished("view-price-list-table")
     setHasShownScreen(true)
   }
 

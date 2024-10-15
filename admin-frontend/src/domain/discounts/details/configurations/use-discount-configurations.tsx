@@ -56,7 +56,9 @@ const useDiscountConfigurations = (discount: Discount) => {
               {
                 onSuccess: () => {
                   // @ts-ignore
-                  window.checksum.goalTracker.recordGoalFinished("delete-discount-end-date-success")
+                  window.checksum?.goalTracker.recordGoalFinished(
+                    "delete-discount-end-date-success"
+                  )
 
                   notification(
                     "Success",
@@ -90,7 +92,9 @@ const useDiscountConfigurations = (discount: Discount) => {
               {
                 onSuccess: () => {
                   // @ts-ignore
-                  window.checksum.goalTracker.recordGoalFinished("delete-discount-usage-limit-success")
+                  window.checksum?.goalTracker.recordGoalFinished(
+                    "delete-discount-usage-limit-success"
+                  )
 
                   notification("Success", "Redemption limit removed", "success")
                 },
@@ -124,7 +128,9 @@ const useDiscountConfigurations = (discount: Discount) => {
               {
                 onSuccess: () => {
                   // @ts-ignore
-                  window.checksum.goalTracker.recordGoalFinished("delete-discount-duration-success")
+                  window.checksum?.goalTracker.recordGoalFinished(
+                    "delete-discount-duration-success"
+                  )
 
                   notification(
                     "Success",

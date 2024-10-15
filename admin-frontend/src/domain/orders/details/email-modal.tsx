@@ -1,5 +1,5 @@
 import { useAdminUpdateOrder } from "medusa-react"
-import React, {useState} from "react"
+import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 
 import Button from "../../../components/fundamentals/button"
@@ -32,7 +32,7 @@ const EmailModal: React.FC<EmailModalProps> = ({
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("edit-order-email-start")
+    window.checksum?.goalTracker.recordGoalFinished("edit-order-email-start")
     setHasShownScreen(true)
   }
 
@@ -55,7 +55,9 @@ const EmailModal: React.FC<EmailModalProps> = ({
 
         if (didUpdate) {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("edit-order-email-success")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "edit-order-email-success"
+          )
         }
       },
       onError: (err) => notification("Error", getErrorMessage(err), "error"),

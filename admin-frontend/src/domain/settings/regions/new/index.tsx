@@ -53,7 +53,7 @@ const NewRegion = ({ onClose }: Props) => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("new-region-start")
+    window.checksum?.goalTracker.recordGoalFinished("new-region-start")
     setHasShownScreen(true)
   }
 
@@ -89,7 +89,7 @@ const NewRegion = ({ onClose }: Props) => {
           closeAndReset()
 
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("new-region-success")
+          window.checksum?.goalTracker.recordGoalFinished("new-region-success")
         },
         onError: (error) => {
           notification("Error", getErrorMessage(error), "error")
@@ -98,7 +98,7 @@ const NewRegion = ({ onClose }: Props) => {
     },
     (errors) => {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("new-region-error")
+      window.checksum?.goalTracker.recordGoalFinished("new-region-error")
 
       if (errors.providers && !sections.includes("providers")) {
         setSections((oldSections) => [...oldSections, "providers"])

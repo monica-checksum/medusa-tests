@@ -1,5 +1,5 @@
 import { Product } from "@medusajs/medusa"
-import React, {useEffect, useState} from "react"
+import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import Button from "../../../../../components/fundamentals/button"
 import Modal from "../../../../../components/molecules/modal"
@@ -30,7 +30,9 @@ const MediaModal = ({ product, open, onClose }: Props) => {
   if (open) {
     if (!hasShownScreen) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("edit-product-images-start")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "edit-product-images-start"
+      )
       setHasShownScreen(true)
     }
   }
@@ -75,7 +77,9 @@ const MediaModal = ({ product, open, onClose }: Props) => {
 
     if (urls.length > 0) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("edit-product-images-submit")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "edit-product-images-submit"
+      )
     }
 
     onUpdate(

@@ -85,7 +85,9 @@ const HeadingBodyCard = ({ priceList, setIsOpen, ...props }) => {
       deletePriceList.mutate(undefined, {
         onSuccess: () => {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("delete-price-list-success")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "delete-price-list-success"
+          )
 
           notification("Success", "Price list deleted successfully", "success")
           navigate("/a/pricing/")

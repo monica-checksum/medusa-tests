@@ -87,7 +87,9 @@ const DenominationTable: React.FC<DenominationTableProps> = ({
 
   const handleDeleteDenomination = async () => {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("edit-gift-card-delete-denomination-success")
+    window.checksum?.goalTracker.recordGoalFinished(
+      "edit-gift-card-delete-denomination-success"
+    )
 
     deleteDenomination.mutateAsync(selectedDenom!)
   }

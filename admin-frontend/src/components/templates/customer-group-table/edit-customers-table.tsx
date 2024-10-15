@@ -171,7 +171,9 @@ function EditCustomersTable(props: EditCustomersTableProps) {
 
   const handleSearch = (text: string) => {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("edit-customers-in-group-table-search")
+    window.checksum?.goalTracker.recordGoalFinished(
+      "edit-customers-in-group-table-search"
+    )
 
     setQuery(text)
 

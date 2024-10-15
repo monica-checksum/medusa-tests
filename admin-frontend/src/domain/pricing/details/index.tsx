@@ -7,7 +7,7 @@ import { mapPriceListToFormValues } from "../pricing-form/form/mappers"
 import { PriceListFormProvider } from "../pricing-form/form/pricing-form-context"
 import Header from "./sections/header"
 import PricesDetails from "./sections/prices-details"
-import {useState} from "react";
+import { useState } from "react"
 
 type PricingDetailsProps = RouteComponentProps & { id?: string }
 
@@ -17,7 +17,7 @@ const PricingDetails = ({ id }: PricingDetailsProps) => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("view-price-list-details")
+    window.checksum?.goalTracker.recordGoalFinished("view-price-list-details")
     setHasShownScreen(true)
   }
 

@@ -63,12 +63,13 @@ const AddCollectionConditionsScreen = () => {
             onClick={() => {
               if (selectedResources.length > 0) {
                 // @ts-ignore
-                window.checksum.goalTracker.recordGoalFinished("add-discount-condition-collection-resource")
+                window.checksum?.goalTracker.recordGoalFinished(
+                  "add-discount-condition-collection-resource"
+                )
               }
 
-                saveAndGoBack(selectedResources, () => refetch())
-              }
-            }
+              saveAndGoBack(selectedResources, () => refetch())
+            }}
           >
             Save and go back
           </Button>
@@ -78,7 +79,9 @@ const AddCollectionConditionsScreen = () => {
             onClick={() => {
               if (selectedResources.length > 0) {
                 // @ts-ignore
-                window.checksum.goalTracker.recordGoalFinished("add-discount-condition-collection-resource")
+                window.checksum?.goalTracker.recordGoalFinished(
+                  "add-discount-condition-collection-resource"
+                )
               }
 
               saveAndClose(selectedResources)

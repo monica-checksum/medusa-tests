@@ -28,7 +28,9 @@ const ProductsFilter = ({
 
   const handleRemoveTab = (val) => {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("products-table-remove-saved-filter")
+    window.checksum?.goalTracker.recordGoalFinished(
+      "products-table-remove-saved-filter"
+    )
 
     if (onRemoveTab) {
       onRemoveTab(val)
@@ -37,7 +39,9 @@ const ProductsFilter = ({
 
   const handleSaveTab = () => {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("products-table-save-new-filter")
+    window.checksum?.goalTracker.recordGoalFinished(
+      "products-table-save-new-filter"
+    )
 
     if (onSaveTab) {
       onSaveTab(name, tempState)
@@ -57,15 +61,21 @@ const ProductsFilter = ({
   const onSubmit = () => {
     if (tempState.collection.filter) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("products-table-apply-collection-filter")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "products-table-apply-collection-filter"
+      )
     }
     if (tempState.status.filter) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("products-table-apply-status-filter")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "products-table-apply-status-filter"
+      )
     }
     if (tempState.tags.filter) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("products-table-apply-tags-filter")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "products-table-apply-tags-filter"
+      )
     }
     submitFilters(tempState)
   }
@@ -73,7 +83,9 @@ const ProductsFilter = ({
   const onClear = () => {
     if (numberOfFilters > 0) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("products-table-clear-filters")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "products-table-clear-filters"
+      )
     }
     clearFilters()
   }

@@ -1,5 +1,5 @@
 import { AnalyticsConfig } from "@medusajs/medusa"
-import React, {useEffect, useState} from "react"
+import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import Button from "../../../../components/fundamentals/button"
 import Modal from "../../../../components/molecules/modal"
@@ -44,7 +44,9 @@ const UsageInsightsModal = ({ config, open, onClose }: Props) => {
   if (open) {
     if (!hasShownScreen) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("edit-usage-insights-start")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "edit-usage-insights-start"
+      )
       setHasShownScreen(true)
     }
   }
@@ -62,7 +64,9 @@ const UsageInsightsModal = ({ config, open, onClose }: Props) => {
       onSuccess: () => {
         if (anyChanges) {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("edit-usage-insights-success")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "edit-usage-insights-success"
+          )
         }
 
         notification(

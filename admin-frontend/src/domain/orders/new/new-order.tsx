@@ -1,6 +1,6 @@
 import { navigate } from "gatsby"
 import { useAdminCreateDraftOrder } from "medusa-react"
-import React, {useState} from "react"
+import React, { useState } from "react"
 import { LayeredModalContext } from "../../../components/molecules/modal/layered-modal"
 import SteppedModal, {
   SteppedContext,
@@ -35,9 +35,7 @@ const NewOrder = ({ onDismiss }: NewOrderProps) => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished(
-      "new-order-start"
-    )
+    window.checksum?.goalTracker.recordGoalFinished("new-order-start")
     setHasShownScreen(true)
   }
 
@@ -114,17 +112,13 @@ const NewOrder = ({ onDismiss }: NewOrderProps) => {
           navigate(`/a/draft-orders/${draft_order.id}`)
 
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished(
-              "new-order-success"
-          )
+          window.checksum?.goalTracker.recordGoalFinished("new-order-success")
         },
         onError: (error) => {
           notification("Error", error.message, "error")
 
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished(
-              "new-order-error"
-          )
+          window.checksum?.goalTracker.recordGoalFinished("new-order-error")
         },
       }
     )

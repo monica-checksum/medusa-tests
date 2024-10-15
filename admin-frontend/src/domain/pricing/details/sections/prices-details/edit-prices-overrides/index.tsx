@@ -13,7 +13,7 @@ import useNotification from "../../../../../../hooks/use-notification"
 import { mergeExistingWithDefault } from "../../../utils"
 import { mapToPriceList } from "./mappers"
 import ProductVariantLeaf from "./product-variant-leaf"
-import {useState} from "react";
+import { useState } from "react"
 
 type EditPricesOverridesModalProps = {
   product: Product
@@ -39,7 +39,9 @@ const EditPricesOverridesModal = ({
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("edit-price-overrides-start")
+    window.checksum?.goalTracker.recordGoalFinished(
+      "edit-price-overrides-start"
+    )
     setHasShownScreen(true)
   }
 
@@ -58,8 +60,8 @@ const EditPricesOverridesModal = ({
           variants={product.variants}
           onClose={close}
           onSubmit={(values) => {
-            const didChange = values.didChange;
-            delete values.didChange;
+            const didChange = values.didChange
+            delete values.didChange
 
             const updatedPrices = mapToPriceList(values, variant.id)
 
@@ -71,7 +73,9 @@ const EditPricesOverridesModal = ({
                 onSuccess: () => {
                   if (didChange) {
                     // @ts-ignore
-                    window.checksum.goalTracker.recordGoalFinished("edit-price-overrides-success")
+                    window.checksum?.goalTracker.recordGoalFinished(
+                      "edit-price-overrides-success"
+                    )
                   }
 
                   context.pop()

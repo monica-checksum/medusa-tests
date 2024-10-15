@@ -1,5 +1,5 @@
 import { RouteComponentProps, Router } from "@reach/router"
-import React, {useState} from "react"
+import React, { useState } from "react"
 
 import BodyCard from "../../components/organisms/body-card"
 import CustomerTable from "../../components/templates/customer-table"
@@ -11,7 +11,7 @@ const CustomerIndex: React.FC<RouteComponentProps> = () => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("view-customer-list")
+    window.checksum?.goalTracker.recordGoalFinished("view-customer-list")
     setHasShownScreen(true)
   }
 

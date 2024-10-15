@@ -46,9 +46,7 @@ const DraftOrderDetails = ({ id }: DraftOrderDetailsProps) => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished(
-      "view-single-draft-order"
-    )
+    window.checksum?.goalTracker.recordGoalFinished("view-single-draft-order")
     setHasShownScreen(true)
   }
 
@@ -117,7 +115,7 @@ const DraftOrderDetails = ({ id }: DraftOrderDetailsProps) => {
       await markPaid.mutateAsync()
       notification("Success", "Successfully mark as paid", "success")
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("mark-draft-order-paid")
+      window.checksum?.goalTracker.recordGoalFinished("mark-draft-order-paid")
     } catch (err) {
       notification("Error", getErrorMessage(err), "error")
     } finally {
@@ -129,7 +127,7 @@ const DraftOrderDetails = ({ id }: DraftOrderDetailsProps) => {
     return cancelOrder.mutate(void {}, {
       onSuccess: () => {
         // @ts-ignore
-        window.checksum.goalTracker.recordGoalFinished("cancel-draft-order")
+        window.checksum?.goalTracker.recordGoalFinished("cancel-draft-order")
         notification("Success", "Successfully canceled order", "success")
       },
       onError: (err) => notification("Error", getErrorMessage(err), "error"),
@@ -500,7 +498,7 @@ const DraftOrderDetails = ({ id }: DraftOrderDetailsProps) => {
           handleClose={() => setAddressModal(null)}
           submit={(...data) => {
             // @ts-ignore
-            window.checksum.goalTracker.recordGoalFinished(
+            window.checksum?.goalTracker.recordGoalFinished(
               "edit-draft-order-address"
             )
 

@@ -152,7 +152,9 @@ const CustomerTable: React.FC<RouteComponentProps> = () => {
         enableSearch
         handleSearch={(...data) => {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("customers-table-search")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "customers-table-search"
+          )
 
           setQuery(...data)
         }}

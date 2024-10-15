@@ -1,6 +1,6 @@
 import { Region } from "@medusajs/medusa"
 import { useAdminCreateShippingOption } from "medusa-react"
-import React, {useState} from "react"
+import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import Button from "../../../../../components/fundamentals/button"
 import Modal from "../../../../../components/molecules/modal"
@@ -35,7 +35,9 @@ const CreateReturnShippingOptionModal = ({ open, onClose, region }: Props) => {
   if (open) {
     if (!hasShownScreen) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("create-return-shipping-option-start")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "create-return-shipping-option-start"
+      )
       setHasShownScreen(true)
     }
   }
@@ -66,7 +68,9 @@ const CreateReturnShippingOptionModal = ({ open, onClose, region }: Props) => {
       {
         onSuccess: () => {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("create-return-shipping-option-success")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "create-return-shipping-option-success"
+          )
 
           notifcation("Success", "Shipping option created", "success")
           closeAndReset()

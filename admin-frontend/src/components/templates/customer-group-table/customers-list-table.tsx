@@ -97,12 +97,12 @@ function CustomersListTableRow(props: CustomersListTableRowProps) {
       variant: "danger",
       onClick: () => {
         // @ts-ignore
-        window.checksum.goalTracker.recordGoalFinished(
+        window.checksum?.goalTracker.recordGoalFinished(
           "remove-customer-from-group-using-dropdown"
         )
 
         removeCustomers({
-          customer_ids: [{id: row.original.id}],
+          customer_ids: [{ id: row.original.id }],
         })
       },
       icon: <TrashIcon size={20} />,
@@ -176,7 +176,9 @@ function CustomersListTable(props: CustomersListTableProps) {
 
   const handleSearch = (text: string) => {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("group-details-customers-table-search")
+    window.checksum?.goalTracker.recordGoalFinished(
+      "group-details-customers-table-search"
+    )
 
     setQuery(text)
 

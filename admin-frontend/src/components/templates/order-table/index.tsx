@@ -189,7 +189,9 @@ const OrderTable: React.FC<RouteComponentProps> = () => {
           enableSearch
           handleSearch={(...data) => {
             // @ts-ignore
-            window.checksum.goalTracker.recordGoalFinished("orders-table-search")
+            window.checksum?.goalTracker.recordGoalFinished(
+              "orders-table-search"
+            )
             setQuery(...data)
           }}
           searchValue={query}

@@ -1,5 +1,5 @@
 import { useAdminCreateTaxRate } from "medusa-react"
-import React, {useContext, useState} from "react"
+import React, { useContext, useState } from "react"
 import { useForm } from "react-hook-form"
 import Button from "../../../components/fundamentals/button"
 import PlusIcon from "../../../components/fundamentals/icons/plus-icon"
@@ -46,7 +46,7 @@ const NewTaxRate = ({ regionId, onDismiss }: NewTaxRateProps) => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("create-tax-rate-start")
+    window.checksum?.goalTracker.recordGoalFinished("create-tax-rate-start")
     setHasShownScreen(true)
   }
 
@@ -64,7 +64,9 @@ const NewTaxRate = ({ regionId, onDismiss }: NewTaxRateProps) => {
       {
         onSuccess: () => {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("create-tax-rate-success")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "create-tax-rate-success"
+          )
 
           notification("Success", "Successfully created tax rate.", "success")
           onDismiss()

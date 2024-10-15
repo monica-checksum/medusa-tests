@@ -1,7 +1,7 @@
 import { RouteComponentProps } from "@reach/router"
 import { navigate } from "gatsby"
 import { useAdminProduct } from "medusa-react"
-import React, {useEffect, useState} from "react"
+import React, { useEffect, useState } from "react"
 import BackButton from "../../../components/atoms/back-button"
 import Spinner from "../../../components/atoms/spinner"
 import { getErrorStatus } from "../../../utils/get-error-status"
@@ -24,7 +24,7 @@ const Edit = ({ id }: EditProps) => {
   useEffect(() => {
     if (!hasShownScreen) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("edit-product-start")
+      window.checksum?.goalTracker.recordGoalFinished("edit-product-start")
       setHasShownScreen(true)
     }
   }, [hasShownScreen])

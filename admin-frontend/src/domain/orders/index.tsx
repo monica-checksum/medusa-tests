@@ -1,7 +1,7 @@
 import { RouteComponentProps, Router } from "@reach/router"
 import { navigate } from "gatsby"
 import { useAdminCreateBatchJob } from "medusa-react"
-import React, {useContext, useMemo, useEffect, useState} from "react"
+import React, { useContext, useMemo, useEffect, useState } from "react"
 import Button from "../../components/fundamentals/button"
 import ExportIcon from "../../components/fundamentals/icons/export-icon"
 import BodyCard from "../../components/organisms/body-card"
@@ -47,12 +47,14 @@ const OrderIndex: React.FC<RouteComponentProps> = () => {
   useEffect(() => {
     if (!hasShownScreen) {
       // @ts-ignore
-      // Check if window.checksum and window.checksum.goalTracker exist
-if (window.checksum?.goalTracker?.recordGoalFinished) {
-window.checksum.goalTracker.recordGoalFinished("view-order-list")
-} else {
-console.warn("window.checksum.goalTracker.recordGoalFinished is not available")
-}
+      // Check if window.checksum and window.checksum?.goalTracker exist
+      if (window.checksum?.goalTracker?.recordGoalFinished) {
+        window.checksum?.goalTracker.recordGoalFinished("view-order-list")
+      } else {
+        console.warn(
+          "window.checksum?.goalTracker.recordGoalFinished is not available"
+        )
+      }
       setHasShownScreen(true)
     }
   }, [hasShownScreen])
@@ -69,9 +71,7 @@ console.warn("window.checksum.goalTracker.recordGoalFinished is not available")
         resetInterval()
         notification("Success", "Successfully initiated export", "success")
         // @ts-ignore
-        window.checksum.goalTracker.recordGoalFinished(
-            "export-orders-success",
-        )
+        window.checksum?.goalTracker.recordGoalFinished("export-orders-success")
       },
       onError: (err) => {
         notification("Error", getErrorMessage(err), "error")

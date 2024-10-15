@@ -51,7 +51,9 @@ export const GiftCardFormProvider = ({
     update(payload, {
       onSuccess: () => {
         // @ts-ignore
-        window.checksum.goalTracker.recordGoalFinished("edit-gift-card-general-information-success")
+        window.checksum?.goalTracker.recordGoalFinished(
+          "edit-gift-card-general-information-success"
+        )
 
         notification("Success", "Product updated successfully", "success")
       },

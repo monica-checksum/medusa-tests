@@ -1,6 +1,6 @@
 import { ShippingOption } from "@medusajs/medusa"
 import { useAdminUpdateShippingOption } from "medusa-react"
-import React, {useEffect, useState} from "react"
+import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import Button from "../../../../../components/fundamentals/button"
 import Modal from "../../../../../components/molecules/modal"
@@ -45,7 +45,9 @@ const EditModal = ({ open, onClose, option }: Props) => {
   if (open) {
     if (!hasShownScreen) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("edit-shipping-option-start")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "edit-shipping-option-start"
+      )
       setHasShownScreen(true)
     }
   }
@@ -62,7 +64,9 @@ const EditModal = ({ open, onClose, option }: Props) => {
       {
         onSuccess: () => {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("edit-shipping-option-success")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "edit-shipping-option-success"
+          )
 
           notification("Success", "Shipping option updated", "success")
           closeAndReset()

@@ -130,7 +130,9 @@ export const ConditionsProvider = ({
       {
         onSuccess: () => {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("new-discount-condition-success")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "new-discount-condition-success"
+          )
 
           notification(
             "Condtions were succesfully added",

@@ -1,7 +1,7 @@
 import { RouteComponentProps } from "@reach/router"
 import { navigate } from "gatsby"
 import { useAdminStore } from "medusa-react"
-import React, {useState} from "react"
+import React, { useState } from "react"
 import ReactJson from "react-json-view"
 import BackButton from "../../../components/atoms/back-button"
 import Spinner from "../../../components/atoms/spinner"
@@ -27,7 +27,7 @@ const CurrencySettings = (_props: RouteComponentProps) => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("view-currency-settings")
+    window.checksum?.goalTracker.recordGoalFinished("view-currency-settings")
     setHasShownScreen(true)
   }
 

@@ -179,11 +179,17 @@ export function PriceListTable(props: PriceListTableProps) {
         {...options}
         enableSearch={options.enableSearch}
         searchValue={query}
-        handleSearch={options.enableSearch ? (...data) => {
-          // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("price-list-table-search")
-          setQuery(...data)
-        } : undefined}
+        handleSearch={
+          options.enableSearch
+            ? (...data) => {
+                // @ts-ignore
+                window.checksum?.goalTracker.recordGoalFinished(
+                  "price-list-table-search"
+                )
+                setQuery(...data)
+              }
+            : undefined
+        }
         filteringOptions={options.filter}
       >
         {/* HEAD */}

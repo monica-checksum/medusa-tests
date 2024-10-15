@@ -210,7 +210,7 @@ const SwapMenu: React.FC<SwapMenuProps> = ({ order, onDismiss }) => {
         onDismiss()
 
         // @ts-ignore
-        window.checksum.goalTracker.recordGoalFinished("request-order-swap")
+        window.checksum?.goalTracker.recordGoalFinished("request-order-swap")
       },
       onError: (err) => {
         notification("Error", getErrorMessage(err), "error")

@@ -30,7 +30,9 @@ const useProductActions = (product: Product) => {
       deleteProduct.mutate()
 
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("delete-product-from-dropdown")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "delete-product-from-dropdown"
+      )
     }
   }
 
@@ -52,10 +54,14 @@ const useProductActions = (product: Product) => {
             onSuccess: () => {
               if (newStatus === "published") {
                 // @ts-ignore
-                window.checksum.goalTracker.recordGoalFinished("publish-product")
+                window.checksum?.goalTracker.recordGoalFinished(
+                  "publish-product"
+                )
               } else {
                 // @ts-ignore
-                window.checksum.goalTracker.recordGoalFinished("unpublish-product")
+                window.checksum?.goalTracker.recordGoalFinished(
+                  "unpublish-product"
+                )
               }
 
               notification(
@@ -82,7 +88,7 @@ const useProductActions = (product: Product) => {
       label: "Duplicate",
       onClick: () => {
         // @ts-ignore
-        window.checksum.goalTracker.recordGoalFinished("duplicate-product")
+        window.checksum?.goalTracker.recordGoalFinished("duplicate-product")
 
         copyProduct(product)
       },

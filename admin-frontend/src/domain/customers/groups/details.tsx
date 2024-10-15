@@ -119,13 +119,13 @@ function CustomerGroupCustomersList(props: CustomerGroupCustomersListProps) {
       addCustomers({ customer_ids: toAdd.map((i) => ({ id: i })) })
 
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("add-customer-to-group")
+      window.checksum?.goalTracker.recordGoalFinished("add-customer-to-group")
     }
     if (toRemove.length) {
       removeCustomers({ customer_ids: toRemove.map((i) => ({ id: i })) })
 
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker.recordGoalFinished(
         "remove-customer-from-group"
       )
     }
@@ -202,7 +202,7 @@ function CustomerGroupDetailsHeader(props: CustomerGroupDetailsHeaderProps) {
     navigate("/a/customers/groups")
 
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("delete-customer-group")
+    window.checksum?.goalTracker.recordGoalFinished("delete-customer-group")
   }
 
   const handleConfirmDialogClose = () => setShowDeleteConfirmation(false)

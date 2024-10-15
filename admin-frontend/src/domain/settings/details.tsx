@@ -1,6 +1,6 @@
 import { Store } from "@medusajs/medusa"
 import { useAdminStore, useAdminUpdateStore } from "medusa-react"
-import React, {useEffect, useState} from "react"
+import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import BreadCrumb from "../../components/molecules/breadcrumb"
 import Input from "../../components/molecules/input"
@@ -24,7 +24,7 @@ const AccountDetails = () => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("view-store-details")
+    window.checksum?.goalTracker.recordGoalFinished("view-store-details")
     setHasShownScreen(true)
   }
 
@@ -46,21 +46,27 @@ const AccountDetails = () => {
     if (!validateSwapLinkTemplate) {
       notification("Error", "Malformed swap url", "error")
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("edit-store-details-error")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "edit-store-details-error"
+      )
       return
     }
 
     if (!validatePaymentLinkTemplate) {
       notification("Error", "Malformed payment url", "error")
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("edit-store-details-error")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "edit-store-details-error"
+      )
       return
     }
 
     if (!validateInviteLinkTemplate) {
       notification("Error", "Malformed invite url", "error")
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("edit-store-details-error")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "edit-store-details-error"
+      )
       return
     }
 
@@ -77,7 +83,9 @@ const AccountDetails = () => {
       onSuccess: () => {
         if (anyDifferences) {
           // @ts-ignore
-          window.checksum.goalTracker.recordGoalFinished("edit-store-details-success")
+          window.checksum?.goalTracker.recordGoalFinished(
+            "edit-store-details-success"
+          )
         }
 
         notification("Success", "Successfully updated store", "success")
@@ -86,7 +94,9 @@ const AccountDetails = () => {
         notification("Error", getErrorMessage(error), "error")
 
         // @ts-ignore
-        window.checksum.goalTracker.recordGoalFinished("edit-store-details-error")
+        window.checksum?.goalTracker.recordGoalFinished(
+          "edit-store-details-error"
+        )
       },
     })
   }

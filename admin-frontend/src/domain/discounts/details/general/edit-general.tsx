@@ -1,6 +1,6 @@
 import { Discount } from "@medusajs/medusa"
 import { useAdminRegions, useAdminUpdateDiscount } from "medusa-react"
-import React, {useEffect, useMemo, useState} from "react"
+import React, { useEffect, useMemo, useState } from "react"
 import { Controller, useForm, useWatch } from "react-hook-form"
 import Button from "../../../../components/fundamentals/button"
 import InputField from "../../../../components/molecules/input"
@@ -35,7 +35,9 @@ const EditGeneral: React.FC<EditGeneralProps> = ({ discount, onClose }) => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("edit-discount-general-information-start")
+    window.checksum?.goalTracker.recordGoalFinished(
+      "edit-discount-general-information-start"
+    )
     setHasShownScreen(true)
   }
 
@@ -73,7 +75,9 @@ const EditGeneral: React.FC<EditGeneralProps> = ({ discount, onClose }) => {
 
           if (didChange) {
             // @ts-ignore
-            window.checksum.goalTracker.recordGoalFinished("edit-discount-general-information-success")
+            window.checksum?.goalTracker.recordGoalFinished(
+              "edit-discount-general-information-success"
+            )
           }
         },
         onError: (error) => {

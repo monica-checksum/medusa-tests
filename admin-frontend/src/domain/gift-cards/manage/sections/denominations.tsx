@@ -29,21 +29,26 @@ const Denominations: React.FC<DenominationsProps> = ({ giftCard }) => {
   const deleteGiftCardVariant = useAdminDeleteVariant(giftCard.id)
   const notification = useNotification()
 
-
   const [hasShownAddDenomination, setHasShownAddDenomination] = useState(false)
   if (addDenom) {
     if (!hasShownAddDenomination) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("edit-gift-card-add-denomination-start")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "edit-gift-card-add-denomination-start"
+      )
       setHasShownAddDenomination(true)
     }
   }
 
-  const [hasShownEditDenomination, setHasShownEditDenomination] = useState(false)
+  const [hasShownEditDenomination, setHasShownEditDenomination] = useState(
+    false
+  )
   if (editDenom) {
     if (!hasShownEditDenomination) {
       // @ts-ignore
-      window.checksum.goalTracker.recordGoalFinished("edit-gift-card-change-denomination-start")
+      window.checksum?.goalTracker.recordGoalFinished(
+        "edit-gift-card-change-denomination-start"
+      )
       setHasShownEditDenomination(true)
     }
   }
@@ -99,7 +104,9 @@ const Denominations: React.FC<DenominationsProps> = ({ giftCard }) => {
         onSuccess: () => {
           if (didChange) {
             // @ts-ignore
-            window.checksum.goalTracker.recordGoalFinished("edit-gift-card-change-denomination-success")
+            window.checksum?.goalTracker.recordGoalFinished(
+              "edit-gift-card-change-denomination-success"
+            )
           }
 
           notification(

@@ -43,7 +43,9 @@ const CreateReturnReasonModal = ({
     // For some reason, the onSuccess callback in the mutate() function is not getting triggered,
     // so I'm putting the create goal here instead
     // @ts-ignore
-    window.checksum.goalTracker.recordGoalFinished("create-return-reason-submit")
+    window.checksum?.goalTracker.recordGoalFinished(
+      "create-return-reason-submit"
+    )
 
     mutate(
       {
