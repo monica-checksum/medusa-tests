@@ -2,6 +2,18 @@
 import { init, IVariablesStore } from "@checksum-ai/runtime";
 const { test, defineChecksumTest, login, expect, checksumAI } = init();
 
+/*
+
+PRINCIPLES TO LEARN & IMPLEMENT WHEN EDITING THIS TEST:
+
+1. Ensure to use variablesStore to store the product name and description. ie: variablesStore.productName = "cktest-todaysdate" (this removes variable scope issues)
+2. Ensure elements are created using a dynamic approach with Date.now() but use "cktest" to ensure we know the add came from one of our tests.
+3. Assert the product was created successfully.
+4. When asserting #2, implement a solution that takes into consideration it may not be visible on the first page load (pagination) ie: use the search bar to filter the product or go page by page until found.
+5. Also, once found, verify the product details match the values used during creation.
+
+*/
+
 test(
   defineChecksumTest("Add a product", "78eGZ"),
   async ({

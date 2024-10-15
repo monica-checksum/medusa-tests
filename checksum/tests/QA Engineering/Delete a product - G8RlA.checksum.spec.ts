@@ -2,7 +2,17 @@
 import { init } from "@checksum-ai/runtime";
 const { test, defineChecksumTest, login, expect, checksumAI } = init();
 
-test(defineChecksumTest("Delete a product", "G8RlA"), async ({ page }) => {
+/*
+PRINCIPLES TO LEARN & IMPLEMENT WHEN EDITING THIS TEST:
+
+1. Ensure to use variablesStore to store the product name and description. ie: variablesStore.productName = "cktest-todaysdate" (this removes variable scope issues)
+2. Verify the app state -- Are there any pre-conditions to be met before running this test? ie: Are there products to delete? Use a try/catch statement.
+3. Take an approach that is robust -- ie; picking the first element in the product list and deleting it (since it is safe to assume products will be listed in the same order for all tests)
+4. After deleting -- verify the product was removed by using a regular expression to match the product name.
+
+*/
+
+test(defineChecksumTest("Delete a product", "G8RlA"), async ({ page, variablesStore }) => {
   await login(page);
   await page.goto("/", { waitUntil: "domcontentloaded" });
   await checksumAI("Click on products button", () =>

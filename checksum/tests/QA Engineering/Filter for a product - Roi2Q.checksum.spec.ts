@@ -2,7 +2,17 @@
 import { init } from "@checksum-ai/runtime";
 const { test, defineChecksumTest, login, expect, checksumAI } = init();
 
-test(defineChecksumTest("Filter for a product", "Roi2Q"), async ({ page }) => {
+/*
+PRINCIPLES TO LEARN & IMPLEMENT WHEN EDITING THIS TEST:
+
+1. Ensure to use variablesStore to store the product name and description. ie: variablesStore.productName = "cktest-todaysdate" (this removes variable scope issues)
+2. When setting the filter, ensure only the products that match the filter are displayed on the page.
+3. Use Checksum built in method - page.compoundSelector() to get the relevant elements for verification.
+3. Verify the state -- if testing for a filter with the value "draft", ensure a products with draft is displayed and if not - edit a product to be a draft before filtering
+
+*/
+
+test(defineChecksumTest("Filter for a product", "Roi2Q"), async ({ page, variablesStore }) => {
   await login(page);
   await page.goto("/", { waitUntil: "domcontentloaded" });
   await checksumAI("Click on products", () =>

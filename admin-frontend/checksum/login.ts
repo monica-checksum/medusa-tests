@@ -8,12 +8,12 @@ export default async function login(
   const apiContext = await request.newContext({
     baseURL: "http://localhost:9000",
   })
-  const response = await apiContext.get("/reset-db")
-  if (response.status() === 200) {
-    console.log("db resetted. Waiting for server to reload")
-  } else {
-    console.log(response.status())
-  }
+  // const response = await apiContext.get("/reset-db")
+  // if (response.status() === 200) {
+  //   console.log("db resetted. Waiting for server to reload")
+  // } else {
+  //   console.log(response.status())
+  // }
   while (true) {
     try {
       const apiTestRequest = await apiContext.get("/")
