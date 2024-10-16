@@ -1,4 +1,6 @@
-import { RunMode, getChecksumConfig } from "@checksum-ai/runtime"
+import { RunMode, getChecksumConfig } from "@checksum-ai/runtime";
+import { resolve } from "path";
+require("dotenv").config({ path: resolve(__dirname, ".env") });
 
 export default getChecksumConfig({
   /**
@@ -7,46 +9,55 @@ export default getChecksumConfig({
   runMode: RunMode.Normal,
 
   /**
-   * Insert here your Checksum API key
+   * Insert here your Checksum API key. You can find it in https://app.checksum.ai/#/settings/
    */
-  apiKey: "medusamedusa",
+  apiKey: "<API key>",
 
   /**
-   * This is the base URL of the tested app. E.g. https://example.com
+   * This is the base URL of the tested app. E.g. https://example.com. URLs in the tests will be relative to the base URL.
    */
-  baseURL: "http://localhost:7001",
-  // apiURL: "http://localhost:3000",
+  baseURL: "<base URL>",
 
-  username: "test@test.com",
+  /**
+   * Insert the account's username that will be used
+   * to login into your testing environment
+   */
+  username: "<username>",
 
-  password: "1234",
+  /**
+   * Insert the account's password that will be used
+   * to login into your testing environment
+   */
+  password: "<password>",
+
   /**
    * The credentials of the users that will be used to login into your testing environment
    * Uncomment if you require support for multiple users
    */
-  users: [
-    {
-      role: "host",
-      username: "<host username>",
-      password: "<host password>",
-    },
-    {
-      role: "guest",
-      username: "<guest username>",
-      password: "<guest password>",
-    },
-  ],
+  // users: [
+  //   {
+  //     role: "host",
+  //     username: "<host username>",
+  //     password: "<host password>",
+  //   },
+  //   {
+  //     role: "guest",
+  //     username: "<guest username>",
+  //     password: "<guest password>",
+  //   },
+  // ],
+
   options: {
     /**
-     * Whether to use Checksum Smart Selector when an action fails (see Readme)
+     * Whether to use Checksum Smart Selector in order to recover from failing to locate an element for an action (see README)
      */
     useChecksumSelectors: true,
     /**
-     * Whether to use Checksum AI when an action fails (see Readme)
+     * Whether to use Checksum AI in order to recover from a failed action or assertion (see README)
      */
-    useChecksumAI: true,
+    useChecksumAI: { actions: true, assertions: false },
     /**
-     * Whether to use mock API data when running your tests (see Readme)
+     * Whether to use mock API data when running your tests (see README)
      */
     useMockData: false,
     /**
@@ -59,4 +70,4 @@ export default getChecksumConfig({
      */
     autoHealPRs: !!process.env.CI,
   },
-})
+});

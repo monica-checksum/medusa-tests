@@ -8,6 +8,13 @@ Things to do:
 2. Save the product name to a variable using the variableStore. Navigate to the product page and verify the product name matches the variable. (https://docs.google.com/document/d/1N9XNM8iKTVgUSnRV2ARGi_6lpVo3f2FCaa9pJ_GMU6Q/edit#heading=h.t045htr4v6ra)
 3. Verify the product details match the values used during creation.
 
+
+When you are done - Experience Checksum Autohealing features
+1. Read about auto healing features in the /admin-frontend/checksum/README.md
+2. Break the New Product Button Selector. Run the test and see how it autoheals.
+3. Remove the New Product Button action and see how Checksum auto heals it
+4. Turn off all auto healing features and run the test again. See how the test fails.
+5. NOTE: sometimes it's better to turn off auto healing features when editing a test. Makes it easier to spot the changes you need to make.
 */
 
 test(
@@ -33,7 +40,7 @@ test(
         .getByRole("button", { name: "New Product" })
         .click()
     )
-    variablesStore.titleValue = "New Product"
+    variablesStore.titleValue = "cktest-" + Date.now()
     await checksumAI("Fill title with random string", async () => {
       await page
         .checksumSelector("J6hvu")
