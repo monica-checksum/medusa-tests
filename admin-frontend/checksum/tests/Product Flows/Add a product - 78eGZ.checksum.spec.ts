@@ -40,7 +40,7 @@ test(
         .getByRole("button", { name: "New Product" })
         .click()
     )
-    variablesStore.titleValue = "cktest-" + Date.now()
+    variablesStore.titleValue = "New Product"
     await checksumAI("Fill title with random string", async () => {
       await page
         .checksumSelector("J6hvu")
