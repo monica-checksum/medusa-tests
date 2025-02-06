@@ -1,6 +1,6 @@
-import { RunMode, getChecksumConfig } from "@checksum-ai/runtime";
-import { resolve } from "path";
-require("dotenv").config({ path: resolve(__dirname, ".env") });
+import { RunMode, getChecksumConfig } from "@checksum-ai/runtime"
+import { resolve } from "path"
+require("dotenv").config({ path: resolve(__dirname, ".env") })
 
 export default getChecksumConfig({
   /**
@@ -11,41 +11,27 @@ export default getChecksumConfig({
   /**
    * Insert here your Checksum API key. You can find it in https://app.checksum.ai/#/settings/
    */
-  apiKey: "<API key>",
+  apiKey: process.env.CHECKSUM_API_KEY,
 
   /**
-   * This is the base URL of the tested app. E.g. https://example.com. URLs in the tests will be relative to the base URL.
+   * Test environments
    */
-  baseURL: "<base URL>",
-
-  /**
-   * Insert the account's username that will be used
-   * to login into your testing environment
-   */
-  username: "<username>",
-
-  /**
-   * Insert the account's password that will be used
-   * to login into your testing environment
-   */
-  password: "<password>",
-
-  /**
-   * The credentials of the users that will be used to login into your testing environment
-   * Uncomment if you require support for multiple users
-   */
-  // users: [
-  //   {
-  //     role: "host",
-  //     username: "<host username>",
-  //     password: "<host password>",
-  //   },
-  //   {
-  //     role: "guest",
-  //     username: "<guest username>",
-  //     password: "<guest password>",
-  //   },
-  // ],
+  environments: [
+    {
+      name: "medusa_local",
+      baseURL: process.env.BASE_URL || "http://localhost:7000",
+      loginURL: process.env.LOGIN_URL,
+      default: true,
+      users: [
+        {
+          role: "",
+          username: process.env.USERNAME,
+          password: process.env.PASSWORD,
+          default: true,
+        },
+      ],
+    },
+  ],
 
   options: {
     /**
@@ -55,7 +41,7 @@ export default getChecksumConfig({
     /**
      * Whether to use Checksum AI in order to recover from a failed action or assertion (see README)
      */
-    useChecksumAI: { actions: true, assertions: false },
+    useChecksumAI: { actions: false, assertions: false },
     /**
      * Whether to use mock API data when running your tests (see README)
      */
@@ -70,4 +56,4 @@ export default getChecksumConfig({
      */
     autoHealPRs: !!process.env.CI,
   },
-});
+})
