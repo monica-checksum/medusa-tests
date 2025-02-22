@@ -8,7 +8,7 @@ PRINCIPLES TO LEARN & IMPLEMENT WHEN EDITING THIS TEST:
 1. Publish a product but before you do create an API for adding it by first using the network tab to figure out the structure of the API call when creating a new product and then using that API to create the product in the test
 2. Verify the product was created successfully by checking the response from the API and by checking the product appears on the page using playwright assertions
 3. Later, delete the product using an API call
-4. Implement page.waitForResponse() to wait for an action to execute. Recommend referencing either the Checksum Playbook or playwright.dev for additional help.
+4. Implement page.waitForResponse() to wait for a network response when Clicking to publish the product. Recommend referencing either the Checksum Playbook or playwright.dev for additional help.
 */
 
 test(
