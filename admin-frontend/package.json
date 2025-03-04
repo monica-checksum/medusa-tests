@@ -119,7 +119,6 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "checksum": "ts-node --esm --skipIgnore ./node_modules/@checksum-ai/runtime/cli.js"
