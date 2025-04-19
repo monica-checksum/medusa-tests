@@ -157,7 +157,7 @@ const AddVariantsForm = ({
     removeOption(index)
 
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("delete-product-option")
+    window.checksum?.goalTracker?.recordGoalFinished("delete-product-option")
 
     if (!option) {
       return
@@ -189,7 +189,7 @@ const AddVariantsForm = ({
     updateVariant(index, data)
 
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("update-product-variant")
+    window.checksum?.goalTracker?.recordGoalFinished("update-product-variant")
 
     return true
   }
@@ -245,7 +245,7 @@ const AddVariantsForm = ({
     onToggleForm()
 
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("append-product-variant")
+    window.checksum?.goalTracker?.recordGoalFinished("append-product-variant")
   })
 
   const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
@@ -264,7 +264,7 @@ const AddVariantsForm = ({
     updateOption(index, { ...option, values: [...option.values, value] })
 
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("add-product-option-value")
+    window.checksum?.goalTracker?.recordGoalFinished("add-product-option-value")
   }
 
   return (

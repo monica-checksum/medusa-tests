@@ -26,7 +26,7 @@ const SettingsIndex = () => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("view-settings-index-page")
+    window.checksum?.goalTracker?.recordGoalFinished("view-settings-index-page")
     setHasShownScreen(true)
   }
 

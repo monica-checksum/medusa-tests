@@ -120,7 +120,7 @@ const MarkShippedModal: React.FC<MarkShippedModalProps> = ({
         handleCancel()
 
         // @ts-ignore
-        window.checksum?.goalTracker.recordGoalFinished("mark-order-shipped")
+        window.checksum?.goalTracker?.recordGoalFinished("mark-order-shipped")
       },
       onError: (err) => notification("Error", getErrorMessage(err), "error"),
     })

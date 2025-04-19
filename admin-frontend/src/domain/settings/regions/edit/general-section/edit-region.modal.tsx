@@ -39,7 +39,7 @@ const EditRegionModal = ({ region, onClose, open }: Props) => {
   if (open) {
     if (!hasShownScreen) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "edit-region-details-start"
       )
       setHasShownScreen(true)
@@ -87,7 +87,7 @@ const EditRegionModal = ({ region, onClose, open }: Props) => {
         closeAndReset()
 
         // @ts-ignore
-        window.checksum?.goalTracker.recordGoalFinished(
+        window.checksum?.goalTracker?.recordGoalFinished(
           "edit-region-details-success"
         )
       },

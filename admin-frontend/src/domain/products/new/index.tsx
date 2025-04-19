@@ -83,7 +83,7 @@ const NewProduct = ({ onClose }: Props) => {
   useEffect(() => {
     if (!hasShownScreen) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished("new-product-start")
+      window.checksum?.goalTracker?.recordGoalFinished("new-product-start")
       setHasShownScreen(true)
     }
   }, [hasShownScreen])
@@ -124,7 +124,7 @@ const NewProduct = ({ onClose }: Props) => {
 
         if (urls.length) {
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "new-product-with-images"
           )
         }
@@ -156,7 +156,7 @@ const NewProduct = ({ onClose }: Props) => {
 
         if (urls.length) {
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "new-product-with-thumbnail"
           )
         }
@@ -168,13 +168,13 @@ const NewProduct = ({ onClose }: Props) => {
           navigate(`/a/products/${product.id}`)
 
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished("new-product-success")
+          window.checksum?.goalTracker?.recordGoalFinished("new-product-success")
         },
         onError: (err) => {
           notification("Error", getErrorMessage(err), "error")
 
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished("new-product-error")
+          window.checksum?.goalTracker?.recordGoalFinished("new-product-error")
         },
       })
     })

@@ -46,7 +46,7 @@ const NewTaxRate = ({ regionId, onDismiss }: NewTaxRateProps) => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("create-tax-rate-start")
+    window.checksum?.goalTracker?.recordGoalFinished("create-tax-rate-start")
     setHasShownScreen(true)
   }
 
@@ -64,7 +64,7 @@ const NewTaxRate = ({ regionId, onDismiss }: NewTaxRateProps) => {
       {
         onSuccess: () => {
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "create-tax-rate-success"
           )
 

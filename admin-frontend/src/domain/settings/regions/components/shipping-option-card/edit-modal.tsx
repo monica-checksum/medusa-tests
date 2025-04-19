@@ -45,7 +45,7 @@ const EditModal = ({ open, onClose, option }: Props) => {
   if (open) {
     if (!hasShownScreen) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "edit-shipping-option-start"
       )
       setHasShownScreen(true)
@@ -64,7 +64,7 @@ const EditModal = ({ open, onClose, option }: Props) => {
       {
         onSuccess: () => {
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "edit-shipping-option-success"
           )
 

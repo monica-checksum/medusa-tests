@@ -22,7 +22,7 @@ const Images = () => {
     remove(index)
 
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished(
+    window.checksum?.goalTracker?.recordGoalFinished(
       "edit-gift-card-delete-image"
     )
   }
@@ -39,7 +39,7 @@ const Images = () => {
       append(toAppend)
 
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "edit-gift-card-add-image"
       )
     }

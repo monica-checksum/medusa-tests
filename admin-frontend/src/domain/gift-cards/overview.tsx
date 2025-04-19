@@ -41,7 +41,7 @@ const Overview: React.FC<RouteComponentProps> = () => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("view-gift-card-list")
+    window.checksum?.goalTracker?.recordGoalFinished("view-gift-card-list")
     setHasShownScreen(true)
   }
 
@@ -58,10 +58,10 @@ const Overview: React.FC<RouteComponentProps> = () => {
         onSuccess: () => {
           if (status === ProductStatus.PUBLISHED) {
             // @ts-ignore
-            window.checksum?.goalTracker.recordGoalFinished("publish-gift-card")
+            window.checksum?.goalTracker?.recordGoalFinished("publish-gift-card")
           } else {
             // @ts-ignore
-            window.checksum?.goalTracker.recordGoalFinished(
+            window.checksum?.goalTracker?.recordGoalFinished(
               "unpublish-gift-card"
             )
           }

@@ -31,7 +31,7 @@ const TaxDetails = ({ id }) => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished(
+    window.checksum?.goalTracker?.recordGoalFinished(
       "view-tax-settings-for-region"
     )
     setHasShownScreen(true)

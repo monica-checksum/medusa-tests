@@ -24,7 +24,7 @@ const Edit = ({ id }: EditProps) => {
   useEffect(() => {
     if (!hasShownScreen) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished("edit-product-start")
+      window.checksum?.goalTracker?.recordGoalFinished("edit-product-start")
       setHasShownScreen(true)
     }
   }, [hasShownScreen])

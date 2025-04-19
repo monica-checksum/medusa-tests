@@ -67,12 +67,12 @@ const Information: React.FC<InformationProps> = ({ giftCard }) => {
         onSuccess: () => {
           if (giftCard.status === "draft") {
             // @ts-ignore
-            window.checksum?.goalTracker.recordGoalFinished(
+            window.checksum?.goalTracker?.recordGoalFinished(
               "edit-gift-card-publish"
             )
           } else {
             // @ts-ignore
-            window.checksum?.goalTracker.recordGoalFinished(
+            window.checksum?.goalTracker?.recordGoalFinished(
               "edit-gift-card-unpublish"
             )
           }
@@ -90,7 +90,7 @@ const Information: React.FC<InformationProps> = ({ giftCard }) => {
     deleteGiftCard.mutate(undefined, {
       onSuccess: () => {
         // @ts-ignore
-        window.checksum?.goalTracker.recordGoalFinished("delete-gift-card")
+        window.checksum?.goalTracker?.recordGoalFinished("delete-gift-card")
 
         navigate("/a/gift-cards")
         notification("Success", "Gift card updated successfully", "success")

@@ -38,7 +38,7 @@ const EditConfigurations: React.FC<EditConfigurationsProps> = ({
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished(
+    window.checksum?.goalTracker?.recordGoalFinished(
       "edit-discount-configurations-start"
     )
     setHasShownScreen(true)
@@ -75,7 +75,7 @@ const EditConfigurations: React.FC<EditConfigurationsProps> = ({
 
           if (didChange) {
             // @ts-ignore
-            window.checksum?.goalTracker.recordGoalFinished(
+            window.checksum?.goalTracker?.recordGoalFinished(
               "edit-discount-configurations-success"
             )
           }

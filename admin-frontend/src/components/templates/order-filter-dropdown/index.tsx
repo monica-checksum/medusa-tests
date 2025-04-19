@@ -61,7 +61,7 @@ const OrderFilters = ({
 
   const handleRemoveTab = (val) => {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished(
+    window.checksum?.goalTracker?.recordGoalFinished(
       "orders-table-remove-saved-filter"
     )
 
@@ -72,7 +72,7 @@ const OrderFilters = ({
 
   const handleSaveTab = () => {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished(
+    window.checksum?.goalTracker?.recordGoalFinished(
       "orders-table-save-new-filter"
     )
 
@@ -94,31 +94,31 @@ const OrderFilters = ({
   const onSubmit = () => {
     if (tempState.payment.filter) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "orders-table-apply-payment-filter"
       )
     }
     if (tempState.status.filter) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "orders-table-apply-status-filter"
       )
     }
     if (tempState.fulfillment.filter) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "orders-table-apply-fulfillment-filter"
       )
     }
     if (tempState.date.filter) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "orders-table-apply-date-filter"
       )
     }
     if (tempState.region.filter) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "orders-table-apply-region-filter"
       )
     }
@@ -129,7 +129,7 @@ const OrderFilters = ({
   const onClear = () => {
     if (numberOfFilters > 0) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "orders-table-clear-filters"
       )
     }

@@ -35,7 +35,7 @@ const EditGeneral: React.FC<EditGeneralProps> = ({ discount, onClose }) => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished(
+    window.checksum?.goalTracker?.recordGoalFinished(
       "edit-discount-general-information-start"
     )
     setHasShownScreen(true)
@@ -75,7 +75,7 @@ const EditGeneral: React.FC<EditGeneralProps> = ({ discount, onClose }) => {
 
           if (didChange) {
             // @ts-ignore
-            window.checksum?.goalTracker.recordGoalFinished(
+            window.checksum?.goalTracker?.recordGoalFinished(
               "edit-discount-general-information-success"
             )
           }

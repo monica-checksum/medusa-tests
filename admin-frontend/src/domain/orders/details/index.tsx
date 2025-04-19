@@ -166,7 +166,7 @@ const OrderDetails = ({ id }: OrderDetailProps) => {
   if (addressModal) {
     if (!hasShownScreen) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "edit-order-address-start"
       )
       setHasShownScreen(true)
@@ -221,7 +221,7 @@ const OrderDetails = ({ id }: OrderDetailProps) => {
     return cancelOrder.mutate(undefined, {
       onSuccess: () => {
         // @ts-ignore
-        window.checksum?.goalTracker.recordGoalFinished("cancel-order")
+        window.checksum?.goalTracker?.recordGoalFinished("cancel-order")
 
         notification("Success", "Successfully canceled order", "success")
       },
@@ -638,7 +638,7 @@ const OrderDetails = ({ id }: OrderDetailProps) => {
                 handleClose={() => setAddressModal(null)}
                 submit={(...data) => {
                   // @ts-ignore
-                  window.checksum?.goalTracker.recordGoalFinished(
+                  window.checksum?.goalTracker?.recordGoalFinished(
                     "edit-order-address-submit"
                   )
 

@@ -41,7 +41,7 @@ const ThumbnailModal = ({ product, open, onClose }: Props) => {
   if (open) {
     if (!hasShownScreen) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "upload-product-thumbnail-start"
       )
       setHasShownScreen(true)
@@ -81,7 +81,7 @@ const ThumbnailModal = ({ product, open, onClose }: Props) => {
 
     if (url) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "upload-product-thumbnail-submit"
       )
     }

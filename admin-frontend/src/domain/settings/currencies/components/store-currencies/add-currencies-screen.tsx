@@ -45,7 +45,7 @@ const AddCurrenciesScreen = () => {
         onSuccess: () => {
           if (selectedRowIds.length > 0) {
             // @ts-ignore
-            window.checksum?.goalTracker.recordGoalFinished(
+            window.checksum?.goalTracker?.recordGoalFinished(
               "add-currency-success"
             )
           }

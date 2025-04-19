@@ -37,7 +37,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("edit-user-start")
+    window.checksum?.goalTracker?.recordGoalFinished("edit-user-start")
     setHasShownScreen(true)
   }
 
@@ -58,7 +58,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({
       onSuccess: () => {
         if (anyChanges) {
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished("edit-user-success")
+          window.checksum?.goalTracker?.recordGoalFinished("edit-user-success")
         }
 
         notification("Success", `User was updated`, "success")

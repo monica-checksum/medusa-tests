@@ -54,7 +54,7 @@ function ImportProducts(props: ImportProductsProps) {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("import-products-start")
+    window.checksum?.goalTracker?.recordGoalFinished("import-products-start")
     setHasShownScreen(true)
   }
 
@@ -118,12 +118,12 @@ function ImportProducts(props: ImportProductsProps) {
       setBatchJobId(batchJob.batch_job.id)
 
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "import-products-upload-csv-success"
       )
     } catch (e) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "import-products-upload-csv-error"
       )
 

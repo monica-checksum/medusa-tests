@@ -44,7 +44,7 @@ export function CustomerGroupContextContainer(
     if (!!props.group) {
       if (!hasShownScreen) {
         // @ts-ignore
-        window.checksum?.goalTracker.recordGoalFinished(
+        window.checksum?.goalTracker?.recordGoalFinished(
           "edit-customer-group-start"
         )
         setHasShownScreen(true)
@@ -52,7 +52,7 @@ export function CustomerGroupContextContainer(
     } else {
       if (!hasShownScreen) {
         // @ts-ignore
-        window.checksum?.goalTracker.recordGoalFinished(
+        window.checksum?.goalTracker?.recordGoalFinished(
           "new-customer-group-start"
         )
         setHasShownScreen(true)
@@ -81,13 +81,13 @@ export function CustomerGroupContextContainer(
 
           if (didChange) {
             // @ts-ignore
-            window.checksum?.goalTracker.recordGoalFinished(
+            window.checksum?.goalTracker?.recordGoalFinished(
               "edit-customer-group-success"
             )
           }
         } else {
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "new-customer-group-success"
           )
         }

@@ -84,7 +84,7 @@ const CollectionModal: React.FC<CollectionModalProps> = ({
         {
           onSuccess: () => {
             // @ts-ignore
-            window.checksum?.goalTracker.recordGoalFinished(
+            window.checksum?.goalTracker?.recordGoalFinished(
               "edit-collection-success"
             )
             notification(
@@ -96,7 +96,7 @@ const CollectionModal: React.FC<CollectionModalProps> = ({
           },
           onError: (error) => {
             // @ts-ignore
-            window.checksum?.goalTracker.recordGoalFinished(
+            window.checksum?.goalTracker?.recordGoalFinished(
               "edit-collection-error"
             )
             notification("Error", getErrorMessage(error), "error")
@@ -118,7 +118,7 @@ const CollectionModal: React.FC<CollectionModalProps> = ({
         {
           onSuccess: () => {
             // @ts-ignore
-            window.checksum?.goalTracker.recordGoalFinished(
+            window.checksum?.goalTracker?.recordGoalFinished(
               "create-collection-success"
             )
             notification(
@@ -130,7 +130,7 @@ const CollectionModal: React.FC<CollectionModalProps> = ({
           },
           onError: (error) => {
             // @ts-ignore
-            window.checksum?.goalTracker.recordGoalFinished(
+            window.checksum?.goalTracker?.recordGoalFinished(
               "create-collection-error"
             )
             notification("Error", getErrorMessage(error), "error")

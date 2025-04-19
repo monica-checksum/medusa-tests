@@ -246,13 +246,13 @@ const ClaimMenu: React.FC<ClaimMenuProps> = ({ order, onDismiss }) => {
         onDismiss()
 
         // @ts-ignore
-        window.checksum?.goalTracker.recordGoalFinished("create-claim-success")
+        window.checksum?.goalTracker?.recordGoalFinished("create-claim-success")
       },
       onError: (error) => {
         notification("Error", getErrorMessage(error), "error")
 
         // @ts-ignore
-        window.checksum?.goalTracker.recordGoalFinished("create-claim-error")
+        window.checksum?.goalTracker?.recordGoalFinished("create-claim-error")
       },
     })
   }

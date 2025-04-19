@@ -29,7 +29,7 @@ const DraftOrderIndex: React.FC<RouteComponentProps> = () => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("view-draft-orders")
+    window.checksum?.goalTracker?.recordGoalFinished("view-draft-orders")
     setHasShownScreen(true)
   }
 

@@ -44,7 +44,7 @@ const UsageInsightsModal = ({ config, open, onClose }: Props) => {
   if (open) {
     if (!hasShownScreen) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "edit-usage-insights-start"
       )
       setHasShownScreen(true)
@@ -64,7 +64,7 @@ const UsageInsightsModal = ({ config, open, onClose }: Props) => {
       onSuccess: () => {
         if (anyChanges) {
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "edit-usage-insights-success"
           )
         }

@@ -27,7 +27,7 @@ const CurrencySettings = (_props: RouteComponentProps) => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("view-currency-settings")
+    window.checksum?.goalTracker?.recordGoalFinished("view-currency-settings")
     setHasShownScreen(true)
   }
 

@@ -12,7 +12,7 @@ const Regions = (props: Props) => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("view-region-settings")
+    window.checksum?.goalTracker?.recordGoalFinished("view-region-settings")
     setHasShownScreen(true)
   }
 

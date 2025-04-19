@@ -85,7 +85,7 @@ const HeadingBodyCard = ({ priceList, setIsOpen, ...props }) => {
       deletePriceList.mutate(undefined, {
         onSuccess: () => {
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "delete-price-list-success"
           )
 

@@ -28,7 +28,7 @@ const ProductsFilter = ({
 
   const handleRemoveTab = (val) => {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished(
+    window.checksum?.goalTracker?.recordGoalFinished(
       "products-table-remove-saved-filter"
     )
 
@@ -39,7 +39,7 @@ const ProductsFilter = ({
 
   const handleSaveTab = () => {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished(
+    window.checksum?.goalTracker?.recordGoalFinished(
       "products-table-save-new-filter"
     )
 
@@ -61,19 +61,19 @@ const ProductsFilter = ({
   const onSubmit = () => {
     if (tempState.collection.filter) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "products-table-apply-collection-filter"
       )
     }
     if (tempState.status.filter) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "products-table-apply-status-filter"
       )
     }
     if (tempState.tags.filter) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "products-table-apply-tags-filter"
       )
     }
@@ -83,7 +83,7 @@ const ProductsFilter = ({
   const onClear = () => {
     if (numberOfFilters > 0) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "products-table-clear-filters"
       )
     }

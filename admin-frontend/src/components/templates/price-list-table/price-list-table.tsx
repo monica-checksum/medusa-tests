@@ -183,7 +183,7 @@ export function PriceListTable(props: PriceListTableProps) {
           options.enableSearch
             ? (...data) => {
                 // @ts-ignore
-                window.checksum?.goalTracker.recordGoalFinished(
+                window.checksum?.goalTracker?.recordGoalFinished(
                   "price-list-table-search"
                 )
                 setQuery(...data)

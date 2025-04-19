@@ -56,7 +56,7 @@ const useDiscountConfigurations = (discount: Discount) => {
               {
                 onSuccess: () => {
                   // @ts-ignore
-                  window.checksum?.goalTracker.recordGoalFinished(
+                  window.checksum?.goalTracker?.recordGoalFinished(
                     "delete-discount-end-date-success"
                   )
 
@@ -92,7 +92,7 @@ const useDiscountConfigurations = (discount: Discount) => {
               {
                 onSuccess: () => {
                   // @ts-ignore
-                  window.checksum?.goalTracker.recordGoalFinished(
+                  window.checksum?.goalTracker?.recordGoalFinished(
                     "delete-discount-usage-limit-success"
                   )
 
@@ -128,7 +128,7 @@ const useDiscountConfigurations = (discount: Discount) => {
               {
                 onSuccess: () => {
                   // @ts-ignore
-                  window.checksum?.goalTracker.recordGoalFinished(
+                  window.checksum?.goalTracker?.recordGoalFinished(
                     "delete-discount-duration-success"
                   )
 

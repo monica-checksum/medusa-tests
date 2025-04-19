@@ -33,7 +33,7 @@ const Denominations: React.FC<DenominationsProps> = ({ giftCard }) => {
   if (addDenom) {
     if (!hasShownAddDenomination) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "edit-gift-card-add-denomination-start"
       )
       setHasShownAddDenomination(true)
@@ -46,7 +46,7 @@ const Denominations: React.FC<DenominationsProps> = ({ giftCard }) => {
   if (editDenom) {
     if (!hasShownEditDenomination) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "edit-gift-card-change-denomination-start"
       )
       setHasShownEditDenomination(true)
@@ -104,7 +104,7 @@ const Denominations: React.FC<DenominationsProps> = ({ giftCard }) => {
         onSuccess: () => {
           if (didChange) {
             // @ts-ignore
-            window.checksum?.goalTracker.recordGoalFinished(
+            window.checksum?.goalTracker?.recordGoalFinished(
               "edit-gift-card-change-denomination-success"
             )
           }

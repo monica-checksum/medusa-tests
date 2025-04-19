@@ -30,7 +30,7 @@ const MediaModal = ({ product, open, onClose }: Props) => {
   if (open) {
     if (!hasShownScreen) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "edit-product-images-start"
       )
       setHasShownScreen(true)
@@ -77,7 +77,7 @@ const MediaModal = ({ product, open, onClose }: Props) => {
 
     if (urls.length > 0) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "edit-product-images-submit"
       )
     }

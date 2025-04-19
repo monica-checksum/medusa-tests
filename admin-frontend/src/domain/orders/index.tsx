@@ -49,10 +49,10 @@ const OrderIndex: React.FC<RouteComponentProps> = () => {
       // @ts-ignore
       // Check if window.checksum and window.checksum?.goalTracker exist
       if (window.checksum?.goalTracker?.recordGoalFinished) {
-        window.checksum?.goalTracker.recordGoalFinished("view-order-list")
+        window.checksum?.goalTracker?.recordGoalFinished("view-order-list")
       } else {
         console.warn(
-          "window.checksum?.goalTracker.recordGoalFinished is not available"
+          "window.checksum?.goalTracker?.recordGoalFinished is not available"
         )
       }
       setHasShownScreen(true)
@@ -71,7 +71,7 @@ const OrderIndex: React.FC<RouteComponentProps> = () => {
         resetInterval()
         notification("Success", "Successfully initiated export", "success")
         // @ts-ignore
-        window.checksum?.goalTracker.recordGoalFinished("export-orders-success")
+        window.checksum?.goalTracker?.recordGoalFinished("export-orders-success")
       },
       onError: (err) => {
         notification("Error", getErrorMessage(err), "error")

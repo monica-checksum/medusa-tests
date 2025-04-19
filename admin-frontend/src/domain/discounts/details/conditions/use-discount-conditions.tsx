@@ -35,7 +35,7 @@ export const useDiscountConditions = (discount: Discount) => {
     mutate(conditionId, {
       onSuccess: () => {
         // @ts-ignore
-        window.checksum?.goalTracker.recordGoalFinished(
+        window.checksum?.goalTracker?.recordGoalFinished(
           "delete-discount-condition-success"
         )
 

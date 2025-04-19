@@ -35,7 +35,7 @@ const GeneralModal = ({ product, open, onClose }: Props) => {
   if (open) {
     if (!hasShownScreen) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "edit-product-general-information-start"
       )
       setHasShownScreen(true)
@@ -89,7 +89,7 @@ const GeneralModal = ({ product, open, onClose }: Props) => {
     )
 
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished(
+    window.checksum?.goalTracker?.recordGoalFinished(
       "edit-product-general-information-submit"
     )
   })

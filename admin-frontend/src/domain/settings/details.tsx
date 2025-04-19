@@ -24,7 +24,7 @@ const AccountDetails = () => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("view-store-details")
+    window.checksum?.goalTracker?.recordGoalFinished("view-store-details")
     setHasShownScreen(true)
   }
 
@@ -46,7 +46,7 @@ const AccountDetails = () => {
     if (!validateSwapLinkTemplate) {
       notification("Error", "Malformed swap url", "error")
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "edit-store-details-error"
       )
       return
@@ -55,7 +55,7 @@ const AccountDetails = () => {
     if (!validatePaymentLinkTemplate) {
       notification("Error", "Malformed payment url", "error")
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "edit-store-details-error"
       )
       return
@@ -64,7 +64,7 @@ const AccountDetails = () => {
     if (!validateInviteLinkTemplate) {
       notification("Error", "Malformed invite url", "error")
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "edit-store-details-error"
       )
       return
@@ -83,7 +83,7 @@ const AccountDetails = () => {
       onSuccess: () => {
         if (anyDifferences) {
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "edit-store-details-success"
           )
         }
@@ -94,7 +94,7 @@ const AccountDetails = () => {
         notification("Error", getErrorMessage(error), "error")
 
         // @ts-ignore
-        window.checksum?.goalTracker.recordGoalFinished(
+        window.checksum?.goalTracker?.recordGoalFinished(
           "edit-store-details-error"
         )
       },

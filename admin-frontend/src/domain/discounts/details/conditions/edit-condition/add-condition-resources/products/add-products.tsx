@@ -61,7 +61,7 @@ const AddProductConditionsScreen = () => {
             onClick={() => {
               if (selectedResources.length > 0) {
                 // @ts-ignore
-                window.checksum?.goalTracker.recordGoalFinished(
+                window.checksum?.goalTracker?.recordGoalFinished(
                   "add-discount-condition-product-resource"
                 )
               }
@@ -77,7 +77,7 @@ const AddProductConditionsScreen = () => {
             onClick={() => {
               if (selectedResources.length > 0) {
                 // @ts-ignore
-                window.checksum?.goalTracker.recordGoalFinished(
+                window.checksum?.goalTracker?.recordGoalFinished(
                   "add-discount-condition-product-resource"
                 )
               }

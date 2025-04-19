@@ -56,7 +56,7 @@ export const EditConditionProvider = ({
       {
         onSuccess: () => {
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "add-discount-condition-resource-success"
           )
 
@@ -79,7 +79,7 @@ export const EditConditionProvider = ({
       {
         onSuccess: () => {
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "delete-discount-condition-resource-success"
           )
 

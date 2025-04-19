@@ -35,7 +35,7 @@ const DiscountForm: React.FC<DiscountFormProps> = ({
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("new-discount-start")
+    window.checksum?.goalTracker?.recordGoalFinished("new-discount-start")
     setHasShownScreen(true)
   }
 
@@ -61,7 +61,7 @@ const DiscountForm: React.FC<DiscountFormProps> = ({
           handleReset()
 
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "new-discount-safe-draft-success"
           )
         })
@@ -69,7 +69,7 @@ const DiscountForm: React.FC<DiscountFormProps> = ({
           notification("Error", getErrorMessage(error), "error")
 
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "new-discount-save-draft-error"
           )
         })
@@ -86,14 +86,14 @@ const DiscountForm: React.FC<DiscountFormProps> = ({
       handleReset()
 
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "new-discount-publish-success"
       )
     } catch (error) {
       notification("Error", getErrorMessage(error), "error")
 
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "new-discount-publish-error"
       )
     }

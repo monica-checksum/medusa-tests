@@ -107,7 +107,7 @@ const EditVariantsModal = ({ open, onClose, product }: Props) => {
       },
       () => {
         // @ts-ignore
-        window.checksum?.goalTracker.recordGoalFinished(
+        window.checksum?.goalTracker?.recordGoalFinished(
           "edit-product-variants-inventory-success"
         )
 

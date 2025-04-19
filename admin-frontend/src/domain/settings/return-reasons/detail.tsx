@@ -46,7 +46,7 @@ const ReturnReasonDetail = ({ reason }: ReturnReasonDetailsProps) => {
     deleteRR(undefined, {
       onSuccess: () => {
         // @ts-ignore
-        window.checksum?.goalTracker.recordGoalFinished(
+        window.checksum?.goalTracker?.recordGoalFinished(
           "delete-return-reason-success"
         )
       },
@@ -71,7 +71,7 @@ const ReturnReasonDetail = ({ reason }: ReturnReasonDetailsProps) => {
         onSuccess: () => {
           if (anyChanges) {
             // @ts-ignore
-            window.checksum?.goalTracker.recordGoalFinished(
+            window.checksum?.goalTracker?.recordGoalFinished(
               "edit-return-reason-success"
             )
           }
@@ -114,7 +114,7 @@ const ReturnReasonDetail = ({ reason }: ReturnReasonDetailsProps) => {
             icon: <DuplicateIcon size={20} />,
             onClick: () => {
               // @ts-ignore
-              window.checksum?.goalTracker.recordGoalFinished(
+              window.checksum?.goalTracker?.recordGoalFinished(
                 "duplicate-return-reason"
               )
               handleOpenDuplicateModal()

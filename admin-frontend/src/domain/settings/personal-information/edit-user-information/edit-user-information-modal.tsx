@@ -26,7 +26,7 @@ const EditUserInformationModal = ({ user, open, onClose }: Props) => {
   if (open) {
     if (!hasShownScreen) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "edit-personal-information-start"
       )
       setHasShownScreen(true)
@@ -64,7 +64,7 @@ const EditUserInformationModal = ({ user, open, onClose }: Props) => {
         onSuccess: () => {
           if (anyChanges) {
             // @ts-ignore
-            window.checksum?.goalTracker.recordGoalFinished(
+            window.checksum?.goalTracker?.recordGoalFinished(
               "edit-personal-information-success"
             )
           }

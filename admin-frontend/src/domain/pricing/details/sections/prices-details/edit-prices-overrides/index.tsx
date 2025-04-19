@@ -39,7 +39,7 @@ const EditPricesOverridesModal = ({
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished(
+    window.checksum?.goalTracker?.recordGoalFinished(
       "edit-price-overrides-start"
     )
     setHasShownScreen(true)
@@ -73,7 +73,7 @@ const EditPricesOverridesModal = ({
                 onSuccess: () => {
                   if (didChange) {
                     // @ts-ignore
-                    window.checksum?.goalTracker.recordGoalFinished(
+                    window.checksum?.goalTracker?.recordGoalFinished(
                       "edit-price-overrides-success"
                     )
                   }

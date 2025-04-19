@@ -20,7 +20,7 @@ const PricingIndex: React.FC<RouteComponentProps> = () => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("view-price-list-table")
+    window.checksum?.goalTracker?.recordGoalFinished("view-price-list-table")
     setHasShownScreen(true)
   }
 

@@ -54,7 +54,7 @@ const EditCustomerModal = ({
           notification("Success", "Successfully updated customer", "success")
 
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "edit-customer-success"
           )
         },
@@ -63,7 +63,7 @@ const EditCustomerModal = ({
           notification("Error", getErrorMessage(err), "error")
 
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished("edit-customer-error")
+          window.checksum?.goalTracker?.recordGoalFinished("edit-customer-error")
         },
       }
     )

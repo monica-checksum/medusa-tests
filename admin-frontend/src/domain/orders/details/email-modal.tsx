@@ -32,7 +32,7 @@ const EmailModal: React.FC<EmailModalProps> = ({
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("edit-order-email-start")
+    window.checksum?.goalTracker?.recordGoalFinished("edit-order-email-start")
     setHasShownScreen(true)
   }
 
@@ -55,7 +55,7 @@ const EmailModal: React.FC<EmailModalProps> = ({
 
         if (didUpdate) {
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "edit-order-email-success"
           )
         }

@@ -16,7 +16,7 @@ const Edit: React.FC<RouteComponentProps<{ id: string }>> = ({ id }) => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("view-discount-details")
+    window.checksum?.goalTracker?.recordGoalFinished("view-discount-details")
     setHasShownScreen(true)
   }
 
@@ -35,7 +35,7 @@ const Edit: React.FC<RouteComponentProps<{ id: string }>> = ({ id }) => {
     deleteDiscount.mutate(undefined, {
       onSuccess: () => {
         // @ts-ignore
-        window.checksum?.goalTracker.recordGoalFinished(
+        window.checksum?.goalTracker?.recordGoalFinished(
           "delete-discount-success"
         )
 

@@ -17,7 +17,7 @@ function Index(_: RouteComponentProps) {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("view-customer-groups")
+    window.checksum?.goalTracker?.recordGoalFinished("view-customer-groups")
     setHasShownScreen(true)
   }
 

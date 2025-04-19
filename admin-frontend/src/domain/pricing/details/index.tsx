@@ -17,7 +17,7 @@ const PricingDetails = ({ id }: PricingDetailsProps) => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("view-price-list-details")
+    window.checksum?.goalTracker?.recordGoalFinished("view-price-list-details")
     setHasShownScreen(true)
   }
 

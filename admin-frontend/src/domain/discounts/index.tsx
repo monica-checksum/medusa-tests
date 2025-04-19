@@ -14,7 +14,7 @@ const DiscountIndex: React.FC<RouteComponentProps> = () => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("view-discount-list")
+    window.checksum?.goalTracker?.recordGoalFinished("view-discount-list")
     setHasShownScreen(true)
   }
 

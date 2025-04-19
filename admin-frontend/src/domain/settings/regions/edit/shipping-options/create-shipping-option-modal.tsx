@@ -35,7 +35,7 @@ const CreateShippingOptionModal = ({ open, onClose, region }: Props) => {
   if (open) {
     if (!hasShownScreen) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "create-shipping-option-start"
       )
       setHasShownScreen(true)
@@ -68,7 +68,7 @@ const CreateShippingOptionModal = ({ open, onClose, region }: Props) => {
       {
         onSuccess: () => {
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "create-shipping-option-success"
           )
 

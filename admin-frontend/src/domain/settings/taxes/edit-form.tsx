@@ -38,7 +38,7 @@ const EditTaxRate = ({
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("edit-tax-rate-start")
+    window.checksum?.goalTracker?.recordGoalFinished("edit-tax-rate-start")
     setHasShownScreen(true)
   }
 
@@ -89,7 +89,7 @@ const EditTaxRate = ({
       onSuccess: () => {
         if (anyChanges) {
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "edit-tax-rate-success"
           )
         }
@@ -316,7 +316,7 @@ export const SimpleEditForm = ({ onDismiss, taxRate }: SimpleEditFormProps) => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished(
+    window.checksum?.goalTracker?.recordGoalFinished(
       "edit-default-tax-rate-start"
     )
     setHasShownScreen(true)
@@ -352,7 +352,7 @@ export const SimpleEditForm = ({ onDismiss, taxRate }: SimpleEditFormProps) => {
       onSuccess: () => {
         if (anyChanges) {
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "edit-default-tax-rate-success"
           )
         }

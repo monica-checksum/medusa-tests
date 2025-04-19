@@ -46,7 +46,7 @@ const FormHeader = (props: PriceListFormProps & { onClose?: () => void }) => {
     createPriceList.mutate(data, {
       onSuccess: ({ price_list }) => {
         // @ts-ignore
-        window.checksum?.goalTracker.recordGoalFinished(
+        window.checksum?.goalTracker?.recordGoalFinished(
           "publish-price-list-success"
         )
 
@@ -66,7 +66,7 @@ const FormHeader = (props: PriceListFormProps & { onClose?: () => void }) => {
     createPriceList.mutate(data, {
       onSuccess: ({ price_list }) => {
         // @ts-ignore
-        window.checksum?.goalTracker.recordGoalFinished(
+        window.checksum?.goalTracker?.recordGoalFinished(
           "save-price-list-draft-success"
         )
 
@@ -94,7 +94,7 @@ const FormHeader = (props: PriceListFormProps & { onClose?: () => void }) => {
           5000
         ) {
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "edit-price-list-details-success"
           )
         }
@@ -117,7 +117,7 @@ const FormHeader = (props: PriceListFormProps & { onClose?: () => void }) => {
       onSuccess: ({ price_list }) => {
         if (didChange) {
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "edit-price-list-prices-success"
           )
         }
@@ -152,7 +152,7 @@ const FormHeader = (props: PriceListFormProps & { onClose?: () => void }) => {
     case ViewType.EDIT_DETAILS:
       if (!hasShownEditDetailsScreen) {
         // @ts-ignore
-        window.checksum?.goalTracker.recordGoalFinished(
+        window.checksum?.goalTracker?.recordGoalFinished(
           "edit-price-list-details-start"
         )
         setHasShownEditDetailsScreen(true)
@@ -169,7 +169,7 @@ const FormHeader = (props: PriceListFormProps & { onClose?: () => void }) => {
     case ViewType.EDIT_PRICES:
       if (!hasShownEditListScreen) {
         // @ts-ignore
-        window.checksum?.goalTracker.recordGoalFinished(
+        window.checksum?.goalTracker?.recordGoalFinished(
           "edit-price-list-prices-start"
         )
         setHasShownEditListScreen(true)

@@ -8,7 +8,7 @@ const New: React.FC<RouteComponentProps> = () => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("new-price-list-start")
+    window.checksum?.goalTracker?.recordGoalFinished("new-price-list-start")
     setHasShownScreen(true)
   }
 

@@ -32,12 +32,12 @@ const ShippingOptionCard = ({ option }: Props) => {
       onSuccess: () => {
         if (option.is_return) {
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "delete-return-shipping-option-success"
           )
         } else {
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "delete-shipping-option-success"
           )
         }

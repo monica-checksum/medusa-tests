@@ -117,7 +117,7 @@ const PricesTableRow = ({
         deleteProductPrices.mutate(undefined, {
           onSuccess: () => {
             // @ts-ignore
-            window.checksum?.goalTracker.recordGoalFinished(
+            window.checksum?.goalTracker?.recordGoalFinished(
               "delete-prices-for-product-success"
             )
 

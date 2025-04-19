@@ -183,7 +183,7 @@ const DiscountTable: React.FC = () => {
         enableSearch
         handleSearch={(...data) => {
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "discounts-table-search"
           )
 

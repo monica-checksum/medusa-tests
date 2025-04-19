@@ -14,7 +14,7 @@ const Users: React.FC = () => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("view-user-list")
+    window.checksum?.goalTracker?.recordGoalFinished("view-user-list")
     setHasShownScreen(true)
   }
 

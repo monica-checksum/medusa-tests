@@ -40,7 +40,7 @@ const AddSalesChannelsForm = ({ form }: Props) => {
     replace(channels)
 
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("add-product-sales-channel")
+    window.checksum?.goalTracker?.recordGoalFinished("add-product-sales-channel")
   }
 
   useEffect(() => {

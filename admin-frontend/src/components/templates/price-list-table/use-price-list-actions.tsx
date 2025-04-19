@@ -22,7 +22,7 @@ const usePriceListActions = (priceList) => {
     })
     if (shouldDelete) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "delete-price-list-from-table-success"
       )
 
@@ -48,12 +48,12 @@ const usePriceListActions = (priceList) => {
         onSuccess: () => {
           if (isActive(priceList)) {
             // @ts-ignore
-            window.checksum?.goalTracker.recordGoalFinished(
+            window.checksum?.goalTracker?.recordGoalFinished(
               "unpublish-price-list-from-table-success"
             )
           } else {
             // @ts-ignore
-            window.checksum?.goalTracker.recordGoalFinished(
+            window.checksum?.goalTracker?.recordGoalFinished(
               "publish-price-list-from-table-success"
             )
           }

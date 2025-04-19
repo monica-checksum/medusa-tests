@@ -37,7 +37,7 @@ const AttributeModal = ({ product, open, onClose }: Props) => {
   if (open) {
     if (!hasShownScreen) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "edit-product-attributes-start"
       )
       setHasShownScreen(true)
@@ -74,7 +74,7 @@ const AttributeModal = ({ product, open, onClose }: Props) => {
     )
 
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished(
+    window.checksum?.goalTracker?.recordGoalFinished(
       "edit-product-attributes-submit"
     )
   })

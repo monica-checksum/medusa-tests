@@ -215,7 +215,7 @@ const ProductTable: React.FC<ProductTableProps> = () => {
         searchValue={query}
         handleSearch={(...data) => {
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "products-table-search"
           )
           setQuery(...data)

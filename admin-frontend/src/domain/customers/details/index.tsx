@@ -44,7 +44,7 @@ const CustomerDetail: React.FC<CustomerDetailProps> = ({ id }) => {
         console.log("TODO: delete customer")
 
         // @ts-ignore
-        window.checksum?.goalTracker.recordGoalFinished("delete-customer")
+        window.checksum?.goalTracker?.recordGoalFinished("delete-customer")
       },
       variant: "danger",
       icon: <TrashIcon size={20} />,

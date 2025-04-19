@@ -35,7 +35,7 @@ const GeneralSection = ({ region }: Props) => {
       mutate(undefined, {
         onSuccess: () => {
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "delete-region-success"
           )
 

@@ -11,7 +11,7 @@ const CustomerIndex: React.FC<RouteComponentProps> = () => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("view-customer-list")
+    window.checksum?.goalTracker?.recordGoalFinished("view-customer-list")
     setHasShownScreen(true)
   }
 

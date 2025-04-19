@@ -28,7 +28,7 @@ const ManageGiftCard: React.FC<RouteComponentProps> = () => {
   const [hasShownScreen, setHasShownScreen] = useState(false)
   if (!hasShownScreen) {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished("view-manage-gift-card")
+    window.checksum?.goalTracker?.recordGoalFinished("view-manage-gift-card")
     setHasShownScreen(true)
   }
 

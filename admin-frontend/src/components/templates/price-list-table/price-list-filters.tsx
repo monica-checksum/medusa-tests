@@ -24,7 +24,7 @@ const PriceListsFilter = ({
 
   const handleRemoveTab = (val) => {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished(
+    window.checksum?.goalTracker?.recordGoalFinished(
       "price-list-table-remove-saved-filter"
     )
 
@@ -35,7 +35,7 @@ const PriceListsFilter = ({
 
   const handleSaveTab = () => {
     // @ts-ignore
-    window.checksum?.goalTracker.recordGoalFinished(
+    window.checksum?.goalTracker?.recordGoalFinished(
       "price-list-table-save-new-filter"
     )
 
@@ -57,13 +57,13 @@ const PriceListsFilter = ({
   const onSubmit = () => {
     if (tempState.status.filter) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "price-list-table-apply-status-filter"
       )
     }
     if (tempState.type.filter) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "price-list-table-apply-type-filter"
       )
     }
@@ -74,7 +74,7 @@ const PriceListsFilter = ({
   const onClear = () => {
     if (numberOfFilters > 0) {
       // @ts-ignore
-      window.checksum?.goalTracker.recordGoalFinished(
+      window.checksum?.goalTracker?.recordGoalFinished(
         "price-list-table-clear-filters"
       )
     }

@@ -31,7 +31,7 @@ const CurrentCurrenciesScreen = () => {
       {
         onSuccess: () => {
           // @ts-ignore
-          window.checksum?.goalTracker.recordGoalFinished(
+          window.checksum?.goalTracker?.recordGoalFinished(
             "remove-currency-success"
           )
 

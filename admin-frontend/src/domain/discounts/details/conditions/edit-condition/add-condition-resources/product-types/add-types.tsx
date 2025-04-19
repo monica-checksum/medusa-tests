@@ -65,7 +65,7 @@ const AddTypesConditionsScreen = () => {
             onClick={() => {
               if (selectedResources.length > 0) {
                 // @ts-ignore
-                window.checksum?.goalTracker.recordGoalFinished(
+                window.checksum?.goalTracker?.recordGoalFinished(
                   "add-discount-condition-product-type-resource"
                 )
               }
@@ -81,7 +81,7 @@ const AddTypesConditionsScreen = () => {
             onClick={() => {
               if (selectedResources.length > 0) {
                 // @ts-ignore
-                window.checksum?.goalTracker.recordGoalFinished(
+                window.checksum?.goalTracker?.recordGoalFinished(
                   "add-discount-condition-product-type-resource"
                 )
               }

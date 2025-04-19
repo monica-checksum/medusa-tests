@@ -96,7 +96,7 @@ export const RegionTaxForm = ({ region }: RegionTaxFormProps) => {
     updateRegion.mutate(toSubmit, {
       onSuccess: () => {
         // @ts-ignore
-        window.checksum?.goalTracker.recordGoalFinished(
+        window.checksum?.goalTracker?.recordGoalFinished(
           "edit-region-tax-settings-success"
         )
 

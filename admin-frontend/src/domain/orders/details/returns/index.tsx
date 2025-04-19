@@ -123,7 +123,7 @@ const ReturnMenu: React.FC<ReturnMenuProps> = ({ order, onDismiss }) => {
         notification("Success", "Successfully returned order", "success")
 
         // @ts-ignore
-        window.checksum?.goalTracker.recordGoalFinished("return-order")
+        window.checksum?.goalTracker?.recordGoalFinished("return-order")
       })
       .catch((error) => notification("Error", getErrorMessage(error), "error"))
       .finally(() => setSubmitting(false))

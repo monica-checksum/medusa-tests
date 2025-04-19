@@ -39,7 +39,7 @@ export const TaxRateRow = ({ row, onEdit }) => {
       .mutateAsync()
       .then(() => {
         // @ts-ignore
-        window.checksum?.goalTracker.recordGoalFinished(
+        window.checksum?.goalTracker?.recordGoalFinished(
           "delete-tax-rate-success"
         )
 

@@ -115,7 +115,7 @@ const UserTable: React.FC<UserTableProps> = ({
                 .resend(invite.id)
                 .then(() => {
                   // @ts-ignore
-                  window.checksum?.goalTracker.recordGoalFinished(
+                  window.checksum?.goalTracker?.recordGoalFinished(
                     "resend-invitation-link"
                   )
 
@@ -145,7 +145,7 @@ const UserTable: React.FC<UserTableProps> = ({
               )
 
               // @ts-ignore
-              window.checksum?.goalTracker.recordGoalFinished(
+              window.checksum?.goalTracker?.recordGoalFinished(
                 "copy-invite-link"
               )
             },
@@ -307,7 +307,7 @@ const UserTable: React.FC<UserTableProps> = ({
             onDelete={() => {
               // Medusa.users.delete(selectedUser.id).then(() => {
               // @ts-ignore
-              window.checksum?.goalTracker.recordGoalFinished(
+              window.checksum?.goalTracker?.recordGoalFinished(
                 "delete-user-success"
               )
 
@@ -332,7 +332,7 @@ const UserTable: React.FC<UserTableProps> = ({
           onDelete={() =>
             Medusa.invites.delete(selectedInvite.id).then(() => {
               // @ts-ignore
-              window.checksum?.goalTracker.recordGoalFinished(
+              window.checksum?.goalTracker?.recordGoalFinished(
                 "delete-invitation-success"
               )
 
