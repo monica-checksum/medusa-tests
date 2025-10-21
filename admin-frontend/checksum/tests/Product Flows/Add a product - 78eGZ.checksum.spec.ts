@@ -27,20 +27,32 @@ test(
     variablesStore: IVariablesStore
   }) => {
     await login(page)
-    await page.goto("/", { waitUntil: "domcontentloaded" })
-    await checksumAI("Click on products button", () =>
-      page
-        .checksumSelector("FBnYK")
-        .getByRole("link", { name: "Products" })
-        .click()
-    )
+    
+    // Wait for login to complete and ensure we're not on login page
+    await checksumAI("Wait for login to complete", async () => {
+      await expect(
+        page.getByText("Welcome back! It's great to see you"),
+        "Verify we're not on login page anymore"
+      ).not.toBeVisible({ timeout: 10000 })
+    })
+    
+    await test.step("Create a new product", async () => {
+    await checksumAI("Navigate to products page", async () => {
+      await page.goto("/a/products", { waitUntil: "domcontentloaded" })
+      // Wait for the products page to be ready by waiting for the New Product button
+      await expect(
+        page.getByRole("button", { name: "New Product" }),
+        "Verify the New Product button is visible on products page"
+      ).toBeVisible({ timeout: 15000 })
+    })
+    
     await checksumAI("Click on new product button", () =>
       page
         .checksumSelector("x2t44")
         .getByRole("button", { name: "New Product" })
         .click()
     )
-    variablesStore.titleValue = "New Product"
+    variablesStore.titleValue = `cktest-${Date.now()}`
     await checksumAI("Fill title with random string", async () => {
       await page
         .checksumSelector("J6hvu")
@@ -88,5 +100,175 @@ test(
         .getByRole("button", { name: "Back to Products" })
         .click()
     )
+    
+    // Wait for navigation back to products list
+    await checksumAI("Wait for products list to load", async () => {
+      await expect(
+        page.getByRole("button", { name: "New Product" }),
+        "Verify we're back on the products list page"
+      ).toBeVisible({ timeout: 10000 })
+    })
+    })
+    
+    await test.step("Verify the created product", async () => {
+    
+    // First verify the product name matches the variable in the products list
+    await checksumAI("Verify product name in products list matches the variable", async () => {
+      await expect(
+        page.getByText(variablesStore.titleValue),
+        "Verify the created product name is visible in the products table"
+      ).toBeVisible({ timeout: 10000 })
+    })
+    
+    // Then navigate to the product page by clicking on it
+    await checksumAI("Navigate to the created product page", async () => {
+      await page
+        .locator(`tr:has-text("${variablesStore.titleValue}")`)
+        .click()
+    })
+    
+    // Verify the product name matches what we created on the product page
+    await expect(
+      page.getByRole("heading", { name: variablesStore.titleValue }),
+      "Verify the product title heading matches what we created"
+    ).toBeVisible()
+    
+    // Verify product details match the values used during creation
+    await expect(
+      page.getByRole("paragraph").filter({ hasText: variablesStore.subtitleValue }),
+      "Verify the product subtitle matches what we created"
+    ).toBeVisible()
+    
+    await expect(
+      page.getByRole("paragraph").filter({ hasText: variablesStore.descriptionValue }),
+      "Verify the product description matches what we created"
+    ).toBeVisible()
+    })
+  }
+)
+
+/*
+When you are done - Experience Checksum Autohealing features
+1. Read about auto healing features in the /admin-frontend/checksum/README.md
+2. Break the New Product Button Selector. Run the test and see how it autoheals.
+3. Remove the New Product Button action and see how Checksum auto heals it
+4. Turn off all auto healing features and run the test again. See how the test fails.
+5. NOTE: sometimes it's better to turn off auto healing features when editing a test. Makes it easier to spot the changes you need to make.
+*/
+
+test(
+  defineChecksumTest("Experience Checksum Autohealing Features", "AutoHeal"),
+  async ({
+    page,
+    variablesStore,
+  }: {
+    page
+    variablesStore: IVariablesStore
+  }) => {
+    await login(page)
+    
+    // Wait for login to complete and ensure we're not on login page
+    await checksumAI("Wait for login to complete", async () => {
+      await expect(
+        page.getByText("Welcome back! It's great to see you"),
+        "Verify we're not on login page anymore"
+      ).not.toBeVisible({ timeout: 10000 })
+    })
+    
+    await test.step("Part A: Break the New Product Button Selector", async () => {
+      await checksumAI("Navigate to products page", async () => {
+        await page.goto("/a/products", { waitUntil: "domcontentloaded" })
+        // Wait for the products page to be ready by waiting for the New Product button
+        await expect(
+          page.getByRole("button", { name: "New Product" }),
+          "Verify the New Product button is visible on products page"
+        ).toBeVisible({ timeout: 15000 })
+      })
+      
+      // Intentionally break the selector to see autohealing in action
+      await checksumAI("Click on new product button with broken selector", () =>
+        page
+          .checksumSelector("x2t44")
+          .getByRole("button", { name: "Broken Button Name" }) // This will fail and trigger autohealing
+          .click()
+      )
+      
+      // If autohealing works, we should still be able to create a product
+      variablesStore.titleValue = `cktest-autoheal-${Date.now()}`
+      await checksumAI("Fill title with autoheal test product", async () => {
+        await page
+          .checksumSelector("J6hvu")
+          .getByPlaceholder("Winter Jacket")
+          .clear()
+        await page
+          .checksumSelector("J6hvu")
+          .getByPlaceholder("Winter Jacket")
+          .pressSequentially(variablesStore.titleValue)
+      })
+      
+      await checksumAI("Click on Publish Product button", () =>
+        page
+          .checksumSelector("te348")
+          .getByRole("button", { name: "Publish product" })
+          .click()
+      )
+      
+      await checksumAI("Click back button", () =>
+        page
+          .checksumSelector("njoFW")
+          .getByRole("button", { name: "Back to Products" })
+          .click()
+      )
+    })
+    
+    await test.step("Part B: Remove the New Product Button action", async () => {
+      await checksumAI("Navigate to products page again", async () => {
+        await page.goto("/a/products", { waitUntil: "domcontentloaded" })
+        await expect(
+          page.getByRole("button", { name: "New Product" }),
+          "Verify the New Product button is visible on products page"
+        ).toBeVisible({ timeout: 15000 })
+      })
+      
+      // Remove the action entirely - let Checksum AI generate it
+      await checksumAI("Click on new product button", async () => {
+        // No implementation - AI will generate the action
+        // This demonstrates Checksum AI's ability to generate missing actions
+      })
+      
+      variablesStore.titleValue = `cktest-ai-generated-${Date.now()}`
+      await checksumAI("Fill title with AI generated test product", async () => {
+        await page
+          .checksumSelector("J6hvu")
+          .getByPlaceholder("Winter Jacket")
+          .clear()
+        await page
+          .checksumSelector("J6hvu")
+          .getByPlaceholder("Winter Jacket")
+          .pressSequentially(variablesStore.titleValue)
+      })
+      
+      await checksumAI("Click on Publish Product button", () =>
+        page
+          .checksumSelector("te348")
+          .getByRole("button", { name: "Publish product" })
+          .click()
+      )
+      
+      await checksumAI("Click back button", () =>
+        page
+          .checksumSelector("njoFW")
+          .getByRole("button", { name: "Back to Products" })
+          .click()
+      )
+    })
+    
+    await test.step("Part C: Verify autohealing worked", async () => {
+      // Verify that autohealing created the products successfully
+      await expect(
+        page.getByText(variablesStore.titleValue),
+        "Verify the autohealed product is visible in the products table"
+      ).toBeVisible({ timeout: 10000 })
+    })
   }
 )

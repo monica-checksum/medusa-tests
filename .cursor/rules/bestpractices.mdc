@@ -1,0 +1,850 @@
+---
+alwaysApply: true
+---
+Playwright Playbook
+
+Additional resources for reference:
+https://playwrightsolutions.com/
+
+Using checksumAI to describe Actions
+   → await checksumAI("Hover over the query results tab", () =>
+        page
+          .locator("[class*='results_metadata-container']")
+          .locator("div")
+          .first()
+          .hover()
+      );
+
+   → await checksumAI(
+        "Click on query results expand icon options for the tab",
+        () =>
+          page
+            .locator("[class*='results_metadata-container']")
+            .locator("div")
+            .first()
+            .locator(
+              'img[src="https://nextgenassets-dev.5x.co/ide/expanded.svg"]'
+            )
+            .click()
+      );
+
+   → await checksumAI("Click on Close All Tabs menu item", () =>
+        page.getByText("Close all tabs").click()
+      );
+
+Every single action should be wrapped with a detailed checksumAI description. This is very important and accomplished two major goals:
+It provides a user friendly interface when reading reports
+
+
+
+It allows the AI to better understand when a test fails and attempt to automatically heal a test based on the actions description. Without this, the AI and anybody unfamiliar with the test case from our team or from the customer will find it very difficult and frustrating to decipher what the action is supposed to be doing - especially when it fails!
+
+Important! We wrap Actions only. We do not wrap assertions. For example:
+DO NOT DO THE FOLLOWING:
+await checksumAI("Expect Reject button to have spanish translation", () =>
+     expect(
+       page.getByLabel("Rechazar todo")
+     ).toBeVisible({ timeout: 5000 })
+   );
+
+
+
+Descriptive Actions and Assertions
+Describing Actions with checksumAI
+The checksumAI method describes the action, and every action must include a description. Ensure the description is detailed enough so that someone only seeing the HTML and the description can understand what needs to be done. Avoid using data-specific information to prevent flakiness. Always include both the action and intent.
+Always use meaningful descriptors when writing comments or naming actions in your code. This helps make your code easier to understand and maintain, especially when using checksumAI. Avoid vague terms like "click" or "go to" and instead provide specific context.
+BAD:
+await checksumAI('Go to', () =>
+	...
+}));
+await checksumAI('Click dropdown', () =>
+	...
+);
+
+
+GOOD:
+await checksumAI('Navigate to the signup email page', () =>
+	...
+}));
+	await checksumAI('Click on Country of Residence dropdown menu', () =>
+	...
+);
+
+By combining thoughtful descriptors and clear assertion comments, your code becomes more maintainable and easier to troubleshoot.
+
+Handling Loops and Dynamic Data
+Working with Loops and Dynamic Data
+When running actions in a for loop, you can either place the checksumAI inside the loop and make the description generic enough to accommodate multiple iterations or use dynamic data within the string to maintain accuracy.
+Handling Variable Data
+For applications where data is consistent (e.g., user created at the beginning of every test), it’s safe to use static selectors. However, if the data is likely to change, ensure selectors are not bound to changeable data elements.
+Example: Avoid using a selector tied to a username or session ID that may vary between tests.
+
+Using variableStore
+Each test should contain a variableStore when using custom variables
+test(defineChecksumTest("Delete a product", "G8RlA"), async ({ page, variablesStore }) => {
+
+
+Use this instead of creating a variable with const or let
+variablesStore.titleValue = "cktest-" + Date.now();
+
+
+This removes variable scope and allows the use of variables to be more streamlined during test review. VariableStore can be accessed by using variableStore, variablesStore , or vs.
+
+Time-Based and Unique Data
+Handling Date and Time Selectors
+If you need to use a selector related to a relative date (e.g., today’s date), create a function that returns the correct selector based on the current date.
+Generating Unique Inputs
+For inputs that need to be unique (e.g., when testing new form entries), use Date.now() to sgenerate a unique string. This ensures no overlap between test runs.
+IMPORTANT! Use Checksum naming schema
+For example:
+`cktest-${Date.now()}`
+
+Selectors and Best Practices
+Avoid Flaky Selectors Flaky selectors can cause tests to fail unpredictably when minor changes are made to the page. Instead of selecting a parent element and filtering by text, it's more reliable to click the child element directly.
+Bad Example: This uses a generic CSS class that might change, which could break your test.
+.locator(".css-13b6tc8-control")
+
+Good Example: This uses meaningful class names that are less likely to change.
+.locator(".blotteroid")
+.locator(".view-lines")
+
+Avoid Generated or Dynamic CSS Classes Many frameworks generate CSS classes dynamically. These classes may change between builds, leading to test failures. It's better to avoid these and use selectors based on roles, labels, or more stable attributes.
+Bad Example: Dynamic class names like the one below are unstable.
+.locator(".css-13b6tc8-control")
+
+Good Example: Using class names that are more stable and related to specific functionality.
+.locator(".blotteroid")
+.locator(".view-lines")
+
+Avoid Overly Deep DOM Traversal Drilling too deep into the DOM can make selectors brittle because even small changes in the hierarchy will break your tests. Aim for concise and meaningful selectors.
+Bad Example: This selector relies on the exact structure of the DOM and is prone to breaking if the layout changes.
+.locator("div:nth-child(2) > .w-100 > .css-13b6tc8-control > .css-1wy0on6 > div")
+
+Good Example: A more stable and readable approach that focuses on role and exact text match.
+.locator("button")
+.getByText("Run", { exact: true })
+
+Use Role-Based Selectors Accessibility roles provide stable and meaningful selectors that are less likely to break, especially when the structure of the page changes.
+Good Example: Selecting elements based on their roles ensures more reliable interactions.
+.getByRole("option", { name: "LanceID1" })
+.getByRole("checkbox")
+
+Avoid Using .first(), .last(), or .nth() These methods are dependent on the order of elements in the DOM, which could change if new elements are added or if the structure is updated.
+Bad Example: Relying on the position of elements in the DOM is risky because new elements may be added.
+.locator('[aria-multiselectable="false"]').nth(2)
+.locator("[id='react-select-8-option-2']").first()
+
+Good Example: This selector uses role-based identification, which remains stable even if new elements are added.
+.getByRole("img", { name: "add-file" })
+.getByRole("option", { name: "TPCDS_SF100TCL", exact: true })
+
+Prioritize Readable and Maintainable Selectors Always prioritize selectors that can be easily understood and maintained by others. Avoid complex chains that are difficult to follow or modify.
+Good Example: Simple, role-based selectors are more maintainable.
+.getByRole("button", { name: "Submit" })
+
+
+Assertions and Best Practices
+Adding Strong Assertions
+Avoid using assertions that pass based on text alone, especially since the .toHaveText() assertion includes child elements, which could lead to false positives if unexpected text is nested inside. It's better to assert based on the visibility or the role of elements to make the test more robust and resilient to changes in structure or content.
+Bad Example:
+await expect(page.getByText("Options list")).toHaveText("Options list");
+
+This example could fail if any child element inside the target includes or interferes with the text.
+Good Example:
+await expect(page.getByText("Options list")).toBeVisible();
+
+Here, the test is more robust, focusing on visibility, which is more likely to represent the actual state of the page.
+
+Using Variables to Store Data for Later Assertions
+In dynamic tests, it's helpful to store values, like prices or item IDs, in variables during the test. These variables can be used for subsequent assertions, allowing you to create more meaningful and precise checks. This ensures that your selectors are reliable and the test remains consistent even with different data or DOM changes.
+Scenario Walkthrough:
+Wait for a Valid Value: The test ensures that the currentPipValue contains a valid numerical value by checking for NaN and waiting if necessary.
+while (isNaN(parseFloat(currentPipValue))) { 
+	await page.waitForTimeout(500); 
+	currentPipValue = await priceBoardPip.innerText(); 
+}
+
+Interaction and Selection: The test interacts with the page, selecting a new value from the dropdown based on the updated Pip price, ensuring the new selection is higher.
+
+
+await checksumAI("Click on Bid dropdown for first currency pair", () => 
+	page
+	.locator(".qomain > div")
+	.filter({ hasText: "Bid" })
+	.first()
+	.click());
+	const newPipValueText 
+		= (parseFloat(currentPipValue) + 2).toString();
+
+Assert with Stored Data: Finally, it asserts that the new Pip value selected is greater than the original:
+
+
+expect(
+	parseFloat(newPipValueText), 
+"The selected price should be greater than the current pip value"
+).toBeGreaterThan(parseFloat(currentPipValue));
+
+
+Later, you can use the stored variables to make your selectors more robust:
+await checksumAI("Click on order id", () =>
+	page.checksumSelector("3TRyZ")
+	.getByRole("link", { name: `${orderId}`, exact: true }).click()
+);
+
+By storing key variables like the orderId, you ensure the selector targets the correct element dynamically, even in scenarios where page content may change.
+Including REGEX
+When dealing with dynamic elements or content-driven pages, always strive to make your assertions robust. This means considering factors like visibility, roles, and even regex patterns for more complex text matches. The more robust your assertion, the less likely it is to break with minor UI changes.
+Example:
+await expect(
+	page.locator(".orderticket row")
+	.filter({ hasText: "Limit Rate" }), 
+	"The limit rate should match the selected price"
+).toHaveText(new RegExp("\\d+\\.\\d{2}${newPipValueText}\\d*"));
+
+In this case, a regular expression ensures that the expected value dynamically matches the correct format and precision.
+
+Additional Notes
+CSS Animations and Network Requests: Keep in mind that CSS animations and selectors are faster than network requests. Even if a button appears active or a spinner has stopped, the test could still fail if the page is waiting on a network response. Always use more reliable assertions like toBeVisible() and avoid relying purely on visual states.
+
+Timeouts and Efficient Waits
+Managing Timeouts and Race Conditions
+Race conditions can cause tests to behave inconsistently or fail intermittently. To avoid these issues, it’s crucial to handle waiting effectively without relying on arbitrary timeouts, which may not guarantee that the page is ready.
+Avoiding Fixed Timeouts
+Using fixed page.waitForTimeout() values may seem like a quick solution to handle waits, but it leads to unreliable tests. This approach assumes a fixed time for an action to complete, which may vary depending on the environment or server response. If the time isn’t long enough, the test will fail; if it’s too long, the test wastes valuable time. Instead, rely on built-in waiting mechanisms, which automatically account for page readiness.
+Example of Bad Use of Fixed Timeouts:
+await page.waitForTimeout(3_000);
+if ((await page.getByText("Bamboo HR").count()) > 0) {     
+	await deleteCard(page, "Bamboo HR"); 
+}
+await page.waitForTimeout(3_000);
+
+In this example, the test is made fragile by forcing arbitrary pauses before and after actions. This can result in failures when the page loads slower than expected or causes unnecessary delays.
+Using Built-In Timeouts for Actions and Assertions
+Playwright provides built-in timeouts for actions such as clicking buttons, interacting with elements, or performing assertions. These timeouts will automatically wait for the required conditions to be met, improving test reliability and reducing the risk of race conditions.
+Good Example with Action Timeouts:
+if ((await page.getByText("Bamboo HR").count()) > 0) {    
+	 await deleteCard(page, "Bamboo HR"); 
+}
+await checksumAI("Click on the Add System button", () =>     
+	page.getByText("Add System").click()
+);
+
+This approach ensures that Playwright waits for the “Add System” button to be clickable within the specified timeout period.
+Example of Assertion Timeouts:
+await expect(page.getByText("Data system deleted"),     
+"A confirmation message indicating the system was deleted should appear"
+).toBeVisible({ timeout: 60_000 });
+
+Here, the test waits up to 60 seconds for the confirmation message to appear. Using built-in assertion timeouts ensures the test passes only when the expected condition is met within the given timeframe, without relying on arbitrary pauses.
+Efficient Waiting Techniques
+DO NOT USE!!: waitForSelector(): This is not a web first assertion, so we avoid it. Use an expect statement instead to assert for visibility :(
+Bad:
+await page.waitForSelector('.submit-button', { timeout: 5_000 });
+
+Good:
+await expect(
+     page.locator(".submit-button"),
+     "Verify the Submit button is visible"
+   ).toBeVisible();
+
+DO NOT USE!!: waitForNavigation():
+await page.click('a#navigate-button');
+await page.waitForNavigation({ waitUntil: 'networkidle' });
+
+waitForEvent(): Listen for specific events like downloading a file or opening a new tab.
+const downloadPromise = page.waitForEvent('download');
+await page.click('.download-link');
+await downloadPromise;
+
+When Adjusting Timeouts is Necessary:
+Built-in timeouts should cover most cases, but there are situations where you may need to adjust them. For example:
+Large datasets may take longer to load.
+Network latency in different environments can vary.
+Complex DOM structures may require additional processing time.
+In these cases, it’s acceptable to extend the timeout but keep it reasonable to avoid unnecessarily long waits.
+Summary:
+Avoid waitForTimeout() unless absolutely necessary.
+Use Playwright’s built-in waiting mechanisms for actions and assertions.
+Adjust timeouts thoughtfully when needed to handle specific conditions.
+This approach keeps the codebase clean, reduces flakiness, and improves test reliability.
+
+Reporting and Debugging
+Saving Playwright Reports
+If editing a customer test suite, store the report in a temporary folder to retain previous reports while continuing to debug and run tests.
+Command:
+npx checksumai show-report temp/playwright-report
+Using Debug Mode and UI Tools
+Use Github Copilot and UI Mode (run with -g and test IDs) to speed up test creation and execution. Replace hard assertions with soft assertions where applicable and set up proper timeouts.
+Ensure tests are debuggable with vscode debugger and use arrow keys to navigate traces.
+
+Advanced Techniques Using REPL
+Advanced Techniques
+Checksum REPL and Customer Success Tools
+Checksum REPL is a tool for dynamic testing within Checksumai. It allows rerunning specific test actions without restarting the entire suite.
+Using Checksum REPL
+Any test may use the in-house REPL tool built by Checksumai. To do this, import the REPL tool, adjusting the directory location as needed, depending on the location of the customer test within the Checksum repo:
+import { repl } from "np";
+
+Add the REPL tool to the test code as shown in the example below:
+...
+	await login(page);
+	await page.goto("https://app.deriv.com/", {
+		waitUntil: "domcontentloaded",
+	});
+await eval(repl());
+	...
+
+Inside a customer testing suite repo, at the root of the customer module, run the following command to start the REPL:
+cd ..
+yarn repl
+Run the test in Debug mode. You can re-execute any of the test code by highlighting the action or assertion and pressing Return + Shift on the keyboard. This will execute the code and verify issues without having to shut down and restart the entire test, saving significant time.
+
+
+
+
+
+
+Ensuring a Clean Slate Before Each Test
+It's crucial to start each test with the application in a clean, predictable state to avoid data pollution and unintended side effects across test runs. Rather than focusing solely on returning the application to its original state at the end of the test, it’s often more effective to check and reset the state before each test begins. This ensures that every test runs in isolation, unaffected by the results or failures of previous tests.
+Considerations for Starting Tests:
+Pre-Test State Validation and Cleanup:
+Before executing test logic, use a try/catch block to validate the current state of the application. If the application isn’t in a "blank slate" state (e.g., there are leftover items, data, or configurations from previous tests), reset the state within the try block, ensuring that each test starts fresh.
+Here’s an example where we are selecting a dropdown and clicking “Resume”, because the state of the test relies on the “Pause” option to be available which is only present after resuming.
+try {
+     await page
+       .locator('[role="row"]')
+       .locator('[aria-colindex="9"]')
+       .locator(".ant-space-item")
+       .click();
+     await page.getByText(/Resume/i).click();
+   } catch {
+     console.log("Job run is already active");
+   }
+
+
+A Try/Catch is just one tool, but isn’t always necessary:
+For example, the site may have built in functionality for resetting data. We can leverage this to call a function before each test run to ensure the state is clean.
+export const clearAllOrders = async (page: Page) => {
+  try {
+    await page.locator("[name='offAllOrders']").first().click({ timeout: 5_000 });
+    await page.getByRole("button", { name: "YES" }).click();
+    await page.getByRole("button", { name: "CLOSE", exact: true }).click({ timeout: 5_000 });
+  } catch {
+    console.log("No orders to clear in Order Status");
+  }
+};
+
+
+QA Engineer’s Responsibility:
+While automated tests can ensure much of the setup and cleanup, it’s still the QA engineer’s responsibility to review whether further custom logic is required to return the application to a known state before running the next test. This helps avoid test flakiness and ensures each test is executed in a clean, reliable environment.
+By using this pre-test approach, tests remain isolated, ensuring a higher level of reliability and maintainability, even if previous tests failed or left behind residual data.
+
+
+Setting up multiple login accounts for a customer
+Navigate to https://app.checksum.ai/
+Go to the customer project.
+Within settings, under Test Users, click the “ADD A NEW USER” button.
+Enter the Username, Password, and fill in the Role field for each user.
+Ensure that one user is checkmarked as the ‘default’.
+
+Click Save.
+When generating the test flow, select the user you want the generated test to use by default.
+
+To set up new users within the users array inside the checksum.config.ts, use the following structure:
+username: process.env.USERNAME_MAIN,
+password: process.env.PASSWORD_MAIN,
+users: [
+  {
+    role: "main",
+    username: process.env.USERNAME_MAIN,
+    password: process.env.PASSWORD_MAIN,
+  },
+  {
+    role: "unauthenticated",
+    username: process.env.USERNAME_UNAUTHENTICATED,
+    password: process.env.PASSWORD_UNAUTHENTICATED,
+  },
+],
+
+
+Inside the customer Checksum repo, edit the login.ts file by adding the environment variable as follows:
+export default async function login(
+  page: IChecksumPage,
+  config: ChecksumConfig,
+  environment
+) {
+  const email = environment.user?.username || config.username;
+  const password = environment.user?.password || config.password;
+  const baseURL = config.baseURL;
+  const role = environment.user?.role;
+
+
+You can then set conditions for different users based on the role within the login function:
+if (role === "unauthenticated") {
+  await page.context().clearCookies();
+  await page.goto("https://hub.deriv.com/tradershub/");
+  return;
+}
+
+
+Inside each test where a user needs to be specified the test must be wrapped with a test.describe, as follows:
+
+test.describe(() => {
+ const { environment, login } = getEnvironment({ userRole: "user3" });
+ test.use({ baseURL: environment.baseURL });
+
+ test(
+   defineChecksumTest("Book an NDF trade with manual rate entry", "kedbR"),
+   async ({ page, variablesStore }) => {
+     await login(page)
+. . .
+
+
+
+Using Annotations to describe bugs
+Playwright reference
+
+If you would like to annotate your tests with something more substantial than a tag, you can do that when declaring a test. Annotations have a type and a description for more context and are available in reporter API. Playwright's built-in HTML reporter shows all annotations, except those where type starts with _ symbol. 
+
+For example, to annotate a test with an issue url:
+
+test(defineChecksumTest(
+   "Verify the banner and modal pop-up based on region",
+   "r0pdL"
+ ), {
+ annotation: {
+   type: 'bug',
+   description: 'User is able to complete a question without an assignee',
+ },
+}, async ({ page }) => {
+ // ...
+});
+
+Any test annotation will show up within the Checksum playwright report, making it easier for both engineers and customers to quickly understand, or remember, the details of a bug.
+
+
+If it’s a bug, make sure to include the @bug tag within the test title.
+
+test(defineChecksumTest(
+   "Verify the banner and modal pop-up based on region @bug",
+   "r0pdL"
+ ), {
+
+
+Setup Playwright Stealth Mode
+Refer to the package: https://www.npmjs.com/package/@checksum-ai/runtime
+Run the following command to install Stealth mode:
+npm install puppeteer-extra-plugin-stealth
+
+Import the Stealth library into playwright.config.ts.
+import StealthPlugin from "puppeteer-extra-plugin-stealth";
+
+Add the Stealth plugin to the projects section like this:
+projects: [
+  {
+    name: "chromium",
+    testMatch: /checksum.spec/,
+    use: {
+      ...devices["Desktop Chrome"],
+      playwrightExtra: [StealthPlugin()],
+    },
+  },
+],
+
+
+By adding this configuration, customer tests will now use Stealth mode to avoid bot detection.
+
+Saving Authentication State
+
+Create .auth.json File
+Navigate to the checksum/* directory and create a .auth.json file. Place empty JSON brackets inside the file: ‘ {} ’
+**Add .auth.json to .gitignore**
+
+Update Playwright Configuration
+Inside the Playwright config, import the path module at the top of the file:
+import path from "path";
+
+
+Then, configure the projects section to use the storageState as follows:
+projects: [
+   {
+     name: "chromium",
+     testMatch: /checksum.spec/,
+     use: {
+       ...devices["Desktop Chrome"],
+       storageState: path.join(__dirname, ".auth.json"),
+     },
+   },
+ ],
+
+
+Update the Login Function
+Import the path module at the top of the login function file:
+import path from "path";
+
+
+Define the path to .auth.json:
+const authFile = path.join(__dirname, "./.auth.json");
+
+
+After logging in, save the authentication state with the following code:
+
+
+await page.context().storageState({ path: authFile });
+
+console.log("Login Successful");
+return;
+
+
+Be sure to delete the contents of the .auth.json when finished review
+
+By following these steps, you ensure that the authentication state is saved and reused during subsequent test runs.
+
+
+Setting up a Customer Proxy
+For security reasons, a customer may restrict internet traffic to allow connections only from a specific IP address to their web application. To address this, we set up a proxy within the Playwright configuration inside the customer's repository.
+proxy : {
+	server: "17.17.17.177:8888", 
+	username: "checksum", 
+	password: "151124",
+}
+
+Steps to Set Up a Proxy
+Add the following code to your Playwright configuration file, replacing server, username, and password with the customer-specific variables:
+export default defineConfig({
+  use: {
+    proxy: {
+      server: 'http://myproxy.com:3128',
+      username: 'usr',
+      password: 'pwd',
+    }
+  }
+});
+
+
+
+Use Web First Assertions
+Assertions are used to verify if the expected result matches the actual result. By using web first assertions in Playwright, the framework waits until the expected condition is met before proceeding. This is useful when, for example, you're testing an alert message that appears after a button click. If the alert message takes half a second to appear, using an assertion like toBeVisible() will make Playwright wait and retry until the condition is satisfied.
+Example (Correct Usage):
+await expect(page.getByText('welcome')).toBeVisible();
+
+
+Example (Incorrect Usage):
+
+await expect(
+    page.getByText('welcome').isVisible()
+).toBe(true);
+
+
+URL Assertions
+In URL testing scenarios, web first assertions also help by waiting for the URL to match the expected value before moving forward.
+Example (Correct Usage):
+await expect(page, 
+    "The URL should be https://app.deriv.com/"
+).toHaveURL("https://app.deriv.com/");
+
+
+Example (Incorrect Usage):
+
+await expect(page.url(), 
+    "The URL should be https://app.deriv.com/"
+).toBe( "https://app.customer.com/");
+
+
+
+Read more about web first assertions here
+
+Use of expect.poll
+How Playwright Polling Works
+
+The .poll() method repeatedly checks a condition until it either passes or times out. Here's how this specific poll works:
+
+await expect
+  .poll(
+    // Callback function that returns a value to check
+    async () => await page.locator('[class*="circular-loader"]').count(),
+    // Options object
+    { timeout: TIMEOUTS.medium }
+  )
+  // Expected value we're waiting for
+  .toBe(0);
+
+
+Breaking it down:
+1. The callback function counts how many elements with class containing "circular-loader" are present on the page
+2. This check is repeated periodically (by default every 500ms)
+3. The polling continues until either:
+   - The count equals 0 (success case)
+   - The timeout is reached (failure case)
+
+In this test, it's being used to wait for loading spinners to disappear from the page. The test will only proceed once all circular loaders are gone (count = 0), or it will fail if the timeout is reached before that happens.
+
+Why Polling is Better
+
+This is more reliable than a simple wait because:
+- It's dynamic - completes as soon as the condition is met
+- It handles variable loading times
+- It confirms the loading actually completed rather than just waiting a fixed time
+
+The equivalent without polling might look like:
+
+// Less reliable approach
+await page.waitForTimeout(2000); // Arbitrary wait that might be too short or too long
+
+// Another approach, but only works for visibility
+await expect(page.locator('[class*="circular-loader"]')).toBeHidden();
+
+
+
+Working with Multiple Tabs
+To manage multi-tab test flows in Checksum, you can use the getPage() method. This method retrieves the ChecksumPage based on the order of tab appearance, with the first tab (initially opened) indexed as 0.
+getPage(index: number): Promise<ChecksumPage>;
+
+
+Example Usage
+Clicking a Button on the Customer Website
+Execute an action on the customer website, such as clicking a button, using checksumAI().
+await checksumAI("Click on View my requests", () => 
+  page
+    .getByRole("button", { name: "View Requests" })
+    .click() );
+
+
+Waiting for the New Page to Load
+Wait for the new page or tab to load after the interaction.
+
+await page.waitForTimeout(1000);
+
+
+Retrieving the New Tab
+Use the getPage() method to retrieve the new tab, with the index 1 representing the newly opened tab.
+
+const privatePortalPage = await page.getPage(1);
+
+
+Using the New Page in Tests
+Once the new tab is retrieved, you can interact with it in your test flows, such as verifying the visibility of elements.
+
+await expect( 
+  privatePortalPage
+    .getByRole("heading", { name: "My Requests" }), 
+  "Verify the My Requests heading is visible"
+).toBeVisible();
+
+
+
+Alternatively, using right-of/left-of selectors
+Playwright provides pseudo-classes to select elements based on their layout relative to others:
+:left-of(selector): Selects elements to the left of the specified selector.
+
+
+:right-of(selector): Selects elements to the right of the specified selector.
+
+
+:above(selector): Selects elements above the specified selector.
+
+
+:below(selector): Selects elements below the specified selector.
+
+
+:near(selector): Selects elements near (within 50 pixels of) the specified selector.
+
+
+await page.locator('input[type="text"]:below(:text("Test Users"))').first()
+
+
+In-general, using .first() is not best practice, but in this scenario it makes the most sense since we want the closest input element below the targeted text.
+
+More info available here
+
+Tips to being a stronger QA developer
+For tests requiring file uploads, this method resolves to the configured assets folder storing all relevant files:
+resolveAssetsFolder: (assets: string[]) => string[];
+
+
+It essentially removes the complexity when dealing with files. For example, you place your file into ./checksum/test-data/bin use page.resolveAssetsFolder() to generate the path. In this case the data.csv is the file:
+
+
+await checksumAI("Upload a .csv file", () =>
+     page
+       .locator('input[type="file"]')
+       .setInputFiles(page.resolveAssetsFolder(["data.csv"]))
+   );
+
+
+
+Disabled/Enable JavaScript in DevTools
+There may be cases where a customer site is running a JS script every few seconds to their back-end and the request may cause the DOM to refresh - making it very difficult to find robust playwright selectors or to simply understand the structure well enough.
+
+In these rare cases, while in DevTools, do the following:
+Press: cmd+shift+p
+Type: Disable JavaScript
+Select it
+
+In order to turn the JavaScript back on, do the following:
+Press: cmd+shift+p
+Type: Enable JavaScript
+Select it
+
+Tips for Speeding up Test edits
+When reviewing a large test case it is important to comment out code that has already been tested, if commenting out will not impact the rest of the test.
+
+Wait for Network Responses, not timeouts
+Playwright doc here
+
+It is best practice to avoid using page.waitForTimeout whenever possible to avoid flaky results. Instead, after performing an action, for example click(), it’s best practice to view the network tab and look for the network query being triggered and verify that the response finishes before proceeding with the test.
+
+In this example we use regex to grab a param of “_query” from the address and wait for that query to finish before proceeding with the test. (this is an actual example from an existing test)
+
+const responsePromise = page.waitForResponse(/_query/); 
+await page.getByText("download'').click(); 
+await responsePromise;
+
+
+Using Page Object Model (POM)
+Playwright doc here
+
+The Playwright documentation on Page Object Models (POM) highlights how this approach can improve test authoring and maintenance. A page object represents a section of your application, encapsulating element locators and reusable actions for that page. For example, a typical e-commerce app might define separate models for the homepage, product listings, and checkout.
+By centralizing locators and logic in page objects, test code becomes cleaner and easier to maintain. When elements change, updates are limited to the relevant page object, avoiding widespread refactoring. POMs also promote reusability, reducing duplication in your test suite.
+
+Using External or Added Files in Tests
+For tests requiring file uploads, this method resolves to the configured assets folder storing all relevant files
+For example, a test needs to upload a test.pdf file on a customer's website.
+Store the file inside /checksum/test-data/bin
+Call page.resolveAssetsFolder(['test.pdf']) within your codebase to retrieve the file path
+
+Using AI to write assertions for you
+Being efficient at how we write tests allows us to be more productive and hit deadlines faster so that we are not working late every night. One way is to grab the HTML directly from the DOM and prompt AI to write assertions for you.
+
+Grab the element you want to assert. In this example we take the table row of an element that has the order information to a bid we created
+
+
+Prompt the AI, using the elements html, to write assertions for you
+
+
+Verify the code and test it. Never assume it will work out-of-box!
+
+
+For a full breakdown with real life examples, watch these videos:
+Ai-written-assertions-pt1
+Ai-written-assertions-pt2
+
+
+Use AI to apply the Git Diff updates for identical tests
+Often multiple tests will exist for a single feature or page and a lot of the test code itself will be identical, with minor differences only unique to the individual test case itself. For example, creating a Buy order and verifying the order may be exactly identical to creating a Sell order and verifying the order, with the unique exception of clicking Buy vs. Sell on the page.
+
+For these scenarios, as tests require maintenance or updates, we can leverage AI to apply updates we make for one test to all other identical tests without going line-by-line in a traditional manual labor intensive style.
+
+Make changes to the first test case and copy the Git Diff
+
+
+Prompt the AI to apply the same changes to the twin test case and use repl to verify each change before accepting to ensure the code is correct and makes sense!
+
+
+Video references:
+Use-git-diff-pt1
+Use-git-diff-pt2
+
+
+Creating an API
+Testing frequently relies on utilizing the web app’s user interface to perform certain actions. Not every test requires testing the UI of an action, but may rely on the action for additional testing requirements. For example, a customer may have a feature to create a new blueprint. One test will certainly need to be in place that clicks through the user interface to ensure blueprints can be created. Other tests however, that utilize the blueprint functionality, don’t need to test the UI but rather simply require a blueprint exist for use. In these cases it is best practice to create an API that can be called to create a blueprint and bypass the user interface for speed and ease throughout the rest of the testing suite.
+To begin, we want to retrieve the structure of the API request. In this example we are creating a new conversation with the Network tab open, and finding the POST request made to the back-end.
+
+
+
+Next we can copy the fetch request for the initial structure of the API call.
+
+
+
+
+Using Test.step
+It’s best practice to wrap test code with test.step so that repetitive actions and assertions make better sense when trying to understand the playwright's report.
+
+Watch this video to better understand this concept which further branches into the next section.
+
+Example:
+
+
+await test.step("Verify all checkboxes are checked at the same time", async () => {
+     if (webOnly) {
+       await expect(
+         page
+           .locator('[data-testid="summary-time-series"]')
+           .locator('.check_box--label:has-text("Web Only")')
+       ).toHaveCSS("background-color", "rgb(0, 117, 201)", { timeout: 3_000 });
+     }
+     if (organic) {
+       await expect(
+         page
+           .locator('[data-testid="summary-time-series"]')
+           .locator('.check_box--label:has-text("Organic")')
+       ).toHaveCSS("background-color", "rgb(0, 117, 201)", { timeout: 3_000 });
+     }
+
+     if (unique) {
+       await expect(
+         page
+           .locator('[data-testid="summary-time-series"]')
+           .locator('.check_box--label:has-text("Unique")')
+       ).toHaveCSS("background-color", "rgb(0, 117, 201)", { timeout: 3_000 });
+     }
+});
+
+
+
+Skipping steps mid-test
+Sometimes it is necessary to skip only a portion or single part of a test due to a known bug, functionality may be temporarily unavailable or turned off, or other reasons specific to the customer's web app environment. One way to work around this would be to simply comment out code, but this method is not pleasant to look at and can be confused as dated code that should actually be removed.
+
+Playwright has built in methods to skip parts of tests that also include a visible comment:
+
+   …
+   await checksumAI("Click on Back to Question", () =>
+     page.getByTestId("go-back-to-question").click()
+   );
+
+   await questionStudio.verifyDateDifference(
+     variableStore.calcKey,
+     "days",
+     "dateTime",
+     "dateTime2"
+   );
+
+   await checksumAI("Click on Back", () =>
+     page.getByRole("link", { name: "Back" }).click()
+   );
+
+   // START SKIP HERE
+   await test.step("Verify date formatting and calculation", async (step) => {
+     step.skip(true, "Date format verification is temporarily disabled");
+
+     await questionStudio.updateDateFormat("dateTime", 0);
+     await questionStudio.updateDateFormat("dateTime2", 0);
+
+     await questionStudio.verifyDateDifference(
+       variableStore.calcKey,
+       "days",
+       "dateTime",
+       "dateTime2"
+     );
+   });
+
+
+We prioritize this method over commenting out code since it’s easy to read and shows up as a step during the test run so that customers can decipher and be reminded of the skip when reviewing their daily reports.
+
+Playwright reference here
+
+Tips to being a stronger QA developer
+Optimize Test Runs
+Use --grep-invert "@bug" to skip known failing tests and focus on passing tests first. Revisit bug-related tests afterward.
+Streamline Debugging
+Comment out unnecessary test code to speed up execution. For example, if a test checks sorting in ascending and descending order and one works while the other fails, temporarily disable the passing check to focus on the failure.
+Compare Test Reports Efficiently
+Compare the latest failure report with a previous successful run to pinpoint issues instead of reviewing every line manually.
+Use Efficient Locator Strategies
+Utilize the Pick Locator button to accurately grab locators for elements.
+Take advantage of the Recording feature to generate assertions via the UI.
+Optimize Assertion Timeouts
+Reduce the global assertion timeout when debugging to get faster feedback on failures.
+Run CI Tests Locally Before Dispatch
+Execute CI=true locally before running tests from dispatch to ensure a quicker test cycle.
+
