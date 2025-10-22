@@ -33,40 +33,38 @@ test(
       ).toBeVisible({ timeout: 15000 })
       
       // Wait for products table to be populated (not just header)
-      await checksumAI("Wait for products table to load", async () => {
-        await expect(
-          page.locator('tbody tr').first(),
-          "Verify products table has at least one data row"
-        ).toBeVisible({ timeout: 10000 })
-      })
+      await expect.poll(
+        async () => await page.locator('tbody tr').filter({ hasText: /^[^NameCollectionStatusAvailabilityInventory]/ }).count(),
+        { timeout: 10000 }
+      ).toBeGreaterThan(0)
       
       variablesStore.cktestProducts = page.locator('tbody tr').filter({ hasText: new RegExp('cktest', 'i') })
       variablesStore.cktestCount = await variablesStore.cktestProducts.count()
       
       if (variablesStore.cktestCount === 0) {
-        await checksumAI("Create a cktest product for deletion", () =>
+        await checksumAI("Click on New Product button to create a cktest product for deletion", () =>
           page.getByRole("button", { name: "New Product" }).click()
         )
         
         variablesStore.productToDelete = `cktest-delete-${Date.now()}`
         
-        await checksumAI("Fill product title", () =>
+        await checksumAI("Fill product title field with cktest product name", () =>
           page.getByPlaceholder("Winter Jacket").fill(variablesStore.productToDelete)
         )
         
-        await checksumAI("Fill product subtitle", () =>
+        await checksumAI("Fill product subtitle field with description", () =>
           page.getByPlaceholder("Warm and cozy...").fill("Product to be deleted")
         )
         
-        await checksumAI("Fill product description", () =>
+        await checksumAI("Fill product description field with test description", () =>
           page.getByPlaceholder("A warm and cozy jacket...").fill("This product will be deleted in the test")
         )
         
-        await checksumAI("Publish product", () =>
+        await checksumAI("Click on Publish product button to publish the cktest product", () =>
           page.getByRole("button", { name: "Publish product" }).click()
         )
         
-        await checksumAI("Navigate back to products", () =>
+        await checksumAI("Click on Back to Products button to return to products list", () =>
           page.getByRole("button", { name: "Back to Products" }).click()
         )
         
@@ -76,13 +74,13 @@ test(
         ).toBeVisible({ timeout: 10000 })
       } else {
         variablesStore.cktestProductTexts = await variablesStore.cktestProducts.allTextContents()
-        variablesStore.firstProductText = variablesStore.cktestProductTexts[0]
+        variablesStore.selectedProductText = variablesStore.cktestProductTexts.find(text => text.includes('cktest'))
         
-        variablesStore.regexMatch = variablesStore.firstProductText?.match(new RegExp('cktest[^\\s]*', 'i'))
+        variablesStore.regexMatch = variablesStore.selectedProductText?.match(new RegExp('cktest[^\\s]*', 'i'))
         if (variablesStore.regexMatch) {
           variablesStore.productToDelete = variablesStore.regexMatch[0]
         } else {
-          variablesStore.productToDelete = variablesStore.firstProductText?.trim() || "cktest-product"
+          variablesStore.productToDelete = variablesStore.selectedProductText?.trim() || "cktest-product"
         }
       }
     })
@@ -95,7 +93,7 @@ test(
         "Verify the cktest product is visible in the table before deletion"
       ).toBeVisible()
       
-      await checksumAI("Click on three dots menu for the cktest product", () =>
+      await checksumAI("Click on three dots menu button for the cktest product row", () =>
         variablesStore.productRow.locator('button[aria-haspopup="menu"]').click()
       )
       
@@ -104,7 +102,7 @@ test(
         "Verify the dropdown menu is visible"
       ).toBeVisible({ timeout: 10000 })
       
-      await checksumAI("Click on Delete option from dropdown", () =>
+      await checksumAI("Click on Delete option from the dropdown menu", () =>
         page.getByRole("menuitem", { name: "Delete" }).click()
       )
       
@@ -113,7 +111,7 @@ test(
         "Verify the confirmation dialog is visible"
       ).toBeVisible({ timeout: 10000 })
       
-      await checksumAI("Confirm product deletion", () =>
+      await checksumAI("Click on Yes, confirm button to confirm product deletion", () =>
         page.getByRole("button", { name: "Yes, confirm" }).click()
       )
     })
