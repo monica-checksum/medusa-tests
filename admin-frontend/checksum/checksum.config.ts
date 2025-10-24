@@ -29,6 +29,12 @@ export default getChecksumConfig({
           password: process.env.PASSWORD,
           default: true,
         },
+        {
+          role: "admin",
+          username: process.env.USERNAME_ADMIN,
+          password: process.env.PASSWORD_ADMIN,
+          default: false,
+        }
       ],
     },
   ],

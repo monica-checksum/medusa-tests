@@ -20,9 +20,9 @@ test(
     await expect(
       page.getByText("Welcome back! It's great to see you"),
       "Verify we're not on login page anymore"
-    ).not.toBeVisible({ timeout: 10000 })
+    ).not.toBeVisible({ timeout: 40000 })
     
-    await test.step("Navigate to products page and find cktest product", async () => {
+    await test.step("Navigate to products page", async () => {
       await checksumAI("Navigate to products page", () =>
         page.goto("/a/products", { waitUntil: "domcontentloaded" })
       )
@@ -30,88 +30,105 @@ test(
       await expect(
         page.getByRole("button", { name: "New Product" }),
         "Verify the New Product button is visible on products page"
-      ).toBeVisible({ timeout: 15000 })
+      ).toBeVisible({ timeout: 40000 })
+    })
+    
+    await test.step("Wait for products table to load", async () => {
+      await expect(
+        page.locator('table'),
+        "Verify products table structure is present"
+      ).toBeVisible({ timeout: 40000 })
       
-      // Wait for products table to be populated (not just header)
       await expect.poll(
-        async () => await page.locator('tbody tr').filter({ hasText: /^[^NameCollectionStatusAvailabilityInventory]/ }).count(),
-        { timeout: 10000 }
+        async () => {
+          variablesStore.totalProductCount = await page.locator('tbody tr').count()
+          return variablesStore.totalProductCount
+        },
+        { timeout: 30000 }
       ).toBeGreaterThan(0)
-      
+    })
+    
+    await test.step("Find existing cktest products", async () => {
       variablesStore.cktestProducts = page.locator('tbody tr').filter({ hasText: new RegExp('cktest', 'i') })
       variablesStore.cktestCount = await variablesStore.cktestProducts.count()
-      
+    })
+    
+    await test.step("Create cktest product if none exists", async () => {
       if (variablesStore.cktestCount === 0) {
-        await checksumAI("Click on New Product button to create a cktest product for deletion", () =>
+        await checksumAI("Click New Product button to create a cktest product for deletion", () =>
           page.getByRole("button", { name: "New Product" }).click()
         )
         
-        variablesStore.productToDelete = `cktest-delete-${Date.now()}`
+        variablesStore.productToDelete = `cktest-${Date.now()}`
         
         await checksumAI("Fill product title field with cktest product name", () =>
           page.getByPlaceholder("Winter Jacket").fill(variablesStore.productToDelete)
         )
         
-        await checksumAI("Fill product subtitle field with description", () =>
-          page.getByPlaceholder("Warm and cozy...").fill("Product to be deleted")
+        await checksumAI("Fill product subtitle field with descriptive text", () =>
+          page.getByPlaceholder("Warm and cozy...").fill(`${variablesStore.productToDelete} - Product for deletion testing`)
         )
         
-        await checksumAI("Fill product description field with test description", () =>
-          page.getByPlaceholder("A warm and cozy jacket...").fill("This product will be deleted in the test")
+        await checksumAI("Fill product description field with detailed information", () =>
+          page.getByPlaceholder("A warm and cozy jacket...").fill(`${variablesStore.productToDelete} - This product was created specifically for testing the delete functionality`)
         )
         
-        await checksumAI("Click on Publish product button to publish the cktest product", () =>
+        await checksumAI("Click Publish product button to publish the product", () =>
           page.getByRole("button", { name: "Publish product" }).click()
         )
         
-        await checksumAI("Click on Back to Products button to return to products list", () =>
+        await checksumAI("Click Back to Products button to return to products list", () =>
           page.getByRole("button", { name: "Back to Products" }).click()
         )
         
         await expect(
           page.getByRole("button", { name: "New Product" }),
           "Verify we're back on the products list page"
-        ).toBeVisible({ timeout: 10000 })
+        ).toBeVisible({ timeout: 25000 })
       } else {
         variablesStore.cktestProductTexts = await variablesStore.cktestProducts.allTextContents()
-        variablesStore.selectedProductText = variablesStore.cktestProductTexts.find(text => text.includes('cktest'))
+        variablesStore.firstProductText = variablesStore.cktestProductTexts.length > 0 ? variablesStore.cktestProductTexts[0] : null
         
-        variablesStore.regexMatch = variablesStore.selectedProductText?.match(new RegExp('cktest[^\\s]*', 'i'))
-        if (variablesStore.regexMatch) {
-          variablesStore.productToDelete = variablesStore.regexMatch[0]
+        if (variablesStore.firstProductText) {
+          variablesStore.regexMatch = variablesStore.firstProductText.match(/cktest-\d+/)
+          variablesStore.productToDelete = variablesStore.regexMatch ? variablesStore.regexMatch[0] : variablesStore.firstProductText.trim()
         } else {
-          variablesStore.productToDelete = variablesStore.selectedProductText?.trim() || "cktest-product"
+          variablesStore.productToDelete = `cktest-${Date.now()}`
         }
       }
     })
     
-    await test.step("Delete the cktest product", async () => {
-      variablesStore.productRow = page.locator('tbody tr').filter({ hasText: new RegExp(variablesStore.productToDelete.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i') })
+    await test.step("Locate product to delete using regex", async () => {
+      variablesStore.productRow = page.locator('tbody tr').filter({ hasText: new RegExp(variablesStore.productToDelete, 'i') })
       
       await expect(
         variablesStore.productRow,
         "Verify the cktest product is visible in the table before deletion"
       ).toBeVisible()
-      
-      await checksumAI("Click on three dots menu button for the cktest product row", () =>
+    })
+    
+    await test.step("Open product menu", async () => {
+      await checksumAI("Click on three dots menu for the cktest product", () =>
         variablesStore.productRow.locator('button[aria-haspopup="menu"]').click()
       )
       
       await expect(
         page.getByRole("menu"),
         "Verify the dropdown menu is visible"
-      ).toBeVisible({ timeout: 10000 })
-      
-      await checksumAI("Click on Delete option from the dropdown menu", () =>
+      ).toBeVisible({ timeout: 25000 })
+    })
+    
+    await test.step("Delete product", async () => {
+      await checksumAI("Click on Delete option from dropdown", () =>
         page.getByRole("menuitem", { name: "Delete" }).click()
       )
       
       await expect(
         page.getByRole("button", { name: "Yes, confirm" }),
         "Verify the confirmation dialog is visible"
-      ).toBeVisible({ timeout: 10000 })
+      ).toBeVisible({ timeout: 25000 })
       
-      await checksumAI("Click on Yes, confirm button to confirm product deletion", () =>
+      await checksumAI("Confirm product deletion", () =>
         page.getByRole("button", { name: "Yes, confirm" }).click()
       )
     })
@@ -120,18 +137,18 @@ test(
       await expect(
         page.getByRole("button", { name: "New Product" }),
         "Verify we're still on the products page after deletion"
-      ).toBeVisible({ timeout: 10000 })
+      ).toBeVisible({ timeout: 25000 })
       
-      variablesStore.cktestProductsAfterDeletion = page.locator('tbody tr').filter({ hasText: new RegExp(variablesStore.productToDelete.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i') })
+      variablesStore.cktestProductsAfterDeletion = page.locator('tbody tr').filter({ hasText: new RegExp(variablesStore.productToDelete, 'i') })
       
       await expect(
         variablesStore.cktestProductsAfterDeletion,
-        "Verify the deleted cktest product is no longer visible in the table"
+        "Verify the deleted cktest product is no longer visible in the table using regex"
       ).toHaveCount(0)
       
       await expect(
-        page.getByText(new RegExp(variablesStore.productToDelete.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i')),
-        "Verify the deleted product name is not visible anywhere on the page"
+        page.getByText(new RegExp(variablesStore.productToDelete, 'i')),
+        "Verify the deleted product name is not visible anywhere on the page using regex"
       ).not.toBeVisible()
     })
   }

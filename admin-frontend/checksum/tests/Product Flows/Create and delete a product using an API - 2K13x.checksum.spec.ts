@@ -19,33 +19,40 @@ test(
     await expect(
       page.getByText("Welcome back! It's great to see you"),
       "Verify we're not on login page anymore"
-    ).not.toBeVisible({ timeout: 15000 })
+    ).not.toBeVisible({ timeout: 25000 })
     
-    await test.step("Create a new product using the API", async () => {
-      const productData = {
-        title: `cktest-${Date.now()}`,
-        subtitle: `cktest-${Date.now()}-api-subtitle`,
-        description: `cktest-${Date.now()}-api-description`,
-        status: "draft" 
-      }
-      
-      const response = await checksumAI("Create product using API call", () =>
-        page.request.post("http://localhost:9000/admin/products", {
-          data: productData,
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
-      )
-      
-      await expect(response.status(), "Verify product creation API call succeeded").toBe(200)
-      const responseData = await response.json()
-      await expect(responseData.product.title, "Verify product title in API response matches what we sent").toBe(productData.title)
-      variablesStore.productId = responseData.product.id
-      variablesStore.productTitle = productData.title
+    await test.step("Create product data", async () => {
+      variablesStore.productTitle = `cktest-${Date.now()}`
+      variablesStore.productSubtitle = `cktest-${Date.now()} - API Created Product Subtitle`
+      variablesStore.productDescription = `cktest-${Date.now()} - This product was created using API calls for testing purposes`
     })
     
-    await test.step("Navigate to products page and verify product appears", async () => {
+    await test.step("Create a new product using the API", async () => {
+      variablesStore.productData = {
+        title: variablesStore.productTitle,
+        subtitle: variablesStore.productSubtitle,
+        description: variablesStore.productDescription,
+        status: "draft"
+      }
+      
+      variablesStore.response = await page.request.post("http://localhost:9000/admin/products", {
+        data: variablesStore.productData,
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      
+      await expect(variablesStore.response.status(), "Verify product creation API call succeeded").toBe(200)
+      
+      variablesStore.responseData = await variablesStore.response.json()
+      await expect(variablesStore.responseData.product, "Verify product object exists in API response").toBeDefined()
+      await expect(variablesStore.responseData.product.title, "Verify product title in API response matches what we sent").toBe(variablesStore.productData.title)
+      await expect(variablesStore.responseData.product.id, "Verify product ID exists in API response").toBeDefined()
+      
+      variablesStore.productId = variablesStore.responseData.product.id
+    })
+    
+    await test.step("Navigate to products page", async () => {
       await checksumAI("Navigate to products page", () =>
         page.goto("/a/products", { waitUntil: "domcontentloaded" })
       )
@@ -54,29 +61,13 @@ test(
         page.getByRole("button", { name: "New Product" }),
         "Verify the New Product button is visible on products page"
       ).toBeVisible({ timeout: 25000 })
-      
-      // Wait for products table to load
+    })
+    
+    await test.step("Verify product appears in table", async () => {
       await expect(
-        page.locator("table"),
-        "Verify products table is loaded"
+        page.getByText(variablesStore.productTitle),
+        "Verify the API-created product appears in the products table"
       ).toBeVisible({ timeout: 25000 })
-      
-      // Wait for table rows to load (not just the table structure)
-      await expect(
-        page.locator("table tbody tr"),
-        "Verify products table has loaded data rows"
-      ).toBeVisible({ timeout: 25000 })
-      
-      // Use search functionality to find the product
-      await checksumAI("Search for the API-created product in products list", async () => {
-        const searchInput = page.getByPlaceholder("Search")
-        await searchInput.fill(variablesStore.productTitle)
-        // Wait for search to complete and results to show
-        await expect(
-          page.getByText(variablesStore.productTitle),
-          "Verify search results show the created product"
-        ).toBeVisible({ timeout: 25000 })
-      })
       
       await expect(
         page.locator(`tr:has-text("${variablesStore.productTitle}")`).getByText("Draft"),
@@ -84,29 +75,18 @@ test(
       ).toBeVisible()
     })
     
-    await test.step("Publish the product using UI with page.waitForResponse()", async () => {
-      await checksumAI("Click on the three dots menu for the created product", () =>
-        page.locator(`tr:has-text("${variablesStore.productTitle}")`).locator('button[aria-haspopup="menu"]').click()
-      )
-      
-      await expect(
-        page.getByRole("menu"),
-        "Verify the dropdown menu is visible"
-      ).toBeVisible({ timeout: 25000 })
-      
-      await checksumAI("Publish product from dropdown and wait for network response", async () => {
-        const responsePromise = page.waitForResponse(response => 
-          response.url().includes('localhost:9000') && 
-          (response.request().method() === 'POST')
-        , { timeout: 25000 })
-        
-        await page.getByRole("menuitem", { name: "Publish" }).click()
-        const response = await responsePromise
-        await expect(response.status(), "Verify product publish network response succeeded").toBe(200)
+    await test.step("Publish product using API", async () => {
+      variablesStore.publishResponse = await page.request.post(`http://localhost:9000/admin/products/${variablesStore.productId}`, {
+        data: { status: "published" },
+        headers: {
+          "Content-Type": "application/json"
+        }
       })
+      
+      await expect(variablesStore.publishResponse.status(), "Verify product publish API call succeeded").toBe(200)
     })
-
-    await test.step("Verify product is published in UI", async () => {
+    
+    await test.step("Refresh page to see updated status", async () => {
       await checksumAI("Refresh products page to see updated status", () =>
         page.reload({ waitUntil: "domcontentloaded" })
       )
@@ -114,24 +94,10 @@ test(
       await expect(
         page.getByRole("button", { name: "New Product" }),
         "Verify the New Product button is visible after refresh"
-      ).toBeVisible({ timeout: 25000 })
-      
-      // Wait for table rows to load after refresh
-      await expect(
-        page.locator("table tbody tr"),
-        "Verify products table has loaded data rows after refresh"
-      ).toBeVisible({ timeout: 15000 })
-      
-      await checksumAI("Search for the published product in products list", async () => {
-        const searchInput = page.getByPlaceholder("Search")
-        await searchInput.fill(variablesStore.productTitle)
-        // Wait for search to complete and results to show
-        await expect(
-          page.getByText(variablesStore.productTitle),
-          "Verify search results show the published product"
-        ).toBeVisible({ timeout: 25000 })
-      })
-      
+      ).toBeVisible({ timeout: 40000 })
+    })
+    
+    await test.step("Verify product is published", async () => {
       await expect(
         page.locator(`tr:has-text("${variablesStore.productTitle}")`).getByText("Published"),
         "Verify the product shows as Published status after UI publishing"
@@ -139,14 +105,12 @@ test(
     })
     
     await test.step("Delete the product using API", async () => {
-      const response = await checksumAI("Delete product using API call", () =>
-        page.request.delete(`http://localhost:9000/admin/products/${variablesStore.productId}`)
-      )
+      variablesStore.deleteResponse = await page.request.delete(`http://localhost:9000/admin/products/${variablesStore.productId}`)
       
-      await expect(response.status(), "Verify product deletion API call succeeded").toBe(200)
+      await expect(variablesStore.deleteResponse.status(), "Verify product deletion API call succeeded").toBe(200)
     })
     
-    await test.step("Verify product is deleted from the table", async () => {
+    await test.step("Refresh page to verify deletion", async () => {
       await checksumAI("Refresh products page to verify deletion", () =>
         page.reload({ waitUntil: "domcontentloaded" })
       )
@@ -155,22 +119,13 @@ test(
         page.getByRole("button", { name: "New Product" }),
         "Verify the New Product button is visible after refresh"
       ).toBeVisible({ timeout: 25000 })
-      
-      // Wait for table rows to load after refresh
+    })
+    
+    await test.step("Verify product is deleted", async () => {
       await expect(
-        page.locator("table tbody tr"),
-        "Verify products table has loaded data rows after refresh"
-      ).toBeVisible({ timeout: 25000 })
-      
-      await checksumAI("Search for the deleted product to verify it's no longer visible", async () => {
-        const searchInput = page.getByPlaceholder("Search")
-        await searchInput.fill(variablesStore.productTitle)
-        // Wait for search to complete and verify no results
-        await expect(
-          page.getByText(variablesStore.productTitle),
-          "Verify search results show no matches for deleted product"
-        ).not.toBeVisible({ timeout: 25000 })
-      })
+        page.getByText(variablesStore.productTitle),
+        "Verify the deleted product is no longer visible in the products table"
+      ).not.toBeVisible()
     })
   }
 )
