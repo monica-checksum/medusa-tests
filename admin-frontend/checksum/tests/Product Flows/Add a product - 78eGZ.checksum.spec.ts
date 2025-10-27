@@ -27,87 +27,102 @@ test(
     variablesStore: IVariablesStore
   }) => {
     await login(page)
-    
+
     await expect(
       page.getByText("Welcome back! It's great to see you"),
       "Verify we're not on login page anymore"
     ).not.toBeVisible({ timeout: 25000 })
-    
+
     await test.step("Navigate to products page", async () => {
       await checksumAI("Navigate to products page", () =>
         page.goto("/a/products", { waitUntil: "domcontentloaded" })
       )
-      
+
       await expect(
         page.getByRole("button", { name: "New Product" }),
         "Verify the New Product button is visible on products page"
       ).toBeVisible({ timeout: 25000 })
     })
-    
+
     await test.step("Create new product form", async () => {
       await checksumAI("Click on new product button", () =>
-        page
-          .getByRole("button", { name: "New Product" })
-          .click()
+        page.getByRole("button", { name: "New Product" }).click()
       )
     })
-    
+
     await test.step("Fill product details", async () => {
       variablesStore.titleValue = `cktest-${Date.now()}`
-      await checksumAI("Fill product title field with cktest product name", () =>
-        page.getByPlaceholder("Winter Jacket").fill(variablesStore.titleValue)
+      await checksumAI(
+        "Fill product title field with cktest product name",
+        () =>
+          page.getByPlaceholder("Winter Jacket").fill(variablesStore.titleValue)
       )
-      
+
       variablesStore.subtitleValue = `cktest-${Date.now()}-Fleece Winter Jacket keeps you warm and cozy`
-      await checksumAI("Fill product subtitle field with descriptive text", () =>
-        page.getByPlaceholder("Warm and cozy...").fill(variablesStore.subtitleValue)
+      await checksumAI(
+        "Fill product subtitle field with descriptive text",
+        () =>
+          page
+            .getByPlaceholder("Warm and cozy...")
+            .fill(variablesStore.subtitleValue)
       )
-      
+
       variablesStore.descriptionValue = `cktest-${Date.now()}-This is a fleece winter jacket that keeps you warm and cozy`
-      await checksumAI("Fill product description field with detailed information", () =>
-        page.getByPlaceholder("A warm and cozy jacket...").fill(variablesStore.descriptionValue)
+      await checksumAI(
+        "Fill product description field with detailed information",
+        () =>
+          page
+            .getByPlaceholder("A warm and cozy jacket...")
+            .fill(variablesStore.descriptionValue)
       )
     })
-    
+
     await test.step("Publish product and return to list", async () => {
-      await checksumAI("Click Publish product button to publish the product", () =>
-        page.getByRole("button", { name: "Publish product" }).click()
+      await checksumAI(
+        "Click Publish product button to publish the product",
+        () => page.getByRole("button", { name: "Publish product" }).click()
       )
-      
-      await checksumAI("Click Back to Products button to return to products list", () =>
-        page.getByRole("button", { name: "Back to Products" }).click()
+
+      await checksumAI(
+        "Click Back to Products button to return to products list",
+        () => page.getByRole("button", { name: "Back to Products" }).click()
       )
-      
+
       await expect(
         page.getByRole("button", { name: "New Product" }),
         "Verify we're back on the products list page"
       ).toBeVisible({ timeout: 25000 })
     })
-    
+
     await test.step("Verify product in products list", async () => {
       await expect(
         page.getByText(variablesStore.titleValue),
         "Verify the created product name is visible in the products table"
       ).toBeVisible({ timeout: 25000 })
     })
-    
+
     await test.step("Navigate to product details page", async () => {
-      await checksumAI("Click on the created product row to navigate to product details", () =>
-        page.locator('tbody tr').filter({ hasText: variablesStore.titleValue }).click()
+      await checksumAI(
+        "Click on the created product row to navigate to product details",
+        () =>
+          page
+            .locator("tbody tr")
+            .filter({ hasText: variablesStore.titleValue })
+            .click()
       )
     })
-    
+
     await test.step("Verify product details on product page", async () => {
       await expect(
         page.getByRole("heading", { name: variablesStore.titleValue }),
         "Verify the product title heading matches what we created"
       ).toBeVisible()
-      
+
       await expect(
         page.getByText(variablesStore.subtitleValue),
         "Verify the product subtitle matches what we created"
       ).toBeVisible()
-      
+
       await expect(
         page.getByText(variablesStore.descriptionValue),
         "Verify the product description matches what we created"

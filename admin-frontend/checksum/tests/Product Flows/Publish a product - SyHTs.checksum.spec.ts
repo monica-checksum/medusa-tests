@@ -10,137 +10,193 @@ PRINCIPLES TO LEARN & IMPLEMENT WHEN EDITING THIS TEST:
 
 */
 
-test(defineChecksumTest("Publish a product", "SyHTs"), async ({ page, variablesStore }: { page; variablesStore: IVariablesStore }) => {
-  await login(page)
-
-  await expect(
-    page.getByText("Welcome back! It's great to see you"),
-    "Verify we're not on login page anymore"
-  ).not.toBeVisible({ timeout: 25000 })
-
-  await test.step("Navigate to products page", async () => {
-    await checksumAI("Navigate to products page", () =>
-      page.goto("/a/products", { waitUntil: "domcontentloaded" })
-    )
+test(
+  defineChecksumTest("Publish a product", "SyHTs"),
+  async ({
+    page,
+    variablesStore,
+  }: {
+    page
+    variablesStore: IVariablesStore
+  }) => {
+    await login(page)
 
     await expect(
-      page.getByRole("button", { name: "New Product" }),
-      "Verify the New Product button is visible on products page"
-    ).toBeVisible({ timeout: 25000 })
-  })
+      page.getByText("Welcome back! It's great to see you"),
+      "Verify we're not on login page anymore"
+    ).not.toBeVisible({ timeout: 25000 })
 
-  await test.step("Wait for products table to load", async () => {
-    await expect(
-      page.locator('table'),
-      "Verify products table structure is present"
-    ).toBeVisible({ timeout: 25000 })
-    
-    await expect.poll(
-      async () => {
-        variablesStore.rowCount = await page.locator('tbody tr').count()
-        return variablesStore.rowCount
-      },
-      { timeout: 30000 }
-    ).toBeGreaterThan(0)
-  })
-
-  await test.step("Find a draft product to publish", async () => {
-    variablesStore.draftProducts = page.locator('tbody tr').filter({ hasText: "Draft" })
-    variablesStore.draftCount = await variablesStore.draftProducts.count()
-
-    if (variablesStore.draftCount === 0) {
-      variablesStore.draftProductTitle = `cktest-${Date.now()}`
-
-      await checksumAI("Click on New Product button to create a draft product", () =>
-        page.getByRole("button", { name: "New Product" }).click()
-      )
-
-      await checksumAI("Fill product title field with draft product name", () =>
-        page.getByPlaceholder("Winter Jacket").fill(variablesStore.draftProductTitle)
-      )
-
-      await checksumAI("Fill product subtitle field with descriptive text", () =>
-        page.getByPlaceholder("Warm and cozy...").fill(`${variablesStore.draftProductTitle} - Draft product for publishing`)
-      )
-
-      await checksumAI("Fill product description field with detailed information", () =>
-        page.getByPlaceholder("A warm and cozy jacket...").fill(`${variablesStore.draftProductTitle} - This product is created in draft status for testing publish functionality`)
-      )
-
-      await expect(
-        page.getByRole("button", { name: "Save as draft" }),
-        "Verify Save as draft button is enabled after filling form"
-      ).toBeEnabled({ timeout: 25000 })
-
-      await checksumAI("Click Save as draft button to save the product as draft", () =>
-        page.getByRole("button", { name: "Save as draft" }).click()
-      )
-
-      await expect(
-        page.getByRole("button", { name: "Back to Products" }),
-        "Verify Back to Products button is visible"
-      ).toBeVisible({ timeout: 25000 })
-
-      await checksumAI("Navigate back to products", () =>
-        page.getByRole("button", { name: "Back to Products" }).click()
+    await test.step("Navigate to products page", async () => {
+      await checksumAI("Navigate to products page", () =>
+        page.goto("/a/products", { waitUntil: "domcontentloaded" })
       )
 
       await expect(
         page.getByRole("button", { name: "New Product" }),
-        "Verify we're back on the products list page"
-      ).toBeVisible({ timeout: 40000 })
+        "Verify the New Product button is visible on products page"
+      ).toBeVisible({ timeout: 25000 })
+    })
 
-      await expect.poll(
-        async () => {
-          variablesStore.draftCountAfterCreation = await page.locator('tbody tr').filter({ hasText: "Draft" }).count()
-          return variablesStore.draftCountAfterCreation
-        },
-        { timeout: 30000 }
+    await test.step("Wait for products table to load", async () => {
+      await expect(
+        page.locator("table"),
+        "Verify products table structure is present"
+      ).toBeVisible({ timeout: 25000 })
+
+      await expect
+        .poll(
+          async () => {
+            variablesStore.rowCount = await page.locator("tbody tr").count()
+            return variablesStore.rowCount
+          },
+          { timeout: 30000 }
+        )
+        .toBeGreaterThan(0)
+    })
+
+    await test.step("Find a draft product to publish", async () => {
+      variablesStore.draftProducts = page
+        .locator("tbody tr")
+        .filter({ hasText: "Draft" })
+      variablesStore.draftCount = await variablesStore.draftProducts.count()
+
+      if (variablesStore.draftCount === 0) {
+        variablesStore.draftProductTitle = `cktest-${Date.now()}`
+
+        await checksumAI(
+          "Click on New Product button to create a draft product",
+          () => page.getByRole("button", { name: "New Product" }).click()
+        )
+
+        await checksumAI(
+          "Fill product title field with draft product name",
+          () =>
+            page
+              .getByPlaceholder("Winter Jacket")
+              .fill(variablesStore.draftProductTitle)
+        )
+
+        await checksumAI(
+          "Fill product subtitle field with descriptive text",
+          () =>
+            page
+              .getByPlaceholder("Warm and cozy...")
+              .fill(
+                `${variablesStore.draftProductTitle} - Draft product for publishing`
+              )
+        )
+
+        await checksumAI(
+          "Fill product description field with detailed information",
+          () =>
+            page
+              .getByPlaceholder("A warm and cozy jacket...")
+              .fill(
+                `${variablesStore.draftProductTitle} - This product is created in draft status for testing publish functionality`
+              )
+        )
+
+        await expect(
+          page.getByRole("button", { name: "Save as draft" }),
+          "Verify Save as draft button is enabled after filling form"
+        ).toBeEnabled({ timeout: 25000 })
+
+        await checksumAI(
+          "Click Save as draft button to save the product as draft",
+          () => page.getByRole("button", { name: "Save as draft" }).click()
+        )
+
+        await expect(
+          page.getByRole("button", { name: "Back to Products" }),
+          "Verify Back to Products button is visible"
+        ).toBeVisible({ timeout: 25000 })
+
+        await checksumAI("Navigate back to products", () =>
+          page.getByRole("button", { name: "Back to Products" }).click()
+        )
+
+        await expect(
+          page.getByRole("button", { name: "New Product" }),
+          "Verify we're back on the products list page"
+        ).toBeVisible({ timeout: 40000 })
+
+        await expect
+          .poll(
+            async () => {
+              variablesStore.draftCountAfterCreation = await page
+                .locator("tbody tr")
+                .filter({ hasText: "Draft" })
+                .count()
+              return variablesStore.draftCountAfterCreation
+            },
+            { timeout: 30000 }
+          )
+          .toBeGreaterThan(0)
+      }
+
+      variablesStore.draftProducts = page
+        .locator("tbody tr")
+        .filter({ hasText: "Draft" })
+        .filter({ hasText: /cktest-.*/ })
+      variablesStore.draftCount = await variablesStore.draftProducts.count()
+
+      await expect(
+        variablesStore.draftCount,
+        "Verify there is at least one draft cktest product available for publishing"
       ).toBeGreaterThan(0)
-    }
 
-    variablesStore.draftProducts = page.locator('tbody tr').filter({ hasText: "Draft" }).filter({ hasText: /cktest-.*/ })
-    variablesStore.draftCount = await variablesStore.draftProducts.count()
-    
-    await expect(
-      variablesStore.draftCount,
-      "Verify there is at least one draft cktest product available for publishing"
-    ).toBeGreaterThan(0)
-    
-    variablesStore.allDraftTexts = await variablesStore.draftProducts.allTextContents()
-    variablesStore.firstDraftText = variablesStore.allDraftTexts[0]
-    
-    variablesStore.productNameMatch = variablesStore.firstDraftText.match(/cktest-\d+/)
-    variablesStore.productName = variablesStore.productNameMatch ? variablesStore.productNameMatch[0] : null
-    variablesStore.draftProductRow = page.locator('tbody tr').filter({ hasText: "Draft" }).filter({ hasText: variablesStore.productName })
-  })
+      variablesStore.allDraftTexts = await variablesStore.draftProducts.allTextContents()
+      variablesStore.firstDraftText = variablesStore.allDraftTexts[0]
 
-  await test.step("Open product menu and publish the product", async () => {
-    await checksumAI("Click on the three dots menu of the draft product using compound selection", () =>
-      variablesStore.draftProductRow.locator('button[aria-haspopup="menu"]').click()
-    )
+      variablesStore.productNameMatch = variablesStore.firstDraftText.match(
+        /cktest-\d+/
+      )
+      variablesStore.productName = variablesStore.productNameMatch
+        ? variablesStore.productNameMatch[0]
+        : null
+      variablesStore.draftProductRow = page
+        .locator("tbody tr")
+        .filter({ hasText: "Draft" })
+        .filter({ hasText: variablesStore.productName })
+    })
 
-    await expect(
-      page.getByRole("button", { name: "Publish" }),
-      "Verify Publish button appears in the menu"
-    ).toBeVisible({ timeout: 25000 })
+    await test.step("Open product menu and publish the product", async () => {
+      await checksumAI(
+        "Click on the three dots menu of the draft product using compound selection",
+        () =>
+          variablesStore.draftProductRow
+            .locator('button[aria-haspopup="menu"]')
+            .click()
+      )
 
-    await checksumAI("Click on the Publish button", () =>
-      page.getByRole("button", { name: "Publish" }).click()
-    )
+      await expect(
+        page.getByRole("button", { name: "Publish" }),
+        "Verify Publish button appears in the menu"
+      ).toBeVisible({ timeout: 25000 })
 
-    await expect.poll(
-      async () => {
-        variablesStore.publishedProductRow = page.locator('tbody tr').filter({ hasText: "Published" }).filter({ hasText: variablesStore.productName })
-        variablesStore.isPublished = await variablesStore.publishedProductRow.count() > 0
-        return variablesStore.isPublished
-      },
-      { timeout: 30000 }
-    ).toBe(true)
+      await checksumAI("Click on the Publish button", () =>
+        page.getByRole("button", { name: "Publish" }).click()
+      )
 
-    await expect(
-      variablesStore.publishedProductRow,
-      "Verify the specific product changed from Draft to Published status"
-    ).toBeVisible({ timeout: 25000 })
-  })
-})
+      await expect
+        .poll(
+          async () => {
+            variablesStore.publishedProductRow = page
+              .locator("tbody tr")
+              .filter({ hasText: "Published" })
+              .filter({ hasText: variablesStore.productName })
+            variablesStore.isPublished =
+              (await variablesStore.publishedProductRow.count()) > 0
+            return variablesStore.isPublished
+          },
+          { timeout: 30000 }
+        )
+        .toBe(true)
+
+      await expect(
+        variablesStore.publishedProductRow,
+        "Verify the specific product changed from Draft to Published status"
+      ).toBeVisible({ timeout: 25000 })
+    })
+  }
+)

@@ -14,7 +14,13 @@ Change the status back to publish and verify the status of changed to published 
 
 test(
   defineChecksumTest("Verify that inventory data is correct", "3T24w"),
-  async ({ page, variablesStore }: { page; variablesStore: IVariablesStore }) => {
+  async ({
+    page,
+    variablesStore,
+  }: {
+    page
+    variablesStore: IVariablesStore
+  }) => {
     await login(page)
 
     await expect(
@@ -34,100 +40,153 @@ test(
     })
 
     await test.step("Wait for products table to load", async () => {
-      await expect.poll(async () => {
-        return await page.locator('tbody tr').count()
-      }, { timeout: 30000 }).toBeGreaterThan(0)
+      await expect
+        .poll(
+          async () => {
+            return await page.locator("tbody tr").count()
+          },
+          { timeout: 30000 }
+        )
+        .toBeGreaterThan(0)
     })
 
-    await test.step("Part A: Check inventory for non-cktest published products", async () => {
-      variablesStore.publishedProducts = page.locator('tbody tr').filter({ hasText: "Published" })
-      variablesStore.nonCktestPublishedProducts = variablesStore.publishedProducts.filter({ hasNotText: "cktest" })
-      variablesStore.nonCktestCount = await variablesStore.nonCktestPublishedProducts.count()
-      
-      await expect(
-        variablesStore.nonCktestCount,
-        "Verify there are published products without cktest prefix available for testing"
-      ).toBeGreaterThan(0)
+    await test.step(
+      "Part A: Check inventory for non-cktest published products",
+      async () => {
+        variablesStore.publishedProducts = page
+          .locator("tbody tr")
+          .filter({ hasText: "Published" })
+        variablesStore.nonCktestPublishedProducts = variablesStore.publishedProducts.filter(
+          { hasNotText: "cktest" }
+        )
+        variablesStore.nonCktestCount = await variablesStore.nonCktestPublishedProducts.count()
 
-      await expect.poll(async () => {
-        variablesStore.inventoryCells = variablesStore.nonCktestPublishedProducts
-          .locator('td[role="cell"]')
-          .filter({ hasText: /in stock|variants/i })
-        
-        variablesStore.inventoryCount = await variablesStore.inventoryCells.count()
-        
-        if (variablesStore.inventoryCount === 0) {
-          return false
-        }
-        
-        variablesStore.zeroInventoryCells = variablesStore.inventoryCells.filter({ hasText: /0 in stock.*0 variant/i })
-        variablesStore.zeroInventoryCount = await variablesStore.zeroInventoryCells.count()
-        
-        return variablesStore.inventoryCount > 0 && variablesStore.zeroInventoryCount === 0
-      }, { timeout: 30000 }).toBe(true)
-    })
+        await expect(
+          variablesStore.nonCktestCount,
+          "Verify there are published products without cktest prefix available for testing"
+        ).toBeGreaterThan(0)
 
-    await test.step("Part B: Test unpublish/publish functionality for non-cktest products", async () => {
-      variablesStore.testProductRow = page.locator('tbody tr').filter({ hasText: "Published" }).filter({ hasNotText: "cktest" }).filter({ hasText: "Serum" })
-      
-      await expect(
-        variablesStore.testProductRow,
-        "Verify non-cktest published products are available for testing"
-      ).toBeVisible()
+        await expect
+          .poll(
+            async () => {
+              variablesStore.inventoryCells = variablesStore.nonCktestPublishedProducts
+                .locator('td[role="cell"]')
+                .filter({ hasText: /in stock|variants/i })
 
-      await checksumAI("Click on the three dots menu of a non-cktest published product", () =>
-        variablesStore.testProductRow.locator('button[aria-haspopup="menu"]').click()
-      )
+              variablesStore.inventoryCount = await variablesStore.inventoryCells.count()
 
-      await expect(
-        page.getByRole("button", { name: "Unpublish" }),
-        "Verify Unpublish button appears in the menu"
-      ).toBeVisible({ timeout: 25000 })
+              if (variablesStore.inventoryCount === 0) {
+                return false
+              }
 
-      await checksumAI("Click on the Unpublish button to change status to draft", () =>
-        page.getByRole("button", { name: "Unpublish" }).click()
-      )
+              variablesStore.zeroInventoryCells = variablesStore.inventoryCells.filter(
+                { hasText: /0 in stock.*0 variant/i }
+              )
+              variablesStore.zeroInventoryCount = await variablesStore.zeroInventoryCells.count()
 
-      await expect.poll(
-        async () => {
-          variablesStore.draftProductRow = page.locator('tbody tr').filter({ hasText: "Draft" }).filter({ hasNotText: "cktest" }).filter({ hasText: "Serum" })
-          variablesStore.isDraft = await variablesStore.draftProductRow.count() > 0
-          return variablesStore.isDraft
-        },
-        { timeout: 30000 }
-      ).toBe(true)
+              return (
+                variablesStore.inventoryCount > 0 &&
+                variablesStore.zeroInventoryCount === 0
+              )
+            },
+            { timeout: 30000 }
+          )
+          .toBe(true)
+      }
+    )
 
-      await expect(
-        variablesStore.draftProductRow,
-        "Verify the product status changed to Draft after unpublishing"
-      ).toBeVisible({ timeout: 25000 })
+    await test.step(
+      "Part B: Test unpublish/publish functionality for non-cktest products",
+      async () => {
+        variablesStore.testProductRow = page
+          .locator("tbody tr")
+          .filter({ hasText: "Published" })
+          .filter({ hasNotText: "cktest" })
+          .filter({ hasText: "Serum" })
 
-      await checksumAI("Click on the three dots menu to republish the product", () =>
-        variablesStore.draftProductRow.locator('button[aria-haspopup="menu"]').click()
-      )
+        await expect(
+          variablesStore.testProductRow,
+          "Verify non-cktest published products are available for testing"
+        ).toBeVisible()
 
-      await expect(
-        page.getByRole("button", { name: "Publish" }),
-        "Verify Publish button appears in the menu"
-      ).toBeVisible({ timeout: 25000 })
+        await checksumAI(
+          "Click on the three dots menu of a non-cktest published product",
+          () =>
+            variablesStore.testProductRow
+              .locator('button[aria-haspopup="menu"]')
+              .click()
+        )
 
-      await checksumAI("Click on the Publish button to republish the product", () =>
-        page.getByRole("button", { name: "Publish" }).click()
-      )
+        await expect(
+          page.getByRole("button", { name: "Unpublish" }),
+          "Verify Unpublish button appears in the menu"
+        ).toBeVisible({ timeout: 25000 })
 
-      await expect.poll(
-        async () => {
-          variablesStore.publishedProductRow = page.locator('tbody tr').filter({ hasText: "Published" }).filter({ hasNotText: "cktest" }).filter({ hasText: "Serum" })
-          variablesStore.isPublished = await variablesStore.publishedProductRow.count() > 0
-          return variablesStore.isPublished
-        },
-        { timeout: 30000 }
-      ).toBe(true)
+        await checksumAI(
+          "Click on the Unpublish button to change status to draft",
+          () => page.getByRole("button", { name: "Unpublish" }).click()
+        )
 
-      await expect(
-        variablesStore.publishedProductRow,
-        "Verify the product status changed back to Published after republishing"
-      ).toBeVisible({ timeout: 25000 })
-    })
+        await expect
+          .poll(
+            async () => {
+              variablesStore.draftProductRow = page
+                .locator("tbody tr")
+                .filter({ hasText: "Draft" })
+                .filter({ hasNotText: "cktest" })
+                .filter({ hasText: "Serum" })
+              variablesStore.isDraft =
+                (await variablesStore.draftProductRow.count()) > 0
+              return variablesStore.isDraft
+            },
+            { timeout: 30000 }
+          )
+          .toBe(true)
+
+        await expect(
+          variablesStore.draftProductRow,
+          "Verify the product status changed to Draft after unpublishing"
+        ).toBeVisible({ timeout: 25000 })
+
+        await checksumAI(
+          "Click on the three dots menu to republish the product",
+          () =>
+            variablesStore.draftProductRow
+              .locator('button[aria-haspopup="menu"]')
+              .click()
+        )
+
+        await expect(
+          page.getByRole("button", { name: "Publish" }),
+          "Verify Publish button appears in the menu"
+        ).toBeVisible({ timeout: 25000 })
+
+        await checksumAI(
+          "Click on the Publish button to republish the product",
+          () => page.getByRole("button", { name: "Publish" }).click()
+        )
+
+        await expect
+          .poll(
+            async () => {
+              variablesStore.publishedProductRow = page
+                .locator("tbody tr")
+                .filter({ hasText: "Published" })
+                .filter({ hasNotText: "cktest" })
+                .filter({ hasText: "Serum" })
+              variablesStore.isPublished =
+                (await variablesStore.publishedProductRow.count()) > 0
+              return variablesStore.isPublished
+            },
+            { timeout: 30000 }
+          )
+          .toBe(true)
+
+        await expect(
+          variablesStore.publishedProductRow,
+          "Verify the product status changed back to Published after republishing"
+        ).toBeVisible({ timeout: 25000 })
+      }
+    )
   }
 )
